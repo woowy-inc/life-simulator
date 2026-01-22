@@ -34,7 +34,7 @@ reduce work performance, potentially resulting in job loss.
 * Spring Boot 3.2+
 * PostgreSQL (main data storage)
 * Redis (caching, game time storage)
-* RabbitMQ (event-driven communication)
+* Apache Kafka (event-driven communication)
 * Neo4j (planned: family tree/genealogy)
 
 ### Architecture Patterns
