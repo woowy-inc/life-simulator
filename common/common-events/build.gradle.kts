@@ -10,13 +10,13 @@ repositories {
 }
 
 dependencies {
-    compileOnly(libs.springboot.starter)
     testImplementation(kotlin("test"))
+}
+
+kotlin {
+    jvmToolchain(21)
 }
 
 tasks.test {
     useJUnitPlatform()
-}
-kotlin {
-    jvmToolchain(21)
 }
