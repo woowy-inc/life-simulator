@@ -14,7 +14,8 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":common:common-utils"))
+    implementation(project(":common:common-domain"))
+    implementation(project(":common:common-events"))
 
     implementation(libs.bundles.kotlinx.ecosystem)
     implementation(libs.bundles.springboot.kafka.ecosystem)

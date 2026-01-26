@@ -13,6 +13,7 @@ kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 
 springboot-starter = { module = "org.springframework.boot:spring-boot-starter", version.ref = "springBoot" }
+springboot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "springBoot" }
 springboot-kafka-starter = { module = "org.springframework.boot:spring-boot-starter-kafka", version.ref = "springBoot" }
 springboot-kafka = { module = "org.springframework.kafka:spring-kafka", version.ref = "springBoot" }
 springboot-server-tomcat = { module = "org.springframework.boot:spring-boot-starter-tomcat", version.ref = "springBoot" }
@@ -22,6 +23,7 @@ serialization-jackson = { module = "tools.jackson.module:jackson-module-kotlin",
 kotlinx-ecosystem = ["kotlinx-datetime", "kotlinx-serialization", "kotlinx-coroutines"]
 springboot-kafka-ecosystem = [
     "springboot-starter",
+    "springboot-starter-web",
     "springboot-kafka-starter",
     "springboot-kafka",
     "serialization-jackson",
