@@ -16,5 +16,6 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 }
 
-include("common:common-utils")
-include("common:common-domain")
+include(":common:common-domain")
+include(":common:common-events")
+include(":world-service")
