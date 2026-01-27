@@ -1,4 +1,4 @@
-package ru.woowy.application.service
+package ru.woowy.application.usecase
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -11,9 +11,9 @@ import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.DisposableBean
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Service
-import ru.woowy.application.usecase.WorldUseCase
 import ru.woowy.domain.model.WorldState
 import ru.woowy.domain.time.WorldTickEvent
+import ru.woowy.domain.usecase.WorldUseCase
 import ru.woowy.extension.forbidden
 import ru.woowy.extension.notFound
 import ru.woowy.game.GameConfig

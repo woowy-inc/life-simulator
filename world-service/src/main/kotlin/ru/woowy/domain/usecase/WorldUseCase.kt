@@ -1,4 +1,4 @@
-package ru.woowy.application.usecase
+package ru.woowy.domain.usecase
 
 import ru.woowy.game.GameConfig
 import java.util.UUID

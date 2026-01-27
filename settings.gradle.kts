@@ -19,3 +19,4 @@ plugins {
 include(":common:common-domain")
 include(":common:common-events")
 include(":world-service")
+include(":character-service")

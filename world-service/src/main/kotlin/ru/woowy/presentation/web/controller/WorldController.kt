@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
-import ru.woowy.application.usecase.WorldUseCase
+import ru.woowy.domain.usecase.WorldUseCase
 import ru.woowy.game.GameConfig
 import java.util.UUID
 
