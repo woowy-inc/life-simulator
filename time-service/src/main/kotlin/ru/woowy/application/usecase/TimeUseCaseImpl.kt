@@ -108,7 +108,13 @@ internal class TimeUseCaseImpl(
             worlds[worldId]?.currentTime = time
 
             try {
-                val event = DomainEvent.WorldTickEvent(worldId, config, startTime, time)
+                val event =
+                    DomainEvent.WorldTickEvent(
+                        worldId = worldId,
+                        config = config,
+                        startedAt = startTime,
+                        currentTime = time,
+                    )
                 kafkaEventPublisher.publish(event)
 
                 logger.info("World $worldId tick: $time")
