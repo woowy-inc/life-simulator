@@ -18,18 +18,18 @@ import ru.woowy.extension.forbidden
 import ru.woowy.extension.notFound
 import ru.woowy.game.GameConfig
 import ru.woowy.game.Topic
+import ru.woowy.infrastructure.AppProperties
 import tools.jackson.databind.ObjectMapper
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
 
-private const val DELAY_ONE_SECOND = 1_000L
-
 @Service
 internal class TimeUseCaseImpl(
     private val kafkaTemplate: KafkaTemplate<String, String>,
     private val mapper: ObjectMapper,
+    private val appProperties: AppProperties,
 ) : TimeUseCase,
     DisposableBean {
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
@@ -112,21 +112,18 @@ internal class TimeUseCaseImpl(
 
             try {
                 val event = WorldTickEvent(config, startTime, time)
-                val result =
-                    kafkaTemplate
-                        .send(
-                            Topic.WORLD_TICK.title,
-                            mapper.writeValueAsString(event),
-                        ).get()
-
-                println(result.producerRecord.value())
+                kafkaTemplate
+                    .send(
+                        Topic.WORLD_TICK.title,
+                        mapper.writeValueAsString(event),
+                    ).get()
 
                 logger.info("World $worldId tick: $time")
             } catch (e: Exception) {
                 logger.error("Error in world $worldId tick", e)
             }
 
-            delay(DELAY_ONE_SECOND)
+            delay(appProperties.tickRate)
         }
     }
 

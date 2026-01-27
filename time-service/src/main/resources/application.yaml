@@ -1,3 +1,6 @@
+app:
+  mode: dev
+  tick-rate: 3000
 server:
   port: 9595
   tomcat:
