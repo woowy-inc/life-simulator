@@ -6,9 +6,11 @@ import java.util.UUID
 
 sealed interface DomainEvent {
     val id: UUID
+    val worldId: UUID
 
     data class WorldTickEvent(
-        override val id: UUID,
+        override val id: UUID = UUID.randomUUID(),
+        override val worldId: UUID,
         val config: GameConfig,
         val startedAt: Instant,
         val currentTime: Instant,

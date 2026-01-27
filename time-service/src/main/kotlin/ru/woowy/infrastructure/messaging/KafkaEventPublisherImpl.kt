@@ -16,7 +16,7 @@ class KafkaEventPublisherImpl(
     }
 
     private fun send(
-        topic: KafkaTopic,
+        topic: String,
         event: DomainEvent,
-    ): SendResult<String, String> = kafkaTemplate.send(topic.title, event.id.toString(), event.serialize()).get()
+    ): SendResult<String, String> = kafkaTemplate.send(topic, event.worldId.toString(), event.serialize()).get()
 }

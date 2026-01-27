@@ -10,5 +10,5 @@ import ru.woowy.game.KafkaTopic
 @EnableKafka
 class KafkaConfig {
     @Bean
-    fun worldTickTopic(): NewTopic = NewTopic(KafkaTopic.WORLD_TICK.title, 5, 1.toShort())
+    fun worldTickTopic(): NewTopic = NewTopic(KafkaTopic.WORLD_TICK, 5, 1.toShort())
 }

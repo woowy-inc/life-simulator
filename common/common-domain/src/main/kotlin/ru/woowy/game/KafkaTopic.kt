@@ -1,7 +1,5 @@
 package ru.woowy.game
 
-enum class KafkaTopic(
-    val title: String,
-) {
-    WORLD_TICK("world-tick-topic"),
+object KafkaTopic {
+    const val WORLD_TICK = "world-tick-topic"
 }
