@@ -1,4 +1,4 @@
-package ru.woowy.infrastructure
+package ru.woowy.infrastructure.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import ru.woowy.game.AppMode

@@ -1,4 +1,4 @@
-package ru.woowy.infrastructure
+package ru.woowy.infrastructure.config
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Configuration

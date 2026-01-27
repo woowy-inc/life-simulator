@@ -9,17 +9,15 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.DisposableBean
-import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Service
+import ru.woowy.domain.DomainEvent
 import ru.woowy.domain.model.WorldState
-import ru.woowy.domain.time.WorldTickEvent
 import ru.woowy.domain.usecase.TimeUseCase
 import ru.woowy.extension.forbidden
 import ru.woowy.extension.notFound
 import ru.woowy.game.GameConfig
-import ru.woowy.game.Topic
-import ru.woowy.infrastructure.AppProperties
-import tools.jackson.databind.ObjectMapper
+import ru.woowy.infrastructure.config.AppProperties
+import ru.woowy.infrastructure.messaging.KafkaEventPublisher
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 import java.util.UUID
@@ -27,8 +25,7 @@ import java.util.concurrent.ConcurrentHashMap
 
 @Service
 internal class TimeUseCaseImpl(
-    private val kafkaTemplate: KafkaTemplate<String, String>,
-    private val mapper: ObjectMapper,
+    private val kafkaEventPublisher: KafkaEventPublisher<*, *>,
     private val appProperties: AppProperties,
 ) : TimeUseCase,
     DisposableBean {
@@ -111,12 +108,8 @@ internal class TimeUseCaseImpl(
             worlds[worldId]?.currentTime = time
 
             try {
-                val event = WorldTickEvent(config, startTime, time)
-                kafkaTemplate
-                    .send(
-                        Topic.WORLD_TICK.title,
-                        mapper.writeValueAsString(event),
-                    ).get()
+                val event = DomainEvent.WorldTickEvent(worldId, config, startTime, time)
+                kafkaEventPublisher.publish(event)
 
                 logger.info("World $worldId tick: $time")
             } catch (e: Exception) {
