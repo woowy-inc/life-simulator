@@ -11,5 +11,7 @@ internal interface WorldUseCase {
 
     fun pauseWorld(gameId: UUID)
 
+    fun resumeWorld(gameId: UUID)
+
     fun stopWorld(gameId: UUID)
 }

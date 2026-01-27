@@ -4,8 +4,10 @@ import kotlinx.coroutines.Job
 import ru.woowy.game.GameConfig
 import java.time.Instant
 
-internal data class WorldTickJob(
+internal data class WorldState(
     val config: GameConfig,
-    val startedAt: Instant,
-    val process: Job,
+    val startTime: Instant,
+    var currentTime: Instant,
+    var job: Job?,
+    var isPaused: Boolean = false,
 )

@@ -4,24 +4,34 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
-import ru.woowy.domain.service.WorldService
+import ru.woowy.application.usecase.WorldUseCase
 import ru.woowy.game.GameConfig
-import ru.woowy.presentation.web.endpoint.WorldEndpoint
 import java.util.UUID
+
+private const val BASE_ENDPOINT = "/world"
 
 @RestController
 internal class WorldController(
-    private val worldService: WorldService,
+    private val worldUseCase: WorldUseCase,
 ) {
-    @PostMapping(WorldEndpoint.POST_WORLD_START)
+    @PostMapping("$BASE_ENDPOINT/start/{gameId}")
     fun startWorld(
-        @PathVariable("gameId") gameId: UUID,
+        @PathVariable gameId: UUID,
         @RequestBody config: GameConfig,
-    ) = worldService.startWorld(gameId, config)
+    ) = worldUseCase.startWorld(gameId, config)
 
-    @PostMapping(WorldEndpoint.POST_WORLD_PAUSE)
-    fun pause(gameId: UUID) = worldService.pauseWorld(gameId)
+    @PostMapping("$BASE_ENDPOINT/pause/{gameId}")
+    fun pause(
+        @PathVariable gameId: UUID,
+    ) = worldUseCase.pauseWorld(gameId)
 
-    @PostMapping(WorldEndpoint.POST_WORLD_STOP)
-    fun finish(gameId: UUID) = worldService.stopWorld(gameId)
+    @PostMapping("$BASE_ENDPOINT/resume/{gameId}")
+    fun resume(
+        @PathVariable gameId: UUID,
+    ) = worldUseCase.resumeWorld(gameId)
+
+    @PostMapping("$BASE_ENDPOINT/stop/{gameId}")
+    fun stop(
+        @PathVariable gameId: UUID,
+    ) = worldUseCase.stopWorld(gameId)
 }
