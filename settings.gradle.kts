@@ -18,5 +18,6 @@ plugins {
 
 include(":common:common-domain")
 include(":common:common-events")
+include(":time-service")
 include(":world-service")
 include(":character-service")

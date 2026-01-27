@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-internal class WorldServiceApplication
+internal class TimeServiceApplication
 
 internal fun main(args: Array<String>) {
-    runApplication<WorldServiceApplication>(*args)
+    runApplication<TimeServiceApplication>(*args)
 }
