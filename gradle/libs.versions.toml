@@ -45,6 +45,7 @@ springboot-security-ecosystem = [
     "springboot-starter-actuator",
     "springboot-starter-security",
     "springboot-server-tomcat",
+    "kotlin-jackson",
 ]
 
 springboot-kafka-ecosystem = [
@@ -53,4 +54,5 @@ springboot-kafka-ecosystem = [
     "springboot-kafka-starter",
     "springboot-kafka",
     "springboot-server-tomcat",
+    "kotlin-jackson",
 ]
