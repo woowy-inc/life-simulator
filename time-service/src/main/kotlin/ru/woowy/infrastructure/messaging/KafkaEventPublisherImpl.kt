@@ -3,7 +3,7 @@ package ru.woowy.infrastructure.messaging
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.kafka.support.SendResult
 import org.springframework.stereotype.Component
-import ru.woowy.domain.DomainEvent
+import ru.woowy.domain.Event
 import ru.woowy.game.KafkaTopic
 import ru.woowy.infrastructure.util.serialize
 
@@ -11,12 +11,17 @@ import ru.woowy.infrastructure.util.serialize
 class KafkaEventPublisherImpl(
     private val kafkaTemplate: KafkaTemplate<String, String>,
 ) : KafkaEventPublisher<String, String> {
-    override fun publish(event: DomainEvent): SendResult<String, String> = when (event) {
-        is DomainEvent.WorldTickEvent -> send(KafkaTopic.WORLD_TICK, event)
+    override fun publish(event: Event): SendResult<String, String> {
+        val topic =
+            when (event) {
+                is Event.WorldTickEvent -> KafkaTopic.WORLD_TICK
+            }
+
+        return send(topic, event)
     }
 
     private fun send(
         topic: String,
-        event: DomainEvent,
+        event: Event,
     ): SendResult<String, String> = kafkaTemplate.send(topic, event.worldId.toString(), event.serialize()).get()
 }

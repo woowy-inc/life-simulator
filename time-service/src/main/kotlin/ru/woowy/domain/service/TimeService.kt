@@ -1,17 +1,13 @@
-package ru.woowy.domain.usecase
+package ru.woowy.domain.service
 
 import ru.woowy.game.GameConfig
 import java.util.UUID
 
-internal interface TimeUseCase {
+internal interface TimeService {
     fun startTime(
         worldId: UUID,
         config: GameConfig,
     )
-
-    fun pauseTime(worldId: UUID)
-
-    fun resumeTime(worldId: UUID)
 
     fun stopTime(worldId: UUID)
 }

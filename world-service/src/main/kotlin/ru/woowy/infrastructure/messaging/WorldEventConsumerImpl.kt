@@ -4,7 +4,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.messaging.handler.annotation.Payload
 import org.springframework.stereotype.Component
-import ru.woowy.domain.DomainEvent
+import ru.woowy.domain.Event
 import ru.woowy.domain.service.WorldService
 import ru.woowy.game.KafkaTopic
 import tools.jackson.databind.ObjectMapper
@@ -22,7 +22,7 @@ class WorldEventConsumerImpl(
         @Payload message: String,
     ) {
         try {
-            val event = mapper.readValue<DomainEvent.WorldTickEvent>(message)
+            val event = mapper.readValue<Event.WorldTickEvent>(message)
             worldService.processWorldTick(event)
         } catch (ex: Exception) {
             logger.error(ex.message, ex)

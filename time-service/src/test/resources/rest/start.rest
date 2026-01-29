@@ -1,0 +1,6 @@
+POST {{api}}/time/start/{{worldId}}
+Content-Type: application/json
+
+{
+  "timeScale": "SLOW"
+}

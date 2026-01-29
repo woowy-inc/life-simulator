@@ -4,7 +4,7 @@ import ru.woowy.game.GameConfig
 import java.time.Instant
 import java.util.UUID
 
-sealed interface DomainEvent {
+sealed interface Event {
     val id: UUID
     val worldId: UUID
 
@@ -14,5 +14,5 @@ sealed interface DomainEvent {
         val config: GameConfig,
         val startedAt: Instant,
         val currentTime: Instant,
-    ) : DomainEvent
+    ) : Event
 }

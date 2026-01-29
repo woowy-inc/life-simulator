@@ -1,0 +1,2 @@
+POST {{api}}/time/stop/{{worldId}}
+Content-Type: application/json

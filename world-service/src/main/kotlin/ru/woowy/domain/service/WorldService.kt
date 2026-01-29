@@ -1,7 +1,7 @@
 package ru.woowy.domain.service
 
-import ru.woowy.domain.DomainEvent
+import ru.woowy.domain.Event
 
 interface WorldService {
-    fun processWorldTick(event: DomainEvent.WorldTickEvent)
+    fun processWorldTick(event: Event.WorldTickEvent)
 }
