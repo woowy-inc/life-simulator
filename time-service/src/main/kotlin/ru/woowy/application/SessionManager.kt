@@ -1,9 +1,5 @@
 package ru.woowy.application
 
-import java.time.Instant
-import java.time.temporal.ChronoUnit
-import java.util.UUID
-import java.util.concurrent.ConcurrentHashMap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -15,9 +11,13 @@ import kotlinx.coroutines.launch
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.DisposableBean
 import org.springframework.stereotype.Component
+import ru.woowy.application.config.AppProperties
 import ru.woowy.domain.Event
 import ru.woowy.game.GameConfig
-import ru.woowy.infrastructure.config.AppProperties
+import java.time.Instant
+import java.time.temporal.ChronoUnit
+import java.util.UUID
+import java.util.concurrent.ConcurrentHashMap
 
 private const val MAX_ATTEMPTS = 5
 

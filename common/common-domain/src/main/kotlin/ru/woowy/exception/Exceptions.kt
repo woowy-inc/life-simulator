@@ -15,3 +15,7 @@ open class BadRequestException(
 open class ForbiddenException(
     cause: String = "",
 ) : LifeSimulatorException(cause)
+
+open class UnauthorizedException(
+    cause: String = "",
+) : LifeSimulatorException(cause)

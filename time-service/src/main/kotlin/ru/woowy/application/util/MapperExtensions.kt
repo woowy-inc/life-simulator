@@ -1,4 +1,4 @@
-package ru.woowy.infrastructure.util
+package ru.woowy.application.util
 
 import tools.jackson.module.kotlin.jacksonObjectMapper
 

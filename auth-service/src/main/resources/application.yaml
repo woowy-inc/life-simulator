@@ -1,0 +1,21 @@
+app:
+  jwt:
+    secret: secret-here
+    expiration: 86400000
+server:
+  port: 9393
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/lifesim_auth_dev
+    username: dev
+    password: dev
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  application:
+    name: auth-service
