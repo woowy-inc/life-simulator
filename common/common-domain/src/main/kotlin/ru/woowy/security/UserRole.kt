@@ -1,6 +1,6 @@
 package ru.woowy.security
 
-internal enum class UserRole {
+enum class UserRole {
     ADMIN,
     USER,
 }
