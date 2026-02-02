@@ -1,7 +1,0 @@
-POST {{api}}/auth/login/username
-Content-Type: application/json
-
-{
-  "username": "dev",
-  "password": "dev"
-}

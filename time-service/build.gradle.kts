@@ -18,6 +18,7 @@ dependencies {
 
     implementation(libs.bundles.kotlinx.ecosystem)
     implementation(libs.bundles.springboot.kafka.ecosystem)
+    implementation(libs.springboot.starter.oauth2.resource.server)
 
     testImplementation(kotlin("test"))
 }

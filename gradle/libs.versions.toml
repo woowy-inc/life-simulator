@@ -20,6 +20,8 @@ springboot-starter-web = { module = "org.springframework.boot:spring-boot-starte
 springboot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "springBoot" }
 springboot-starter-security = { module = "org.springframework.boot:spring-boot-starter-security", version.ref = "springBoot" }
 springboot-starter-liquibase = { module = "org.springframework.boot:spring-boot-starter-liquibase", version.ref = "springBoot" }
+springboot-starter-oauth2-authorization-server = { module = "org.springframework.boot:spring-boot-starter-oauth2-authorization-server", version.ref = "springBoot" }
+springboot-starter-oauth2-resource-server = { module = "org.springframework.boot:spring-boot-starter-oauth2-resource-server", version.ref = "springBoot" }
 springboot-kafka-starter = { module = "org.springframework.boot:spring-boot-starter-kafka", version.ref = "springBoot" }
 springboot-kafka = { module = "org.springframework.kafka:spring-kafka", version.ref = "springBoot" }
 springboot-server-tomcat = { module = "org.springframework.boot:spring-boot-starter-tomcat", version.ref = "springBoot" }
@@ -44,6 +46,7 @@ springboot-security-ecosystem = [
     "springboot-starter-web",
     "springboot-starter-actuator",
     "springboot-starter-security",
+    "springboot-starter-oauth2-authorization-server",
     "springboot-server-tomcat",
     "kotlin-jackson",
 ]

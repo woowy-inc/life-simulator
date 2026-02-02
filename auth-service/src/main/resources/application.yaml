@@ -1,7 +1,8 @@
 app:
   jwt:
-    secret: secret-here
     expiration: 86400000
+    issuer: auth-service
+    key-id: key-id
 server:
   port: 9393
 spring:
@@ -17,5 +18,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+  security:
+    oauth2:
+      authorizationserver:
+        issuer: http://localhost:9393
   application:
     name: auth-service

@@ -1,12 +1,16 @@
 app:
   mode: dev
   tick-rate: 3000
+  jwt:
+    issuer: auth-service
 server:
   port: 9595
-  tomcat:
-    threads:
-      max: 4
 spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://auth-service:9393/.well-known/jwks.json
   application:
     name: time-service
   kafka:

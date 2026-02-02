@@ -1,5 +1,8 @@
 package ru.woowy.application.service
 
+import com.nimbusds.jose.JWSAlgorithm
+import com.nimbusds.jose.jwk.KeyUse
+import com.nimbusds.jose.jwk.RSAKey
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import ru.woowy.application.config.JwtProperties
@@ -10,12 +13,14 @@ import ru.woowy.domain.model.UsernameRequest
 import ru.woowy.domain.service.AuthService
 import ru.woowy.extension.notFound
 import ru.woowy.extension.unauthorized
+import java.security.interfaces.RSAPublicKey
 
 @Service
 internal class AuthServiceImpl(
     private val getUserByUsernameUseCase: GetUserByUsernameUseCase,
     private val jwtTokenProvider: JwtTokenProvider,
     private val jwtProperties: JwtProperties,
+    private val rsaPublicKey: RSAPublicKey,
     private val passwordEncoder: PasswordEncoder,
 ) : AuthService {
     override fun authByUsername(request: UsernameRequest): TokenResponse {
@@ -30,5 +35,17 @@ internal class AuthServiceImpl(
         val token = jwtTokenProvider.generateToken(user)
 
         return TokenResponse(token, jwtProperties.expiration)
+    }
+
+    override fun getJwks(): Map<String, Any> {
+        val jwk =
+            RSAKey
+                .Builder(rsaPublicKey)
+                .keyID(jwtProperties.keyId)
+                .algorithm(JWSAlgorithm.RS256)
+                .keyUse(KeyUse.SIGNATURE)
+                .build()
+
+        return mapOf("keys" to listOf(jwk.toJSONObject()))
     }
 }

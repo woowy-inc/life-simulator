@@ -23,15 +23,20 @@ internal class SecurityConfig(
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
             .csrf { it.disable() }
-            .cors { it.disable() }
-            .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
-            .authorizeHttpRequests { auth ->
+            .sessionManagement {
+                it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            }.authorizeHttpRequests { auth ->
                 auth
                     .requestMatchers("/auth/login/**")
                     .permitAll()
+                    .requestMatchers("/.well-known/jwks.json")
+                    .permitAll()
                     .anyRequest()
                     .authenticated()
-            }.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
+            }.addFilterBefore(
+                jwtAuthenticationFilter,
+                UsernamePasswordAuthenticationFilter::class.java,
+            )
 
         return http.build()
     }

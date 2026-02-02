@@ -4,6 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 
 @ConfigurationProperties(prefix = "app.jwt")
 internal data class JwtProperties(
-    val secret: String,
     val expiration: Long,
+    val issuer: String,
+    val keyId: String,
 )
