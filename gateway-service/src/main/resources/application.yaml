@@ -10,10 +10,25 @@ spring:
               uri: lb://auth-service
               predicates:
                 - Path=/auth/**
+                - Method=GET,POST,PUT,PATCH,DELETE
             - id: time-route
               uri: lb://time-service
               predicates:
                 - Path=/time/**
+                - Method=GET,POST,PUT,PATCH,DELETE
+                - Header=Authorization, Bearer .+
+            - id: character-route
+              uri: lb://character-service
+              predicates:
+                - Path=/character/**
+                - Method=GET,POST,PUT,PATCH,DELETE
+                - Header=Authorization, Bearer .+
+            - id: world-route
+              uri: lb://world-service
+              predicates:
+                - Path=/world/**
+                - Method=GET,POST,PUT,PATCH,DELETE
+                - Header=Authorization, Bearer .+
 
   application:
     name: gateway-service
