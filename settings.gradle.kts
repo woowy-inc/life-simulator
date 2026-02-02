@@ -18,4 +18,9 @@ plugins {
 
 include(":common:common-domain")
 include(":common:common-events")
+include(":time-service")
 include(":world-service")
+include(":character-service")
+include(":auth-service")
+include(":eureka-service")
+include(":gateway-service")

@@ -1,0 +1,26 @@
+app:
+  jwt:
+    expiration: ${JWT_EXPIRATION:86400000}
+    issuer: ${JWT_ISSUER:auth-service}
+    key-id: ${JWT_KEY_ID:key-id}
+server:
+  port: ${SERVER_PORT:9393}
+spring:
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/lifesim_auth_dev}
+    username: ${DATASOURCE_USERNAME:dev}
+    password: ${DATASOURCE_PASSWORD:dev}
+    driver-class-name: ${DATASOURCE_DRIVER_NAME:org.postgresql.Driver}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: ${JPA_SHOW_SQL:true}
+    properties:
+      hibernate:
+        dialect: ${JPA_DIALECT:org.hibernate.dialect.PostgreSQLDialect}
+  security:
+    oauth2:
+      authorizationserver:
+        issuer: ${OAUTH2_ISSUER:http://localhost:9393}
+  application:
+    name: auth-service

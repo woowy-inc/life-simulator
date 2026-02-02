@@ -19,6 +19,8 @@ dependencies {
 
     implementation(libs.bundles.kotlinx.ecosystem)
     implementation(libs.bundles.springboot.kafka.ecosystem)
+    implementation(libs.springboot.starter.eureka.client)
+
     testImplementation(kotlin("test"))
 }
 
