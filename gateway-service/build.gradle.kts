@@ -13,7 +13,9 @@ repositories {
 }
 
 dependencies {
-    implementation(libs.springboot.starter.eureka.server)
+    implementation(project(":common:common-domain"))
+
+    implementation(libs.springboot.starter.gateway)
     implementation(libs.springboot.starter.eureka.client)
 
     testImplementation(kotlin("test"))
