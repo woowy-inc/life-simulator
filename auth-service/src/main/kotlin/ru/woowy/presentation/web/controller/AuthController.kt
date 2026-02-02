@@ -1,5 +1,6 @@
 package ru.woowy.presentation.web.controller
 
+import io.swagger.v3.oas.annotations.Operation
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -15,6 +16,7 @@ private const val BASE_ENDPOINT = "/auth"
 internal class AuthController(
     private val authService: AuthService,
 ) {
+    @Operation(summary = "Login by username", security = [])
     @PostMapping("/login/username")
     fun authByUsername(
         @RequestBody request: UsernameRequest,
