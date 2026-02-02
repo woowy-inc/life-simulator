@@ -19,6 +19,7 @@ dependencies {
     implementation(libs.springboot.starter.eureka.client)
     implementation(libs.migration.liquibase.core)
     implementation(libs.springboot.starter.liquibase)
+    implementation(libs.springboot.starter.springdoc.ui)
     implementation(libs.kotlin.reflect)
     implementation(libs.kotlin.jackson)
     implementation(libs.jjwt.api)

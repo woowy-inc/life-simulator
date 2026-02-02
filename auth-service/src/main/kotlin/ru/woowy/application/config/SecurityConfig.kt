@@ -11,6 +11,9 @@ import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.CorsConfigurationSource
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import ru.woowy.application.security.JwtAuthenticationFilter
 
 @Configuration
@@ -23,6 +26,7 @@ internal class SecurityConfig(
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
             .csrf { it.disable() }
+            .cors { it.configurationSource(corsConfigurationSource()) }
             .sessionManagement {
                 it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             }.authorizeHttpRequests { auth ->
@@ -30,6 +34,10 @@ internal class SecurityConfig(
                     .requestMatchers("/auth/login/**")
                     .permitAll()
                     .requestMatchers("/.well-known/jwks.json")
+                    .permitAll()
+                    .requestMatchers("/swagger-ui/**")
+                    .permitAll()
+                    .requestMatchers("/v3/api-docs/**")
                     .permitAll()
                     .anyRequest()
                     .authenticated()
@@ -39,6 +47,24 @@ internal class SecurityConfig(
             )
 
         return http.build()
+    }
+
+    @Bean
+    fun corsConfigurationSource(): CorsConfigurationSource {
+        val configuration =
+            CorsConfiguration().apply {
+                allowedOriginPatterns = listOf("http://localhost:[*]") // TODO
+                allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                allowedHeaders = listOf("*")
+                allowCredentials = true
+            }
+
+        val source =
+            UrlBasedCorsConfigurationSource().apply {
+                registerCorsConfiguration("/**", configuration)
+            }
+
+        return source
     }
 
     @Bean
