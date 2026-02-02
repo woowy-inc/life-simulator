@@ -28,7 +28,7 @@ internal class AuthServiceImpl(
             getUserByUsernameUseCase(request.username)
                 ?: notFound("User[username:${request.username}] not found")
 
-        if (passwordEncoder.matches(request.password, user.password)) {
+        if (!passwordEncoder.matches(request.password, user.password)) {
             unauthorized("Bad credentials")
         }
 
