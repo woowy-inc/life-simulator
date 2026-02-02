@@ -1,25 +1,24 @@
 app:
-  mode: dev
-  tick-rate: 3000
+  tick-rate: ${TICK_RATE:3000}
   jwt:
-    issuer: auth-service
+    issuer: ${JWT_ISSUER:auth-service}
 server:
-  port: 9595
+  port: ${SERVER_PORT:9595}
 spring:
   security:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://auth-service:9393/.well-known/jwks.json
+          jwk-set-uri: ${OAUTH2_RESOURCESERVER_JWK_URI:http://auth-service:9393/.well-known/jwks.json}
   application:
     name: time-service
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
     consumer:
-      group-id: life-sim
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: ${KAFKA_CONSUMER_GROUP_ID:life-sim-group}
+      auto-offset-reset: ${KAFKA_CONSUMER_AUTO_OFFSET_RESET:earliest}
+      key-deserializer: ${KAFKA_CONSUMER_KEY_DESERIALIZER:org.apache.kafka.common.serialization.StringDeserializer}
+      value-deserializer: ${KAFKA_CONSUMER_VALUE_DESERIALIZER:org.apache.kafka.common.serialization.StringDeserializer}
     producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      key-serializer: ${KAFKA_PRODUCER_KEY_SERIALIZER:org.apache.kafka.common.serialization.StringSerializer}
+      value-serializer: ${KAFKA_PRODUCER_VALUE_SERIALIZER:org.apache.kafka.common.serialization.StringSerializer}
