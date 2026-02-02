@@ -1,0 +1,10 @@
+server:
+  port: ${SERVER_PORT:9292}
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${OAUTH2_RESOURCESERVER_JWK_URI:http://auth-service:9393/.well-known/jwks.json}
+  application:
+    name: character-service
