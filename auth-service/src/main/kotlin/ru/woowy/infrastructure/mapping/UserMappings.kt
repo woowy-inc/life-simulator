@@ -1,7 +1,8 @@
-package ru.woowy.infrastructure.persistance.mapping
+package ru.woowy.infrastructure.mapping
 
 import ru.woowy.infrastructure.persistance.entity.UserEntity
 import ru.woowy.security.User
+import ru.woowy.security.UserDto
 
 internal fun UserEntity.asDomain(): User = User(
     id = this.id,
@@ -17,6 +18,14 @@ internal fun User.asEntity(): UserEntity = UserEntity(
     username = this.username,
     email = this.email,
     password = this.password,
+    firstName = this.firstName,
+    role = this.role,
+)
+
+internal fun User.asDto(): UserDto = UserDto(
+    id = this.id,
+    username = this.username,
+    email = this.email,
     firstName = this.firstName,
     role = this.role,
 )

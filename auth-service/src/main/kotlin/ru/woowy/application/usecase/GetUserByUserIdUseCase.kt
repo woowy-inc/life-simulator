@@ -3,10 +3,11 @@ package ru.woowy.application.usecase
 import org.springframework.stereotype.Service
 import ru.woowy.domain.repository.UserRepository
 import ru.woowy.security.User
+import java.util.UUID
 
 @Service
-internal class GetUserByUsernameUseCase(
+internal class GetUserByUserIdUseCase(
     private val userRepository: UserRepository,
 ) {
-    operator fun invoke(username: String): User? = userRepository.findByUsername(username)
+    operator fun invoke(userId: UUID): User? = userRepository.findById(userId)
 }

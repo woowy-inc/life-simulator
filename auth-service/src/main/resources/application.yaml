@@ -24,3 +24,6 @@ spring:
         issuer: ${OAUTH2_ISSUER:http://localhost:9393}
   application:
     name: auth-service
+logging:
+  level:
+    org.springframework.web: debug

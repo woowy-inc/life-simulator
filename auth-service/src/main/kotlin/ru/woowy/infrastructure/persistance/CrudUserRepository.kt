@@ -6,6 +6,6 @@ import ru.woowy.infrastructure.persistance.entity.UserEntity
 import java.util.UUID
 
 @Repository
-internal interface UserRepository : CrudRepository<UserEntity, UUID> {
+internal interface CrudUserRepository : CrudRepository<UserEntity, UUID> {
     fun findUserByUsername(username: String): UserEntity?
 }
