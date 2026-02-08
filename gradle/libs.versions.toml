@@ -1,9 +1,10 @@
 [versions]
-kotlin = "2.2.21"
+kotlin = "2.3.10"
 kotlinxDatetime = "0.7.1"
 kotlinxSerializationJSON = "1.9.0"
 kotlinxCoroutines = "1.10.2"
 springBoot = "4.0.1"
+springDependencyManagement = "1.1.7"
 springCloud = "5.0.1"
 liquibase = "5.0.1"
 postgresql = "42.7.9"
@@ -43,6 +44,9 @@ jjwt-impl = { module = "io.jsonwebtoken:jjwt-impl", version.ref = "jjwt" }
 jjwt-gson = { module = "io.jsonwebtoken:jjwt-gson", version.ref = "jjwt" }
 
 [plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "springDependencyManagement" }
+
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
 kotlin-jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
