@@ -3,6 +3,8 @@ plugins {
 
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.kotlin.spring)
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency.management)
 }
 
 group = "ru.woowy"
@@ -23,6 +25,14 @@ dependencies {
 
 kotlin {
     jvmToolchain(21)
+}
+
+springBoot {
+    mainClass.set("ru.woowy.GatewayServiceApplicationKt")
+}
+
+tasks.named<Jar>("jar") {
+    enabled = false
 }
 
 tasks.test {
