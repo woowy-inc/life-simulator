@@ -4,8 +4,6 @@ import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import ru.woowy.security.UserRole
 import java.util.UUID
@@ -13,8 +11,7 @@ import java.util.UUID
 @Entity(name = "users")
 internal data class UserEntity(
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID,
+    val id: UUID = UUID.randomUUID(),
     @Column(name = "username")
     val username: String,
     @Column(name = "email")

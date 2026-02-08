@@ -7,8 +7,10 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.web.cors.CorsConfiguration
@@ -27,21 +29,9 @@ internal class SecurityConfig(
         http
             .csrf { it.disable() }
             .cors { it.configurationSource(corsConfigurationSource()) }
-            .sessionManagement {
-                it.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            }.authorizeHttpRequests { auth ->
-                auth
-                    .requestMatchers("/auth/login/**")
-                    .permitAll()
-                    .requestMatchers("/.well-known/jwks.json")
-                    .permitAll()
-                    .requestMatchers("/swagger-ui/**")
-                    .permitAll()
-                    .requestMatchers("/v3/api-docs/**")
-                    .permitAll()
-                    .anyRequest()
-                    .authenticated()
-            }.addFilterBefore(
+            .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
+            .authorizeHttpRequests { auth -> auth.configureHttpRequest() }
+            .addFilterBefore(
                 jwtAuthenticationFilter,
                 UsernamePasswordAuthenticationFilter::class.java,
             )
@@ -68,8 +58,24 @@ internal class SecurityConfig(
     }
 
     @Bean
-    fun passwordEncoder(): BCryptPasswordEncoder = BCryptPasswordEncoder()
+    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder(4)
 
     @Bean
     fun authenticationManager(config: AuthenticationConfiguration): AuthenticationManager = config.authenticationManager
+
+    private fun AuthorizeHttpRequestsConfigurer<*>.AuthorizationManagerRequestMatcherRegistry.configureHttpRequest() {
+        this
+            .requestMatchers("/user/register/**")
+            .permitAll()
+            .requestMatchers("/user/login/**")
+            .permitAll()
+            .requestMatchers("/.well-known/jwks.json")
+            .permitAll()
+            .requestMatchers("/swagger-ui/**")
+            .permitAll()
+            .requestMatchers("/v3/api-docs/**")
+            .permitAll()
+            .anyRequest()
+            .authenticated()
+    }
 }

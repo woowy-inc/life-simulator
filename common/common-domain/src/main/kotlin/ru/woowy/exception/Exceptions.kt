@@ -19,3 +19,7 @@ open class ForbiddenException(
 open class UnauthorizedException(
     cause: String = "",
 ) : LifeSimulatorException(cause)
+
+open class InternalException(
+    cause: String = "",
+) : LifeSimulatorException(cause)
