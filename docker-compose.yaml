@@ -1,0 +1,27 @@
+name: life-simulator
+
+services:
+  eureka:
+    build:
+      context: ./eureka-service
+      dockerfile: Dockerfile
+    container_name: eureka-service
+    ports:
+      - "8761:8761"
+    env_file:
+      - ./eureka-service/.env
+
+  gateway:
+    build:
+      context: ./gateway-service
+      dockerfile: Dockerfile
+    container_name: gateway-service
+    ports:
+      - "9696:9696"
+    env_file:
+      - ./gateway-service/.env
+
+networks:
+  life-simulator-network:
+    driver: bridge
+    name: life-simulator-network
