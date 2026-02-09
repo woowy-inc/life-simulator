@@ -1,6 +1,23 @@
 name: life-simulator
 
 services:
+  vault:
+    build:
+      context: ./vault/config
+      dockerfile: Dockerfile
+    container_name: vault
+    ports:
+      - "8200:8200"
+    volumes:
+      - ./vault/data:/vault/data:ro
+      - ./vault/config/vault.hcl:/vault/config/vault.hcl:ro
+    cap_add:
+      - IPC_LOCK
+    env_file:
+      - ./vault/config/.env
+    command: server
+    restart: unless-stopped
+
   eureka:
     build:
       context: ./eureka-service
@@ -10,6 +27,7 @@ services:
       - "8761:8761"
     env_file:
       - ./eureka-service/.env
+    restart: unless-stopped
 
   gateway:
     build:
@@ -20,6 +38,7 @@ services:
       - "9696:9696"
     env_file:
       - ./gateway-service/.env
+    restart: unless-stopped
 
 networks:
   life-simulator-network:

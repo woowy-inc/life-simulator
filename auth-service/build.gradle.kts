@@ -17,6 +17,8 @@ dependencies {
     implementation(project(":common-domain"))
     implementation(libs.bundles.springboot.security.ecosystem)
     implementation(libs.springboot.starter.eureka.client)
+    implementation(libs.springboot.starter.vault.config)
+    implementation(libs.springframework.vault.core)
     implementation(libs.migration.liquibase.core)
     implementation(libs.springboot.starter.liquibase)
     implementation(libs.springboot.starter.springdoc.ui)
