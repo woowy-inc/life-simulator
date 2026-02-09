@@ -6,7 +6,7 @@ import com.nimbusds.jose.jwk.RSAKey
 import jakarta.transaction.Transactional
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
-import ru.woowy.application.config.JwtProperties
+import ru.woowy.application.config.AppProperties
 import ru.woowy.application.security.JwtTokenProvider
 import ru.woowy.application.usecase.GetUserByUsernameUseCase
 import ru.woowy.domain.model.TokenResponse
@@ -27,7 +27,7 @@ internal class AuthServiceImpl(
     private val getUserByUsernameUseCase: GetUserByUsernameUseCase,
     private val userRepository: UserRepository,
     private val jwtTokenProvider: JwtTokenProvider,
-    private val jwtProperties: JwtProperties,
+    private val appProperties: AppProperties,
     private val rsaPublicKey: RSAPublicKey,
     private val passwordEncoder: PasswordEncoder,
 ) : AuthService {
@@ -42,7 +42,7 @@ internal class AuthServiceImpl(
 
         val token = jwtTokenProvider.generateToken(user)
 
-        return TokenResponse(token, jwtProperties.expiration)
+        return TokenResponse(token, appProperties.jwt.expiration)
     }
 
     override fun registerUser(request: UserRegisterRequest): UserDto {
@@ -58,7 +58,7 @@ internal class AuthServiceImpl(
         val jwk =
             RSAKey
                 .Builder(rsaPublicKey)
-                .keyID(jwtProperties.keyId)
+                .keyID(appProperties.jwt.keyId)
                 .algorithm(JWSAlgorithm.RS256)
                 .keyUse(KeyUse.SIGNATURE)
                 .build()

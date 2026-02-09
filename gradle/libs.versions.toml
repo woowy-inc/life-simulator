@@ -11,12 +11,17 @@ postgresql = "42.7.9"
 jackson = "3.0.4"
 jjwt = "0.13.0"
 openapiUi = "3.0.1"
+vaultConfig = "5.0.1"
+vaultCore = "4.0.0"
 
 [libraries]
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJSON" }
 kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+
+springboot-starter-vault-config = { module = "org.springframework.cloud:spring-cloud-starter-vault-config", version.ref = "vaultConfig" }
+springframework-vault-core = { module = "org.springframework.vault:spring-vault-core", version.ref = "vaultCore" }
 
 springboot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "springBoot" }
 springboot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "springBoot" }

@@ -6,6 +6,16 @@ app:
 server:
   port: ${SERVER_PORT:9393}
 spring:
+  cloud:
+    vault:
+      uri: ${VAULT_URI:http://localhost:8200}
+      token: ${VAULT_TOKEN:token}
+      kv:
+        backend: ${VAULT_KV_BACKEND:life-simulator}
+        application-name: ${VAULT_KV_NAME:auth}
+        default-context:
+  config:
+    import: ${VAULT_CONFIG_IMPORT:vault:///life-simulator/auth}
   datasource:
     url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/lifesim_auth_dev}
     username: ${DATASOURCE_USERNAME:dev}
@@ -15,13 +25,10 @@ spring:
     hibernate:
       ddl-auto: validate
     show-sql: ${JPA_SHOW_SQL:true}
-    properties:
-      hibernate:
-        dialect: ${JPA_DIALECT:org.hibernate.dialect.PostgreSQLDialect}
   security:
     oauth2:
       authorizationserver:
-        issuer: ${OAUTH2_ISSUER:http://localhost:9393}
+        issuer: ${OAUTH2_SERVER_ISSUER:http://localhost:9393}
   application:
     name: auth-service
 logging:
