@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":common:common-domain"))
+    implementation(project(":common-domain"))
     implementation(libs.bundles.springboot.security.ecosystem)
     implementation(libs.springboot.starter.eureka.client)
     implementation(libs.migration.liquibase.core)
