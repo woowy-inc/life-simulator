@@ -18,6 +18,28 @@ services:
     command: server
     restart: unless-stopped
 
+  kafka:
+    build:
+      context: ./kafka/config
+      dockerfile: Dockerfile
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    env_file:
+      - ./kafka/config/.env
+
+  kafka-ui:
+    build:
+      context: ./kafka/config/ui
+      dockerfile: Dockerfile
+    container_name: kafka-ui
+    ports:
+      - "8585:8080"
+    env_file:
+      - ./kafka/config/ui/.env
+    depends_on:
+      - kafka
+
   eureka:
     build:
       context: ./eureka-service

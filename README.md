@@ -30,8 +30,8 @@ reduce work performance, potentially resulting in job loss.
 
 ### Backend
 
-* Kotlin 1.9+
-* Spring Boot 3.2+
+* Kotlin 2.3.10
+* Spring Boot 4.0.1
 * PostgreSQL (main data storage)
 * Redis (caching, game time storage)
 * Apache Kafka (event-driven communication)
