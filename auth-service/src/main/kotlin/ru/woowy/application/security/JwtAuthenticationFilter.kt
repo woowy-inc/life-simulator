@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
+import ru.woowy.domain.model.TokenType
 
 @Component
 internal class JwtAuthenticationFilter(
@@ -20,6 +21,12 @@ internal class JwtAuthenticationFilter(
         filterChain: FilterChain,
     ) {
         parseToken(request)?.let { token ->
+            val tokenType = jwtTokenProvider.extractTokenType(token)
+            if (tokenType != TokenType.ACCESS) {
+                filterChain.doFilter(request, response)
+                return
+            }
+
             val username = jwtTokenProvider.extractUsername(token)
             val userDetails = userDetailsService.loadUserByUsername(username)
 

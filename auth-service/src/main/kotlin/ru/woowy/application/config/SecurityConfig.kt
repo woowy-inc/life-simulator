@@ -69,6 +69,8 @@ internal class SecurityConfig(
             .permitAll()
             .requestMatchers("/user/login/**")
             .permitAll()
+            .requestMatchers("/user/token/**")
+            .permitAll()
             .requestMatchers("/.well-known/jwks.json")
             .permitAll()
             .requestMatchers("/swagger-ui/**")
