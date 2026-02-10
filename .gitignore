@@ -48,3 +48,8 @@ bin/
 # Environment
 **/.env
 !**/.env.example
+
+# Project
+/vault/data/
+/kafka/data/
+/kafka/logs/

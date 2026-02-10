@@ -9,7 +9,7 @@ services:
     ports:
       - "8200:8200"
     volumes:
-      - ./vault/data:/vault/data:ro
+      - ./vault/data:/vault/data
       - ./vault/config/vault.hcl:/vault/config/vault.hcl:ro
     cap_add:
       - IPC_LOCK
@@ -25,6 +25,9 @@ services:
     container_name: kafka
     ports:
       - "9092:9092"
+    volumes:
+      - ./kafka/data:/var/lib/kafka/data
+      - ./kafka/logs:/var/log/kafka
     env_file:
       - ./kafka/config/.env
 
