@@ -21,7 +21,7 @@ internal class OpenApiConfig(
                 .description("Woowy LifeSim: Auth Service description")
                 .contact(Contact().name("Denis").email("dnartysh@yandex.ru"))
                 .summary("Woowy summary")
-                .version("0.0.1")
+                .version("0.1.0")
 
         val server =
             Server()
