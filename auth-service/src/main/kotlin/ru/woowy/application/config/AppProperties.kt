@@ -10,6 +10,7 @@ internal data class AppProperties(
 ) {
     data class JwtProperties(
         val expiration: Long,
+        val refreshExpiration: Long,
         val issuer: String,
         val keyId: String,
     )
