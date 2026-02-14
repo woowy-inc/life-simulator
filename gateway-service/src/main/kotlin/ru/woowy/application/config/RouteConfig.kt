@@ -6,15 +6,12 @@ import org.springframework.cloud.gateway.server.mvc.handler.HandlerFunctions.htt
 import org.springframework.cloud.gateway.server.mvc.predicate.GatewayRequestPredicates.path
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.web.cors.CorsConfiguration
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource
-import org.springframework.web.filter.CorsFilter
 import org.springframework.web.servlet.function.RouterFunction
 import org.springframework.web.servlet.function.ServerResponse
 import ru.woowy.security.Service
 
 @Configuration
-class RouteConfig {
+internal class RouteConfig {
     @Bean
     fun gatewayRoutes(): RouterFunction<ServerResponse> = route("auth-jwks")
         .GET("/.well-known/**", http())
@@ -51,24 +48,4 @@ class RouteConfig {
                 .filter(lb(Service.WORLD_SERVICE.id))
                 .build(),
         )
-
-    @Bean
-    fun corsFilter(): CorsFilter {
-        val config =
-            CorsConfiguration().apply {
-                allowCredentials = true
-                allowedOriginPatterns = listOf("http://localhost:*")
-                allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")
-                allowedHeaders = listOf("*")
-                exposedHeaders = listOf("*")
-                maxAge = 3600L
-            }
-
-        val source =
-            UrlBasedCorsConfigurationSource().apply {
-                registerCorsConfiguration("/**", config)
-            }
-
-        return CorsFilter(source)
-    }
 }
