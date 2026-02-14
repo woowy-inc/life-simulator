@@ -53,3 +53,11 @@ bin/
 /vault/data/
 /kafka/data/
 /kafka/logs/
+
+# Service logs
+eureka-service/logs/
+gateway-service/logs/
+auth-service/logs/
+time-service/logs/
+character-service/logs/
+world-service/logs/
