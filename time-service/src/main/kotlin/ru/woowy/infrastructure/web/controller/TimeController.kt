@@ -1,4 +1,4 @@
-package ru.woowy.presentation.web.controller
+package ru.woowy.infrastructure.web.controller
 
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
