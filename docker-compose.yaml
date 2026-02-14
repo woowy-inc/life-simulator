@@ -97,7 +97,7 @@ services:
       - ./gateway-service/.env
     depends_on:
       eureka:
-        condition: service_started
+        condition: service_healthy
     restart: unless-stopped
 
   auth-service:
@@ -114,8 +114,4 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-      eureka:
-        condition: service_healthy
-      vault:
-        condition: service_started
     restart: unless-stopped
