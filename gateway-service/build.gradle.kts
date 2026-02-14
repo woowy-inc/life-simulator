@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "ru.woowy"
-version = "0.0.3"
+version = "0.0.5"
 
 repositories {
     mavenCentral()
@@ -20,6 +20,7 @@ dependencies {
     implementation(libs.springboot.starter.gateway)
     implementation(libs.springboot.starter.loadbalancer)
     implementation(libs.springboot.starter.eureka.client)
+    implementation(libs.kotlin.reflect)
 
     testImplementation(kotlin("test"))
 }
