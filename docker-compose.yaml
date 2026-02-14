@@ -10,6 +10,7 @@ services:
       - "8200:8200"
     volumes:
       - ./vault/data:/vault/data
+      - ./vault/logs:/vault/logs
       - ./vault/config/vault.hcl:/vault/config/vault.hcl:ro
     cap_add:
       - IPC_LOCK
@@ -17,6 +18,25 @@ services:
       - ./vault/config/.env
     command: server
     restart: unless-stopped
+
+  postgres:
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
+    container_name: postgres
+    ports:
+      - "6432:5432"
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+      - ./postgres/init:/docker-entrypoint-initdb.d:ro
+    env_file:
+      - ./postgres/.env
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   kafka:
     build:
@@ -30,6 +50,7 @@ services:
       - ./kafka/logs:/var/log/kafka
     env_file:
       - ./kafka/config/.env
+    restart: unless-stopped
 
   kafka-ui:
     build:
@@ -42,6 +63,7 @@ services:
       - ./kafka/config/ui/.env
     depends_on:
       - kafka
+    restart: unless-stopped
 
   eureka:
     build:
@@ -50,6 +72,8 @@ services:
     container_name: eureka-service
     ports:
       - "8761:8761"
+    volumes:
+      - ./eureka-service/logs:/app/logs
     env_file:
       - ./eureka-service/.env
     restart: unless-stopped
@@ -61,11 +85,31 @@ services:
     container_name: gateway-service
     ports:
       - "9696:9696"
+    volumes:
+      - ./gateway-service/logs:/app/logs
     env_file:
       - ./gateway-service/.env
+    depends_on:
+      eureka:
+        condition: service_started
     restart: unless-stopped
 
-networks:
-  life-simulator-network:
-    driver: bridge
-    name: life-simulator-network
+  auth-service:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: auth-service
+    ports:
+      - "9393:9393"
+    volumes:
+      - ./auth-service/logs:/app/logs
+    env_file:
+      - ./auth-service/.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      eureka:
+        condition: service_started
+      vault:
+        condition: service_started
+    restart: unless-stopped
