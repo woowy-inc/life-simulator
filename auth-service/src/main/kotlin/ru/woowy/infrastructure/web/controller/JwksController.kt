@@ -1,4 +1,4 @@
-package ru.woowy.presentation.web.controller
+package ru.woowy.infrastructure.web.controller
 
 import io.swagger.v3.oas.annotations.Hidden
 import org.springframework.http.ResponseEntity
