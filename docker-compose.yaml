@@ -77,6 +77,12 @@ services:
     env_file:
       - ./eureka-service/.env
     restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8761/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
 
   gateway:
     build:
@@ -109,7 +115,7 @@ services:
       postgres:
         condition: service_healthy
       eureka:
-        condition: service_started
+        condition: service_healthy
       vault:
         condition: service_started
     restart: unless-stopped
