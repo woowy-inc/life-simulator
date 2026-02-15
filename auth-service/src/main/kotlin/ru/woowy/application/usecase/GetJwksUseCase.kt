@@ -4,7 +4,7 @@ import com.nimbusds.jose.JWSAlgorithm
 import com.nimbusds.jose.jwk.KeyUse
 import com.nimbusds.jose.jwk.RSAKey
 import org.springframework.stereotype.Service
-import ru.woowy.application.config.AppProperties
+import ru.woowy.application.config.app.AppProperties
 import java.security.interfaces.RSAPublicKey
 
 @Service

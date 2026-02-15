@@ -1,4 +1,4 @@
-package ru.woowy.application.config
+package ru.woowy.application.config.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

@@ -1,4 +1,4 @@
-package ru.woowy.application.config
+package ru.woowy.application.config.documentation
 
 import io.swagger.v3.oas.models.Components
 import io.swagger.v3.oas.models.OpenAPI
@@ -8,6 +8,8 @@ import io.swagger.v3.oas.models.security.SecurityRequirement
 import io.swagger.v3.oas.models.servers.Server
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import ru.woowy.application.config.app.AppConfiguration
+import ru.woowy.application.config.security.AuthenticationScheme
 
 @Configuration
 internal class OpenApiConfig(
@@ -25,7 +27,7 @@ internal class OpenApiConfig(
 
         val server =
             Server()
-                .url("http://localhost:9393") // TODO
+                .url("http://localhost:9696") // TODO
                 .description("Auth Service")
 
         val components =

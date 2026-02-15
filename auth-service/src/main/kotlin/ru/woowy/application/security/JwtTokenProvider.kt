@@ -5,7 +5,7 @@ import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
-import ru.woowy.application.config.AppProperties
+import ru.woowy.application.config.app.AppProperties
 import ru.woowy.domain.model.Token
 import ru.woowy.domain.model.TokenType
 import ru.woowy.security.User
