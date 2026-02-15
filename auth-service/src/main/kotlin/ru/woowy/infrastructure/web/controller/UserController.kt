@@ -7,7 +7,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import ru.woowy.application.config.RestEndpoint
+import ru.woowy.application.config.documentation.RestEndpoint
 import ru.woowy.application.usecase.GetUserByIdUseCase
 import ru.woowy.infrastructure.model.UserPrincipal
 import ru.woowy.security.UserDto

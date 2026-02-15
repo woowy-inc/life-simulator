@@ -1,4 +1,4 @@
-package ru.woowy.application.config
+package ru.woowy.application.config.documentation
 
 object RestEndpoint {
     const val BASE_URL = "/user"

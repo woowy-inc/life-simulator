@@ -1,4 +1,4 @@
-package ru.woowy.application.config
+package ru.woowy.application.config.app
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.NestedConfigurationProperty

@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "ru.woowy"
-version = "0.1.1"
+version = "0.2.0"
 
 repositories {
     mavenCentral()
@@ -17,7 +17,10 @@ repositories {
 
 dependencies {
     implementation(project(":common-domain"))
+    implementation(project(":common-events"))
+
     implementation(libs.bundles.springboot.security.ecosystem)
+    implementation(libs.bundles.springboot.kafka.ecosystem)
     implementation(libs.springboot.starter.eureka.client)
     implementation(libs.springboot.starter.vault.config)
     implementation(libs.springframework.vault.core)
@@ -26,10 +29,10 @@ dependencies {
     implementation(libs.springboot.starter.springdoc.ui)
     implementation(libs.kotlin.reflect)
     implementation(libs.kotlin.jackson)
+    implementation(libs.kotlinx.coroutines)
     implementation(libs.jjwt.api)
     runtimeOnly(libs.jjwt.impl)
     runtimeOnly(libs.jjwt.gson)
-
     runtimeOnly(libs.postgresql.jdbc)
 
     testImplementation(kotlin("test"))
