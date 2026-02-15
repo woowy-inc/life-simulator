@@ -115,3 +115,19 @@ services:
       postgres:
         condition: service_healthy
     restart: unless-stopped
+
+  notification-service:
+    build:
+      context: ./notification-service
+      dockerfile: Dockerfile
+    container_name: notification-service
+    ports:
+      - "9592:9592"
+    volumes:
+      - ./notification-service/logs:/app/logs
+    env_file:
+      - ./notification-service/.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
