@@ -13,6 +13,7 @@ jjwt = "0.13.0"
 openapiUi = "3.0.1"
 vaultConfig = "5.0.1"
 vaultCore = "4.0.0"
+protobuf = "1.10.0"
 
 [libraries]
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -50,6 +51,8 @@ kotlin-jackson = { module = "tools.jackson.module:jackson-module-kotlin", versio
 jjwt-api = { module = "io.jsonwebtoken:jjwt-api", version.ref = "jjwt" }
 jjwt-impl = { module = "io.jsonwebtoken:jjwt-impl", version.ref = "jjwt" }
 jjwt-gson = { module = "io.jsonwebtoken:jjwt-gson", version.ref = "jjwt" }
+
+kotlin-serialization-protobuf = { module = "org.jetbrains.kotlinx:kotlinx-serialization-protobuf", version.ref = "protobuf" }
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
