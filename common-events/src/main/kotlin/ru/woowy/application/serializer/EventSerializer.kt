@@ -1,7 +1,7 @@
-package ru.woowy.application.config.serializer
+package ru.woowy.application.serializer
 
 import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.serializer
+import kotlinx.serialization.PolymorphicSerializer
 import ru.woowy.domain.model.Event
 import org.apache.kafka.common.serialization.Serializer as KafkaSerializer
 
@@ -11,6 +11,6 @@ class EventSerializer : KafkaSerializer<Event> {
         topic: String?,
         data: Event?,
     ): ByteArray? = data?.let {
-        protoBuf.encodeToByteArray(serializer(), it)
+        protoBuf.encodeToByteArray(PolymorphicSerializer(Event::class), it)
     }
 }
