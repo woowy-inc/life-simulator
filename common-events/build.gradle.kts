@@ -12,6 +12,9 @@ repositories {
 dependencies {
     implementation(project(":common-domain"))
 
+    implementation(libs.springboot.kafka.starter)
+    implementation(libs.kotlin.serialization.protobuf)
+
     testImplementation(kotlin("test"))
 }
 
