@@ -4,7 +4,7 @@ WORKDIR /app
 
 RUN apk add --no-cache curl
 
-COPY build/libs/eureka-service-0.0.1.jar app.jar
+COPY build/libs/eureka-service-*.jar app.jar
 
 EXPOSE 8761
 
