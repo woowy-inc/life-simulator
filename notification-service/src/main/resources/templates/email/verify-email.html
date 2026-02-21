@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подтвердите email — Woowy</title>
+</head>
+<body style="margin:0;padding:0;background-color:#0F172A;font-family:Arial,Helvetica,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td align="center" style="padding:40px 20px;">
+
+            <div th:replace="~{email/header :: header('Подтверждение email')}"></div>
+
+            <table width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
+                <tr>
+                    <td style="background-color:#1E293B;padding:40px;">
+                        <h2 style="margin:0 0 16px;font-size:24px;font-weight:700;color:#F1F5F9;">
+                            Привет, <span th:text="${firstName}" style="color:#818CF8;">Пользователь</span>!
+                        </h2>
+                        <p style="margin:0 0 32px;font-size:15px;color:#94A3B8;line-height:1.7;">
+                            Для завершения регистрации подтвердите ваш email адрес.
+                            Ссылка действительна в течение <strong style="color:#F1F5F9;">24 часов</strong>.
+                        </p>
+
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom:32px;">
+                            <tr>
+                                <td align="center">
+                                    <a th:href="${verifyUrl}" href="#"
+                                       style="display:inline-block;padding:18px 56px;background:linear-gradient(135deg,#667EEA 0%,#764BA2 100%);color:#ffffff;font-size:16px;font-weight:700;text-decoration:none;border-radius:12px;">
+                                        Подтвердить email
+                                    </a>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                            <tr>
+                                <td style="background-color:#0F172A;border:1px solid #334155;border-radius:12px;padding:20px;">
+                                    <p style="margin:0 0 8px;font-size:12px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:0.5px;">
+                                        Или скопируйте ссылку</p>
+                                    <p style="margin:0;font-size:13px;color:#818CF8;word-break:break-all;line-height:1.6;"
+                                       th:text="${verifyUrl}">https://woowy.ru/verify?token=...</p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+            <div th:replace="~{email/footer :: footer('Если вы не запрашивали подтверждение — просто проигнорируйте это письмо. Ссылка станет недействительной через 24 часа.')}"></div>
+
+        </td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="footer(warningText)">
+    <table width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
+        <tr>
+            <td style="background-color:#1E293B;padding:0 40px 32px;">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:12px;padding:20px;">
+                            <p style="margin:0 0 4px;font-size:14px;font-weight:700;color:#F1F5F9;">&#9888; Не вы это
+                                сделали?</p>
+                            <p style="margin:0;font-size:13px;color:#94A3B8;line-height:1.6;" th:text="${warningText}">
+                                Если вы не регистрировались на Woowy — просто проигнорируйте это письмо.
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td style="background-color:#0F172A;padding:24px 40px;border-radius:0 0 20px 20px;border-top:1px solid #7F1D1D;">
+                <p style="margin:0;font-size:12px;color:#EF4444;text-align:center;line-height:1.6;">
+                    © 2026 Woowy. Все права защищены.<br>
+                    <span style="color:#DC2626;">Это автоматическое письмо, не отвечайте на него.</span>
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
