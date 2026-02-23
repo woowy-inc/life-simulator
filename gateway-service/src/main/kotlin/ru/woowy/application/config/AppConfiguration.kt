@@ -7,6 +7,6 @@ import org.springframework.context.annotation.Configuration
 @EnableConfigurationProperties(AppProperties::class)
 internal class AppConfiguration {
     companion object {
-        const val APP_VERSION = "0.0.5"
+        const val APP_VERSION = "0.1.0"
     }
 }
