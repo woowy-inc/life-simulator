@@ -7,5 +7,7 @@ import java.util.UUID
 
 @Repository
 internal interface CrudUserRepository : CrudRepository<UserEntity, UUID> {
+    fun existsByUsername(username: String): Boolean
+
     fun findUserByUsername(username: String): UserEntity?
 }

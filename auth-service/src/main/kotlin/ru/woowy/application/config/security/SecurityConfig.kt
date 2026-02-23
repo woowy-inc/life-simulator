@@ -44,13 +44,7 @@ internal class SecurityConfig(
 
     private fun AuthorizeHttpRequestsConfigurer<*>.AuthorizationManagerRequestMatcherRegistry.configureHttpRequest() {
         this
-            .requestMatchers("/user/register/**")
-            .permitAll()
-            .requestMatchers("/user/login/**")
-            .permitAll()
-            .requestMatchers("/user/token/**")
-            .permitAll()
-            .requestMatchers("/user/email/**")
+            .requestMatchers("/user/**")
             .permitAll()
             .requestMatchers("/.well-known/jwks.json")
             .permitAll()

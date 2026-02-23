@@ -7,4 +7,5 @@ object RestEndpoint {
     const val REGISTER_URL = "/register"
     const val PROFILE_URL = "/profile"
     const val EMAIL_VERIFY = "/email/verify"
+    const val USERNAME_AVAILABLE = "/username/available"
 }
