@@ -6,11 +6,13 @@ import kotlinx.serialization.modules.polymorphic
 import kotlinx.serialization.modules.subclass
 import kotlinx.serialization.protobuf.ProtoBuf
 import ru.woowy.domain.model.Event
+import ru.woowy.domain.model.UserRegisterRequestedEvent
 import ru.woowy.domain.model.UserRegisteredEvent
 
 private val eventModule =
     SerializersModule {
         polymorphic(Event::class) {
+            subclass(UserRegisterRequestedEvent::class)
             subclass(UserRegisteredEvent::class)
         }
     }
