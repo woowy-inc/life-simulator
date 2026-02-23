@@ -9,4 +9,5 @@ data class User(
     val password: String,
     val firstName: String,
     val role: UserRole,
+    val isEmailVerified: Boolean,
 )

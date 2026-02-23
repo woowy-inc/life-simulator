@@ -8,4 +8,5 @@ data class UserDto(
     val email: String,
     val firstName: String,
     val role: UserRole,
+    val isEmailVerified: Boolean,
 )
