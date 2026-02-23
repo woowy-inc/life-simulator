@@ -1,6 +1,14 @@
 app:
   cors:
     allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000}
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - name: auth-service
+        url: /api-docs/auth-service
+  api-docs:
+    enabled: true
 server:
   port: ${SERVER_PORT:9696}
 spring:

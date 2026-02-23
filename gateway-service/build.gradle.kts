@@ -21,6 +21,7 @@ dependencies {
     implementation(libs.springboot.starter.loadbalancer)
     implementation(libs.springboot.starter.eureka.client)
     implementation(libs.kotlin.reflect)
+    implementation(libs.springboot.starter.springdoc.ui)
 
     testImplementation(kotlin("test"))
 }
