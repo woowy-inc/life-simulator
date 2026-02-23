@@ -6,9 +6,7 @@ import org.springframework.kafka.support.Acknowledgment
 import org.springframework.messaging.handler.annotation.Payload
 import org.springframework.stereotype.Service
 import ru.woowy.application.usecase.SendEmailUseCase
-import ru.woowy.domain.model.EmailVerifyEvent
 import ru.woowy.domain.model.Event
-import ru.woowy.domain.model.UserRegisteredEvent
 import ru.woowy.game.KafkaTopic
 
 @Service
@@ -18,19 +16,8 @@ internal class UserEventHandler(
     private val logger = LoggerFactory.getLogger(UserEventHandler::class.java)
 
     @KafkaListener(topics = [KafkaTopic.USER_EVENTS])
-    suspend fun handleUserRegistered(
-        @Payload event: UserRegisteredEvent,
-        ack: Acknowledgment,
-    ) = handleEmail(event, ack)
-
-    @KafkaListener(topics = [KafkaTopic.USER_EVENTS])
-    suspend fun handleEmailVerify(
-        @Payload event: EmailVerifyEvent,
-        ack: Acknowledgment,
-    ) = handleEmail(event, ack)
-
-    private suspend fun handleEmail(
-        event: Event,
+    suspend fun handleUserEvent(
+        @Payload event: Event,
         ack: Acknowledgment,
     ) {
         logger.info("Received $event")
