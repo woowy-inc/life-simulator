@@ -9,5 +9,7 @@ internal interface UserRepository {
 
     fun findById(userId: UUID): User?
 
-    fun addUser(request: UserRegisterRequest): User
+    fun add(request: UserRegisterRequest): User
+
+    fun update(user: User): User
 }

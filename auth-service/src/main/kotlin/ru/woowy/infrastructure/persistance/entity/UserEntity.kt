@@ -8,6 +8,8 @@ import jakarta.persistence.Id
 import ru.woowy.security.UserRole
 import java.util.UUID
 
+typealias UserId = UUID
+
 @Entity(name = "users")
 internal data class UserEntity(
     @Id
@@ -23,4 +25,6 @@ internal data class UserEntity(
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
     val role: UserRole,
+    @Column(name = "is_email_verified")
+    val isEmailVerified: Boolean,
 )

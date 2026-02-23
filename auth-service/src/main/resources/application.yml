@@ -29,7 +29,7 @@ spring:
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
     consumer:
-      group-id: ${KAFKA_CONSUMER_GROUP_ID:life-sim-group}
+      group-id: ${KAFKA_CONSUMER_GROUP_ID:auth-consumer}
       auto-offset-reset: ${KAFKA_CONSUMER_AUTO_OFFSET_RESET:earliest}
       key-deserializer: ${KAFKA_CONSUMER_KEY_DESERIALIZER:org.apache.kafka.common.serialization.StringDeserializer}
       value-deserializer: ${KAFKA_CONSUMER_VALUE_DESERIALIZER:ru.woowy.application.serializer.EventDeserializer}

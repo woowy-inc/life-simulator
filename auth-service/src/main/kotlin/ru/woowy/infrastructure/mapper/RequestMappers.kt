@@ -1,4 +1,4 @@
-package ru.woowy.infrastructure.mapping
+package ru.woowy.infrastructure.mapper
 
 import ru.woowy.domain.model.UserRegisterRequest
 import ru.woowy.infrastructure.persistance.entity.UserEntity
@@ -9,5 +9,6 @@ internal fun UserRegisterRequest.asEntity(): UserEntity = UserEntity(
     email = this.email,
     password = this.password,
     firstName = this.firstName,
-    role = UserRole.USER,
+    role = UserRole.PENDING,
+    isEmailVerified = false,
 )
