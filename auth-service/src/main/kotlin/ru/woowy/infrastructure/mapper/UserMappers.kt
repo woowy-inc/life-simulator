@@ -1,11 +1,12 @@
-package ru.woowy.infrastructure.mapping
+package ru.woowy.infrastructure.mapper
 
+import ru.woowy.domain.model.UserRegisterRequestedEvent
 import ru.woowy.domain.model.UserRegisteredEvent
 import ru.woowy.infrastructure.persistance.entity.UserEntity
 import ru.woowy.security.User
 import ru.woowy.security.UserDto
-import java.time.Instant
 import java.util.UUID
+import kotlin.time.Clock
 
 internal fun UserEntity.asDomain(): User = User(
     id = this.id,
@@ -14,6 +15,7 @@ internal fun UserEntity.asDomain(): User = User(
     password = this.password,
     firstName = this.firstName,
     role = this.role,
+    isEmailVerified = this.isEmailVerified,
 )
 
 internal fun User.asEntity(): UserEntity = UserEntity(
@@ -23,6 +25,7 @@ internal fun User.asEntity(): UserEntity = UserEntity(
     password = this.password,
     firstName = this.firstName,
     role = this.role,
+    isEmailVerified = this.isEmailVerified,
 )
 
 internal fun User.asDto(): UserDto = UserDto(
@@ -31,11 +34,22 @@ internal fun User.asDto(): UserDto = UserDto(
     email = this.email,
     firstName = this.firstName,
     role = this.role,
+    isEmailVerified = this.isEmailVerified,
+)
+
+internal fun User.asRegisterRequestedEvent(key: String): UserRegisterRequestedEvent = UserRegisterRequestedEvent(
+    eventId = UUID.randomUUID().toString(),
+    timestamp = Clock.System.now().toEpochMilliseconds(),
+    userId = this.id.toString(),
+    username = this.username,
+    email = this.email,
+    firstName = this.firstName,
+    key = key,
 )
 
 internal fun User.asRegisteredEvent(): UserRegisteredEvent = UserRegisteredEvent(
     eventId = UUID.randomUUID().toString(),
-    timestamp = Instant.now().toEpochMilli(),
+    timestamp = Clock.System.now().toEpochMilliseconds(),
     userId = this.id.toString(),
     username = this.username,
     email = this.email,

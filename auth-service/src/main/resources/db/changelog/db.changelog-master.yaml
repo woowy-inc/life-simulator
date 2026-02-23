@@ -1,3 +1,7 @@
 databaseChangeLog:
   - include:
       file: classpath:db/changelog/changesets/V1__users.sql
+  - include:
+      file: classpath:db/changelog/changesets/V2__email_verification_keys.sql
+  - include:
+      file: classpath:db/changelog/changesets/V3__email_verified_users.sql

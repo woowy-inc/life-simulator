@@ -5,8 +5,8 @@ import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Component
 import org.springframework.transaction.event.TransactionPhase
 import org.springframework.transaction.event.TransactionalEventListener
-import ru.woowy.domain.model.EmailVerifyEvent
 import ru.woowy.domain.model.Event
+import ru.woowy.domain.model.UserRegisterRequestedEvent
 import ru.woowy.domain.model.UserRegisteredEvent
 import ru.woowy.game.KafkaTopic
 
@@ -17,13 +17,13 @@ internal class UserEventListener(
     private val logger = LoggerFactory.getLogger(UserEventListener::class.java)
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    fun handleUserRegistered(event: UserRegisteredEvent) {
+    fun handleUserRegisterRequested(event: UserRegisterRequestedEvent) {
         sendEvent(KafkaTopic.USER_EVENTS, event.userId, event)
     }
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
-    fun handleEmailVerify(event: EmailVerifyEvent) {
-        sendEvent(KafkaTopic.USER_EVENTS, event.email, event)
+    fun handleUserRegistered(event: UserRegisteredEvent) {
+        sendEvent(KafkaTopic.USER_EVENTS, event.userId, event)
     }
 
     private fun sendEvent(

@@ -6,11 +6,13 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import ru.woowy.application.config.documentation.RestEndpoint
 import ru.woowy.application.usecase.RefreshAccessTokenUseCase
 import ru.woowy.application.usecase.UserLoginByUsernameUseCase
 import ru.woowy.application.usecase.UserRegisterUseCase
+import ru.woowy.application.usecase.VerifyUserEmailUseCase
 import ru.woowy.domain.model.RefreshTokenRequest
 import ru.woowy.domain.model.TokenDto
 import ru.woowy.domain.model.UserRegisterRequest
@@ -23,6 +25,7 @@ import ru.woowy.security.UserDto
 internal class AuthController(
     private val userLoginByUsernameUseCase: UserLoginByUsernameUseCase,
     private val userRegisterUseCase: UserRegisterUseCase,
+    private val verifyUserEmailUseCase: VerifyUserEmailUseCase,
     private val refreshAccessTokenUseCase: RefreshAccessTokenUseCase,
 ) {
     @Operation(summary = "Login by username", security = [])
@@ -42,4 +45,10 @@ internal class AuthController(
     fun registerUser(
         @RequestBody request: UserRegisterRequest,
     ): ResponseEntity<UserDto> = ResponseEntity.ok(userRegisterUseCase(request))
+
+    @Operation(summary = "Verify user email", security = [])
+    @PostMapping(RestEndpoint.EMAIL_VERIFY)
+    fun verifyUserEmail(
+        @RequestParam key: String,
+    ): ResponseEntity<UserDto> = ResponseEntity.ok(verifyUserEmailUseCase(key))
 }

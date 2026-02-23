@@ -1,4 +1,4 @@
-package ru.woowy.infrastructure.persistance
+package ru.woowy.infrastructure.persistance.repository
 
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
