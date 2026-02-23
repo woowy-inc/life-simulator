@@ -1,5 +1,7 @@
 package ru.woowy.security
 
+typealias ServiceId = String
+
 enum class Service(
     val id: String,
 ) {
