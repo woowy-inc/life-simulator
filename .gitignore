@@ -61,3 +61,4 @@ auth-service/logs/
 time-service/logs/
 character-service/logs/
 world-service/logs/
+/postgres/data/
