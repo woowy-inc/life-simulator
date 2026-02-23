@@ -19,7 +19,8 @@
                             Привет, <span th:text="${firstName}" style="color:#818CF8;">Пользователь</span>!
                         </h2>
                         <p style="margin:0 0 32px;font-size:15px;color:#94A3B8;line-height:1.7;">
-                            Для завершения регистрации подтвердите ваш email адрес.
+                            Вы успешно зарегистрировались на Woowy! Осталось совсем немного —
+                            подтвердите ваш email, чтобы получить полный доступ к аккаунту.
                             Ссылка действительна в течение <strong style="color:#F1F5F9;">24 часов</strong>.
                         </p>
 
@@ -40,7 +41,7 @@
                                     <p style="margin:0 0 8px;font-size:12px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:0.5px;">
                                         Или скопируйте ссылку</p>
                                     <p style="margin:0;font-size:13px;color:#818CF8;word-break:break-all;line-height:1.6;"
-                                       th:text="${verifyUrl}">https://woowy.ru/verify?token=...</p>
+                                       th:text="${verifyUrl}">https://woowy.ru/verify?key=...</p>
                                 </td>
                             </tr>
                         </table>
@@ -48,7 +49,7 @@
                 </tr>
             </table>
 
-            <div th:replace="~{email/footer :: footer('Если вы не запрашивали подтверждение — просто проигнорируйте это письмо. Ссылка станет недействительной через 24 часа.')}"></div>
+            <div th:replace="~{email/footer :: footer('Если вы не регистрировались на Woowy — просто проигнорируйте это письмо. Ссылка станет недействительной через 24 часа.')}"></div>
 
         </td>
     </tr>
