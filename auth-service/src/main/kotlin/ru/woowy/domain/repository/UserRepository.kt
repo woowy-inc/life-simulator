@@ -5,6 +5,8 @@ import ru.woowy.security.User
 import java.util.UUID
 
 internal interface UserRepository {
+    fun isUsernameExists(username: String): Boolean
+
     fun findByUsername(username: String): User?
 
     fun findById(userId: UUID): User?
