@@ -18,16 +18,6 @@ internal class RouteConfig {
         .filter(lb(Service.AUTH_SERVICE.id))
         .build()
         .and(
-            route("auth-swagger")
-                .route(
-                    path("/swagger-ui/**")
-                        .or(path("/v3/api-docs/**"))
-                        .or(path("/swagger-resources/**"))
-                        .or(path("/webjars/**")),
-                    http(),
-                ).filter(lb(Service.AUTH_SERVICE.id))
-                .build(),
-        ).and(
             route("auth-route")
                 .route(path("/user/**"), http())
                 .filter(lb(Service.AUTH_SERVICE.id))
