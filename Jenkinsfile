@@ -12,21 +12,23 @@ pipeline {
         stage('Detect service') {
             steps {
                 script {
-                    def tag = env.TAG_NAME ?: ''
+                    def tag = env.TAG_NAME ?: env.BRANCH_NAME ?: ''
 
-                    if (!tag) {
+                    if (!tag || tag == 'main') {
                         echo "Not a tag build, skipping..."
                         currentBuild.result = 'NOT_BUILT'
                         return
                     }
 
-                    if (!tag.contains('/')) {
-                        error("Tag format must be <service-name>/v<version>, got: '${tag}'")
+                    def matcher = tag =~ /^(.+)\/(v.+)$/
+                    if (!matcher.matches()) {
+                        echo "Branch '${tag}' is not a service tag, skipping..."
+                        currentBuild.result = 'NOT_BUILT'
+                        return
                     }
 
-                    def parts = tag.split('/')
-                    env.SERVICE_NAME = parts[0]
-                    env.SERVICE_VERSION = parts[1]
+                    env.SERVICE_NAME = matcher[0][1]
+                    env.SERVICE_VERSION = matcher[0][2]
                     echo "Service: ${env.SERVICE_NAME}, Version: ${env.SERVICE_VERSION}"
                 }
             }
