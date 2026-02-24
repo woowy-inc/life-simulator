@@ -12,17 +12,12 @@ pipeline {
         stage('Detect service') {
             steps {
                 script {
-                    def ref = env.BRANCH_NAME ?: ''
+                    def tag = env.REF ?: ''
 
-                    if (ref == 'main' || ref.startsWith('feature/') || ref.startsWith('fix/') || ref.startsWith('hotfix/')) {
-                        currentBuild.result = 'NOT_BUILT'
-                        error("Branch '${ref}', skipping")
-                    }
-
-                    def matcher = ref =~ /^(.+-service)\/(v.+)$/
+                    def matcher = tag =~ /^(.+-service)\/(v.+)$/
                     if (!matcher.matches()) {
                         currentBuild.result = 'NOT_BUILT'
-                        error("'${ref}' is not a valid service tag, skipping")
+                        error("'${tag}' is not a valid service tag, skipping")
                     }
 
                     env.SERVICE_NAME = matcher[0][1]
