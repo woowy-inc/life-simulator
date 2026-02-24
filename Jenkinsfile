@@ -119,8 +119,8 @@ pipeline {
                             "title": "❌ Deploy Failed",
                             "color": 15158332,
                             "fields": [
-                                {"name": "Service", "value": "${env.SERVICE_NAME ?: 'unknown'}", "inline": true},
-                                {"name": "Version", "value": "${env.SERVICE_VERSION ?: 'unknown'}", "inline": true},
+                                {"name": "Service", "value": "${env.SERVICE_NAME}", "inline": true},
+                                {"name": "Version", "value": "${env.SERVICE_VERSION}", "inline": true},
                                 {"name": "Build", "value": "#${env.BUILD_NUMBER}", "inline": true},
                                 {"name": "Logs", "value": "${env.BUILD_URL}console", "inline": false}
                             ]
@@ -129,7 +129,6 @@ pipeline {
                     \$DISCORD_URL
                 """
             }
-            echo "Successfully deployed ${env.SERVICE_NAME} ${env.SERVICE_VERSION}"
         }
     }
 }
