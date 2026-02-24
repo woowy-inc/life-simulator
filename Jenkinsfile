@@ -94,7 +94,7 @@ pipeline {
                     -X POST \
                     -d '{
                         "embeds": [{
-                            "title": "✅ Deploy Successful",
+                            "title": "✅ Backend Deploy Successful",
                             "color": 3066993,
                             "fields": [
                                 {"name": "Service", "value": "${env.SERVICE_NAME}", "inline": true},
@@ -116,7 +116,7 @@ pipeline {
                     -X POST \
                     -d '{
                         "embeds": [{
-                            "title": "❌ Deploy Failed",
+                            "title": "❌ Backend Deploy Failed",
                             "color": 15158332,
                             "fields": [
                                 {"name": "Service", "value": "${env.SERVICE_NAME}", "inline": true},
