@@ -85,8 +85,50 @@ pipeline {
     post {
         always {
             sh 'docker logout ghcr.io || true'
+            sh 'docker image prune -f || true'
         }
         success {
+            withCredentials([string(credentialsId: 'discord-webhook', variable: 'DISCORD_URL')]) {
+                sh """
+                    curl -H "Content-Type: application/json" \
+                    -X POST \
+                    -d '{
+                        "embeds": [{
+                            "title": "✅ Deploy Successful",
+                            "color": 3066993,
+                            "fields": [
+                                {"name": "Service", "value": "${env.SERVICE_NAME}", "inline": true},
+                                {"name": "Version", "value": "${env.SERVICE_VERSION}", "inline": true},
+                                {"name": "Build", "value": "#${env.BUILD_NUMBER}", "inline": true},
+                                {"name": "Image", "value": "ghcr.io/dnartysh/${env.SERVICE_NAME}:${env.SERVICE_VERSION}", "inline": false},
+                                {"name": "URL", "value": "${env.BUILD_URL}", "inline": false}
+                            ]
+                        }]
+                    }' \
+                    \$DISCORD_URL
+                """
+            }
+        }
+        failure {
+            withCredentials([string(credentialsId: 'discord-webhook', variable: 'DISCORD_URL')]) {
+                sh """
+                    curl -H "Content-Type: application/json" \
+                    -X POST \
+                    -d '{
+                        "embeds": [{
+                            "title": "❌ Deploy Failed",
+                            "color": 15158332,
+                            "fields": [
+                                {"name": "Service", "value": "${env.SERVICE_NAME ?: 'unknown'}", "inline": true},
+                                {"name": "Version", "value": "${env.SERVICE_VERSION ?: 'unknown'}", "inline": true},
+                                {"name": "Build", "value": "#${env.BUILD_NUMBER}", "inline": true},
+                                {"name": "Logs", "value": "${env.BUILD_URL}console", "inline": false}
+                            ]
+                        }]
+                    }' \
+                    \$DISCORD_URL
+                """
+            }
             echo "Successfully deployed ${env.SERVICE_NAME} ${env.SERVICE_VERSION}"
         }
     }
