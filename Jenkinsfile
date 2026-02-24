@@ -13,9 +13,17 @@ pipeline {
             steps {
                 script {
                     def tag = env.TAG_NAME ?: ''
+
+                    if (!tag) {
+                        echo "Not a tag build, skipping..."
+                        currentBuild.result = 'NOT_BUILT'
+                        return
+                    }
+
                     if (!tag.contains('/')) {
                         error("Tag format must be <service-name>/v<version>, got: '${tag}'")
                     }
+
                     def parts = tag.split('/')
                     env.SERVICE_NAME = parts[0]
                     env.SERVICE_VERSION = parts[1]
