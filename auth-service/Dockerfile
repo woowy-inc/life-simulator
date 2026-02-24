@@ -1,5 +1,5 @@
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
-COPY build/libs/auth-service-*.jar app.jar
-EXPOSE 9696
+COPY auth-service/build/libs/auth-service-*.jar app.jar
+EXPOSE 9393
 ENTRYPOINT ["java", "-jar", "app.jar"]
