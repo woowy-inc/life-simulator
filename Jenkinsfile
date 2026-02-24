@@ -12,7 +12,12 @@ pipeline {
         stage('Detect service') {
             steps {
                 script {
-                    def tag = env.BRANCH_NAME ?: ''
+                    def tag = env.TAG_NAME ?: ''
+
+                    if (!tag) {
+                        currentBuild.result = 'NOT_BUILT'
+                        error("Not a tag build, skipping")
+                    }
 
                     def matcher = tag =~ /^(.+)\/(v.+)$/
                     if (!matcher.matches()) {
