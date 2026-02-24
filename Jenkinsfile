@@ -85,6 +85,7 @@ pipeline {
     post {
         always {
             sh 'docker logout ghcr.io || true'
+            sh 'docker image prune -f || true'
         }
         success {
             echo "Successfully deployed ${env.SERVICE_NAME} ${env.SERVICE_VERSION}"
