@@ -29,8 +29,7 @@ pipeline {
 
         stage('Build JAR') {
             steps {
-                sh "./gradlew :${env.SERVICE_NAME}:bootJar -x test"
-                sh "ls -la ${env.SERVICE_NAME}/build/libs/"
+                sh "./gradlew :${env.SERVICE_NAME}:clean bootJar -x test"
             }
         }
 
