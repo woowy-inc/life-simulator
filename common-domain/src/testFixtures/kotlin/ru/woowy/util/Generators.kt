@@ -1,7 +1,10 @@
 package ru.woowy.util
 
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 import kotlinx.datetime.todayIn
 import java.util.UUID
 import kotlin.random.Random
@@ -58,6 +61,18 @@ fun randomLocalDate(
     val fromDay = from.toEpochDays()
     val toDay = to.toEpochDays()
     return LocalDate.fromEpochDays(Random.nextLong(fromDay, toDay))
+}
+
+fun randomLocalDateTime(
+    from: LocalDateTime = LocalDateTime(2000, 1, 1, 0, 0, 0),
+    to: LocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.UTC),
+): LocalDateTime {
+    val fromSecond = from.toInstant(TimeZone.UTC).epochSeconds
+    val toSecond = to.toInstant(TimeZone.UTC).epochSeconds
+
+    return Instant
+        .fromEpochSeconds(Random.nextLong(fromSecond, toSecond))
+        .toLocalDateTime(TimeZone.UTC)
 }
 
 fun randomUUID(): UUID = UUID.randomUUID()
