@@ -11,20 +11,20 @@ import ru.woowy.extension.notFound
 import ru.woowy.extension.unauthorized
 
 @Service
-@Transactional
 internal class UserLoginByUsernameUseCase(
     private val userRepository: UserRepository,
     private val jwtTokenProvider: JwtTokenProvider,
     private val passwordEncoder: PasswordEncoder,
 ) {
+    @Transactional
     operator fun invoke(request: UsernameRequest): TokenDto {
         val user =
             userRepository
                 .findByUsername(request.username)
-                ?: notFound("User[username:${request.username}] not found")
+                ?: notFound(BAD_CREDENTIALS_MESSAGE)
 
         if (!passwordEncoder.matches(request.password, user.password)) {
-            unauthorized("Bad credentials")
+            unauthorized(BAD_CREDENTIALS_MESSAGE)
         }
 
         val accessToken = jwtTokenProvider.generateAccessToken(user)
@@ -36,5 +36,9 @@ internal class UserLoginByUsernameUseCase(
             refreshToken = refreshToken.value,
             refreshTokenExpiresIn = refreshToken.expiration,
         )
+    }
+
+    companion object {
+        private const val BAD_CREDENTIALS_MESSAGE = "Bad credentials"
     }
 }
