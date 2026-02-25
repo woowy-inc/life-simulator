@@ -13,7 +13,7 @@ import java.util.UUID
 internal class UserRepositoryAdapter(
     private val userRepository: CrudUserRepository,
 ) : UserRepository {
-    override fun isUsernameExists(username: String): Boolean = userRepository.existsByUsername(username)
+    override fun isUsernameExists(username: String): Boolean = userRepository.existsByUsernameIgnoreCase(username)
 
     override fun findByUsername(username: String): User? = userRepository.findUserByUsername(username)?.asDomain()
 
