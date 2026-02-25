@@ -73,6 +73,7 @@ pipeline {
                                 export SERVICE_IMAGE=${image}
                                 docker compose pull
                                 docker compose up -d --no-deps
+                                docker images ghcr.io/dnartysh/${env.SERVICE_NAME} --format "{{.Tag}}" | grep -v ${env.SERVICE_VERSION} | xargs -I {} docker rmi ghcr.io/dnartysh/${env.SERVICE_NAME}:{} 2>/dev/null || true
                                 docker logout ghcr.io
                             '
                         """
