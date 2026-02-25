@@ -1,6 +1,7 @@
 plugins {
     id("java")
     kotlin("jvm")
+    `java-test-fixtures`
 }
 
 group = "ru.woowy"
@@ -11,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation(libs.kotlinx.datetime)
+    testFixturesImplementation(libs.kotlinx.datetime)
 
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
