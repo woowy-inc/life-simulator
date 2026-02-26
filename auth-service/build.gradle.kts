@@ -37,6 +37,10 @@ dependencies {
     runtimeOnly(libs.jjwt.gson)
     runtimeOnly(libs.postgresql.jdbc)
 
+    testImplementation(libs.springboot.data.jpa.test)
+    testImplementation(libs.springboot.testcontainers)
+    testImplementation(libs.testcontainers.postgresql)
+    testImplementation(libs.testcontainers.junit.jupiter)
     testImplementation(libs.mockk)
 
     testImplementation(kotlin("test"))
