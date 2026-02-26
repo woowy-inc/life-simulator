@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import ru.woowy.application.config.documentation.RestEndpoint
 import ru.woowy.application.security.JwtAuthenticationFilter
 
 @Configuration
@@ -44,7 +45,7 @@ internal class SecurityConfig(
 
     private fun AuthorizeHttpRequestsConfigurer<*>.AuthorizationManagerRequestMatcherRegistry.configureHttpRequest() {
         this
-            .requestMatchers("/user/**")
+            .requestMatchers("${RestEndpoint.BASE_URL}/**")
             .permitAll()
             .requestMatchers("/.well-known/jwks.json")
             .permitAll()
