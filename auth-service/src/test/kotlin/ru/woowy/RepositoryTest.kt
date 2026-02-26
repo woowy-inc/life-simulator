@@ -2,9 +2,8 @@ package ru.woowy
 
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest
 import org.springframework.boot.jdbc.test.autoconfigure.AutoConfigureTestDatabase
-import org.springframework.boot.testcontainers.service.connection.ServiceConnection
-import org.testcontainers.containers.PostgreSQLContainer
-import org.testcontainers.junit.jupiter.Container
+import org.springframework.test.context.DynamicPropertyRegistry
+import org.springframework.test.context.DynamicPropertySource
 import org.testcontainers.junit.jupiter.Testcontainers
 
 @DataJpaTest
@@ -12,12 +11,12 @@ import org.testcontainers.junit.jupiter.Testcontainers
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 internal abstract class RepositoryTest {
     companion object {
-        @Container
-        @ServiceConnection
         @JvmStatic
-        val postgres =
-            PostgreSQLContainer<Nothing>("postgres:18.1").apply {
-                withReuse(true)
-            }
+        @DynamicPropertySource
+        fun properties(registry: DynamicPropertyRegistry) {
+            registry.add("spring.datasource.url", TestPostgresContainer.instance::getJdbcUrl)
+            registry.add("spring.datasource.username", TestPostgresContainer.instance::getUsername)
+            registry.add("spring.datasource.password", TestPostgresContainer.instance::getPassword)
+        }
     }
 }
