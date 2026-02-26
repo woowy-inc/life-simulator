@@ -15,6 +15,9 @@ internal abstract class RepositoryTest {
         @Container
         @ServiceConnection
         @JvmStatic
-        val postgres = PostgreSQLContainer<Nothing>("postgres:18.1")
+        val postgres =
+            PostgreSQLContainer<Nothing>("postgres:18.1").apply {
+                withReuse(true)
+            }
     }
 }
