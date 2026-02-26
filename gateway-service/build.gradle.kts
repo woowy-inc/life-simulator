@@ -24,6 +24,8 @@ dependencies {
     implementation(libs.springboot.starter.springdoc.ui)
 
     testImplementation(kotlin("test"))
+    testImplementation(libs.mockk)
+    testImplementation(libs.springboot.starter.test)
 }
 
 kotlin {
