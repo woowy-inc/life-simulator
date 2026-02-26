@@ -32,7 +32,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh "./gradlew :${env.SERVICE_NAME}:test"
+                sh "./gradlew :${env.SERVICE_NAME}:test --info"
             }
             post {
                 always {
