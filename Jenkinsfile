@@ -6,9 +6,9 @@ pipeline {
         DEPLOY_USER = "root"
         DEPLOY_HOST = "lifesim.woowy.ru"
         DEPLOY_PATH = "/opt/woowy/lifesim"
-        TEST_TOTAL = '0'
-        TEST_PASSED = '0'
-        TEST_FAILED = '0'
+        DOCKER_HOST = "unix:///var/run/docker.sock"
+        TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE = "/var/run/docker.sock"
+        TESTCONTAINERS_RYUK_DISABLED = "true"
     }
 
     stages {
@@ -37,11 +37,6 @@ pipeline {
             post {
                 always {
                     junit "**/build/test-results/test/*.xml"
-                    script {
-                        env.TEST_TOTAL = currentBuild.testResultAction?.totalCount ?: 0
-                        env.TEST_FAILED = currentBuild.testResultAction?.failCount ?: 0
-                        env.TEST_PASSED = env.TEST_TOTAL.toInteger() - env.TEST_FAILED.toInteger()
-                    }
                 }
             }
         }
@@ -109,49 +104,59 @@ pipeline {
         }
         success {
             withCredentials([string(credentialsId: 'discord-webhook', variable: 'DISCORD_URL')]) {
-                sh """
-                    curl -H "Content-Type: application/json" \
-                    -X POST \
-                    -d '{
-                        "embeds": [{
-                            "title": "✅ Backend Deploy Successful",
-                            "color": 3066993,
-                            "fields": [
-                                {"name": "Service", "value": "${env.SERVICE_NAME}", "inline": true},
-                                {"name": "Version", "value": "${env.SERVICE_VERSION}", "inline": true},
-                                {"name": "Build", "value": "#${env.BUILD_NUMBER}", "inline": true},
-                                {"name": "Tests", "value": "✅ ${env.TEST_PASSED}/${env.TEST_TOTAL} passed", "inline": true},
-                                {"name": "Image", "value": "ghcr.io/dnartysh/${env.SERVICE_NAME}:${env.SERVICE_VERSION}", "inline": false},
-                                {"name": "Test Results", "value": "${env.BUILD_URL}testReport", "inline": false},
-                                {"name": "URL", "value": "${env.BUILD_URL}", "inline": false}
-                            ]
-                        }]
-                    }' \
-                    \$DISCORD_URL
-                """
+                script {
+                    def total = currentBuild.testResultAction ? currentBuild.testResultAction.totalCount : 0
+                    def failed = currentBuild.testResultAction ? currentBuild.testResultAction.failCount : 0
+                    def passed = total - failed
+                    sh """
+                        curl -H "Content-Type: application/json" \
+                        -X POST \
+                        -d '{
+                            "embeds": [{
+                                "title": "✅ Backend Deploy Successful",
+                                "color": 3066993,
+                                "fields": [
+                                    {"name": "Service", "value": "${env.SERVICE_NAME}", "inline": true},
+                                    {"name": "Version", "value": "${env.SERVICE_VERSION}", "inline": true},
+                                    {"name": "Build", "value": "#${env.BUILD_NUMBER}", "inline": true},
+                                    {"name": "Tests", "value": "✅ ${passed}/${total} passed", "inline": true},
+                                    {"name": "Image", "value": "ghcr.io/dnartysh/${env.SERVICE_NAME}:${env.SERVICE_VERSION}", "inline": false},
+                                    {"name": "Test Results", "value": "${env.BUILD_URL}testReport", "inline": false},
+                                    {"name": "URL", "value": "${env.BUILD_URL}", "inline": false}
+                                ]
+                            }]
+                        }' \
+                        \$DISCORD_URL
+                    """
+                }
             }
         }
         failure {
             withCredentials([string(credentialsId: 'discord-webhook', variable: 'DISCORD_URL')]) {
-                sh """
-                    curl -H "Content-Type: application/json" \
-                    -X POST \
-                    -d '{
-                        "embeds": [{
-                            "title": "❌ Backend Deploy Failed",
-                            "color": 15158332,
-                            "fields": [
-                                {"name": "Service", "value": "${env.SERVICE_NAME}", "inline": true},
-                                {"name": "Version", "value": "${env.SERVICE_VERSION}", "inline": true},
-                                {"name": "Build", "value": "#${env.BUILD_NUMBER}", "inline": true},
-                                {"name": "Tests", "value": "❌ ${env.TEST_PASSED}/${env.TEST_TOTAL} passed (${env.TEST_FAILED} failed)", "inline": true},
-                                {"name": "Test Results", "value": "${env.BUILD_URL}testReport", "inline": false},
-                                {"name": "Logs", "value": "${env.BUILD_URL}console", "inline": false}
-                            ]
-                        }]
-                    }' \
-                    \$DISCORD_URL
-                """
+                script {
+                    def total = currentBuild.testResultAction ? currentBuild.testResultAction.totalCount : 0
+                    def failed = currentBuild.testResultAction ? currentBuild.testResultAction.failCount : 0
+                    def passed = total - failed
+                    sh """
+                        curl -H "Content-Type: application/json" \
+                        -X POST \
+                        -d '{
+                            "embeds": [{
+                                "title": "❌ Backend Deploy Failed",
+                                "color": 15158332,
+                                "fields": [
+                                    {"name": "Service", "value": "${env.SERVICE_NAME}", "inline": true},
+                                    {"name": "Version", "value": "${env.SERVICE_VERSION}", "inline": true},
+                                    {"name": "Build", "value": "#${env.BUILD_NUMBER}", "inline": true},
+                                    {"name": "Tests", "value": "❌ ${passed}/${total} passed (${failed} failed)", "inline": true},
+                                    {"name": "Test Results", "value": "${env.BUILD_URL}testReport", "inline": false},
+                                    {"name": "Logs", "value": "${env.BUILD_URL}console", "inline": false}
+                                ]
+                            }]
+                        }' \
+                        \$DISCORD_URL
+                    """
+                }
             }
         }
     }
