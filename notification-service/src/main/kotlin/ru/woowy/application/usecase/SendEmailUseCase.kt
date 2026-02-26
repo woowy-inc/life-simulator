@@ -2,9 +2,9 @@ package ru.woowy.application.usecase
 
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Service
+import ru.woowy.application.email.EmailBodyResolver
 import ru.woowy.application.email.EmailFactory
 import ru.woowy.application.email.EmailTemplateRenderer
-import ru.woowy.application.email.resolver.EmailBodyResolver
 import ru.woowy.domain.model.Event
 import ru.woowy.domain.service.EmailService
 

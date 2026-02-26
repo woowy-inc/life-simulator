@@ -24,6 +24,8 @@ dependencies {
     implementation(libs.springboot.starter.mail)
     implementation(libs.springboot.starter.thymeleaf)
 
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.mockk)
     testImplementation(kotlin("test"))
 }
 

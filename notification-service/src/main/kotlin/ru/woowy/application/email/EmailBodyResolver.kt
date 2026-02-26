@@ -1,4 +1,4 @@
-package ru.woowy.application.email.resolver
+package ru.woowy.application.email
 
 import org.springframework.stereotype.Component
 import ru.woowy.application.config.AppProperties
