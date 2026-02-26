@@ -85,7 +85,8 @@ pipeline {
 
     post {
         always {
-            sh 'docker image prune -f || true'
+            sh 'docker image prune -af --filter "until=24h" || true'
+            sh 'docker builder prune -f --filter "until=24h" || true'
         }
         success {
             withCredentials([string(credentialsId: 'discord-webhook', variable: 'DISCORD_URL')]) {
