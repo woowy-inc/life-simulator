@@ -1,11 +1,8 @@
 package ru.woowy.util
 
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.LocalDateTime
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toInstant
-import kotlinx.datetime.toLocalDateTime
-import kotlinx.datetime.todayIn
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 import java.util.UUID
 import kotlin.random.Random
 import kotlin.time.Clock
@@ -55,24 +52,22 @@ fun randomInstant(
 }
 
 fun randomLocalDate(
-    from: LocalDate = LocalDate(2000, 1, 1),
-    to: LocalDate = Clock.System.todayIn(TimeZone.UTC),
+    from: LocalDate = LocalDate.of(2000, 1, 1),
+    to: LocalDate = LocalDate.now(ZoneOffset.UTC),
 ): LocalDate {
-    val fromDay = from.toEpochDays()
-    val toDay = to.toEpochDays()
-    return LocalDate.fromEpochDays(Random.nextLong(fromDay, toDay))
+    val fromDay = from.toEpochDay()
+    val toDay = to.toEpochDay()
+    return LocalDate.ofEpochDay(Random.nextLong(fromDay, toDay))
 }
 
 fun randomLocalDateTime(
-    from: LocalDateTime = LocalDateTime(2000, 1, 1, 0, 0, 0),
-    to: LocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.UTC),
+    from: LocalDateTime = LocalDateTime.of(2000, 1, 1, 0, 0, 0),
+    to: LocalDateTime = LocalDateTime.now(ZoneOffset.UTC),
 ): LocalDateTime {
-    val fromSecond = from.toInstant(TimeZone.UTC).epochSeconds
-    val toSecond = to.toInstant(TimeZone.UTC).epochSeconds
+    val fromSecond = from.toEpochSecond(ZoneOffset.UTC)
+    val toSecond = to.toEpochSecond(ZoneOffset.UTC)
 
-    return Instant
-        .fromEpochSeconds(Random.nextLong(fromSecond, toSecond))
-        .toLocalDateTime(TimeZone.UTC)
+    return LocalDateTime.ofEpochSecond(Random.nextLong(fromSecond, toSecond), 0, ZoneOffset.UTC)
 }
 
 fun randomUUID(): UUID = UUID.randomUUID()
