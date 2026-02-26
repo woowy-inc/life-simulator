@@ -56,7 +56,7 @@ pipeline {
                         usernameVariable: 'REGISTRY_USER',
                         passwordVariable: 'REGISTRY_TOKEN'
                     )]) {
-                        sh "echo $REGISTRY_TOKEN | docker login ${env.REGISTRY} -u $REGISTRY_USER --password-stdin"
+                        sh 'echo $REGISTRY_TOKEN | docker login $REGISTRY -u $REGISTRY_USER --password-stdin'
                         sh "docker build -t ${image} -f ${env.SERVICE_NAME}/Dockerfile ."
                         sh "docker push ${image}"
                     }
@@ -81,8 +81,8 @@ pipeline {
                         def image = "${env.REGISTRY}/${env.SERVICE_NAME}:${env.SERVICE_VERSION}"
                         def serviceDir = getServiceDir(env.SERVICE_NAME)
                         sh """
-                            ssh -i $SSH_KEY -o StrictHostKeyChecking=no ${env.DEPLOY_USER}@${env.DEPLOY_HOST} '
-                                echo $REGISTRY_TOKEN | docker login ${env.REGISTRY} -u $REGISTRY_USER --password-stdin
+                            ssh -i \$SSH_KEY -o StrictHostKeyChecking=no ${env.DEPLOY_USER}@${env.DEPLOY_HOST} '
+                                echo \$REGISTRY_TOKEN | docker login ${env.REGISTRY} -u \$REGISTRY_USER --password-stdin
                                 cd ${env.DEPLOY_PATH}/${serviceDir}
                                 export SERVICE_IMAGE=${image}
                                 docker compose pull
@@ -99,6 +99,7 @@ pipeline {
 
     post {
         always {
+            sh 'docker logout $REGISTRY || true'
             sh 'docker image prune -af --filter "until=24h" || true'
             sh 'docker builder prune -f --filter "until=24h" || true'
         }
