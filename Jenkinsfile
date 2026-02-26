@@ -30,20 +30,20 @@ pipeline {
             }
         }
 
+        stage('Build JAR') {
+            steps {
+                sh "./gradlew :${env.SERVICE_NAME}:clean bootJar -x test"
+            }
+        }
+
         stage('Test') {
             steps {
-                sh "./gradlew :${env.SERVICE_NAME}:test --info"
+                sh "./gradlew :${env.SERVICE_NAME}:test"
             }
             post {
                 always {
                     junit "**/build/test-results/test/*.xml"
                 }
-            }
-        }
-
-        stage('Build JAR') {
-            steps {
-                sh "./gradlew :${env.SERVICE_NAME}:clean bootJar -x test"
             }
         }
 
