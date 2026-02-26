@@ -10,17 +10,21 @@ import ru.woowy.infrastructure.mapper.asDto
 import ru.woowy.infrastructure.mapper.asRegisteredEvent
 import ru.woowy.security.UserDto
 import ru.woowy.security.UserRole
-import java.time.OffsetDateTime
+import java.time.LocalDateTime
 
 @Service
+@Transactional
 internal class VerifyUserEmailUseCase(
     private val emailVerificationKeyRepository: EmailVerificationKeyRepository,
     private val userRepository: UserRepository,
     private val applicationEventPublisher: ApplicationEventPublisher,
 ) {
-    @Transactional
+    companion object {
+        const val ERROR_MESSAGE = "Invalid verification key"
+    }
+
     operator fun invoke(key: String): UserDto {
-        val now = OffsetDateTime.now()
+        val now = LocalDateTime.now()
         val key = emailVerificationKeyRepository.findByKey(key) ?: unauthorized(ERROR_MESSAGE)
 
         if (key.used || key.expiresAt < now) {
@@ -35,9 +39,5 @@ internal class VerifyUserEmailUseCase(
         applicationEventPublisher.publishEvent(updatedUser.asRegisteredEvent())
 
         return updatedUser.asDto()
-    }
-
-    companion object {
-        private const val ERROR_MESSAGE = "Bad verification key"
     }
 }

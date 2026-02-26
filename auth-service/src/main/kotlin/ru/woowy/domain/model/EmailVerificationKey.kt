@@ -1,11 +1,11 @@
 package ru.woowy.domain.model
 
 import ru.woowy.security.User
-import java.time.OffsetDateTime
+import java.time.LocalDateTime
 
 data class EmailVerificationKey(
     val key: String,
     val user: User,
-    val expiresAt: OffsetDateTime,
+    val expiresAt: LocalDateTime,
     val used: Boolean,
 )
