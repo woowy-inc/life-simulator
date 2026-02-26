@@ -51,8 +51,15 @@ pipeline {
             steps {
                 script {
                     def image = "${env.REGISTRY}/${env.SERVICE_NAME}:${env.SERVICE_VERSION}"
-                    sh "docker build -t ${image} -f ${env.SERVICE_NAME}/Dockerfile ."
-                    sh "docker push ${image}"
+                    withCredentials([usernamePassword(
+                        credentialsId: 'registry-credentials',
+                        usernameVariable: 'REGISTRY_USER',
+                        passwordVariable: 'REGISTRY_TOKEN'
+                    )]) {
+                        sh "echo $REGISTRY_TOKEN | docker login ${env.REGISTRY} -u $REGISTRY_USER --password-stdin"
+                        sh "docker build -t ${image} -f ${env.SERVICE_NAME}/Dockerfile ."
+                        sh "docker push ${image}"
+                    }
                 }
             }
         }
@@ -63,6 +70,11 @@ pipeline {
                     sshUserPrivateKey(
                         credentialsId: 'deploy-ssh-key',
                         keyFileVariable: 'SSH_KEY'
+                    ),
+                    usernamePassword(
+                        credentialsId: 'registry-credentials',
+                        usernameVariable: 'REGISTRY_USER',
+                        passwordVariable: 'REGISTRY_TOKEN'
                     )
                 ]) {
                     script {
@@ -70,11 +82,13 @@ pipeline {
                         def serviceDir = getServiceDir(env.SERVICE_NAME)
                         sh """
                             ssh -i $SSH_KEY -o StrictHostKeyChecking=no ${env.DEPLOY_USER}@${env.DEPLOY_HOST} '
+                                echo $REGISTRY_TOKEN | docker login ${env.REGISTRY} -u $REGISTRY_USER --password-stdin
                                 cd ${env.DEPLOY_PATH}/${serviceDir}
                                 export SERVICE_IMAGE=${image}
                                 docker compose pull
                                 docker compose up -d --no-deps
                                 docker images ${env.REGISTRY}/${env.SERVICE_NAME} --format "{{.Tag}}" | grep -v ${env.SERVICE_VERSION} | xargs -I {} docker rmi ${env.REGISTRY}/${env.SERVICE_NAME}:{} 2>/dev/null || true
+                                docker logout ${env.REGISTRY}
                             '
                         """
                     }
