@@ -15,6 +15,7 @@ vaultConfig = "5.0.1"
 vaultCore = "4.0.0"
 protobuf = "1.10.0"
 mockk = "1.14.9"
+testContainersPostgresql = "1.21.4"
 
 [libraries]
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -46,6 +47,11 @@ springboot-starter-thymeleaf = { module = "org.springframework.boot:spring-boot-
 springboot-kafka-starter = { module = "org.springframework.boot:spring-boot-starter-kafka", version.ref = "springBoot" }
 springboot-kafka = { module = "org.springframework.kafka:spring-kafka", version.ref = "springBoot" }
 springboot-server-tomcat = { module = "org.springframework.boot:spring-boot-starter-tomcat", version.ref = "springBoot" }
+
+springboot-data-jpa-test = { module = "org.springframework.boot:spring-boot-data-jpa-test", version.ref = "springBoot" }
+springboot-testcontainers = { module = "org.springframework.boot:spring-boot-testcontainers", version.ref = "springBoot" }
+testcontainers-postgresql = { module = "org.testcontainers:postgresql", version.ref = "testContainersPostgresql" }
+testcontainers-junit-jupiter = { module = "org.testcontainers:junit-jupiter", version.ref = "testContainersPostgresql" }
 
 postgresql-jdbc = { module = "org.postgresql:postgresql", version.ref = "postgresql" }
 migration-liquibase-core = { module = "org.liquibase:liquibase-core", version.ref = "liquibase" }
