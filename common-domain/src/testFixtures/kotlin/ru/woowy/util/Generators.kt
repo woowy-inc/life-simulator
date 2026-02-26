@@ -1,5 +1,6 @@
 package ru.woowy.util
 
+import ru.woowy.security.UserRole
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneOffset
@@ -71,3 +72,5 @@ fun randomLocalDateTime(
 }
 
 fun randomUUID(): UUID = UUID.randomUUID()
+
+fun randomUserRole(exclude: UserRole? = null): UserRole = UserRole.entries.filter { it != exclude }.random()
