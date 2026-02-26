@@ -105,9 +105,22 @@ pipeline {
         success {
             withCredentials([string(credentialsId: 'discord-webhook', variable: 'DISCORD_URL')]) {
                 script {
-                    def total = currentBuild.testResultAction ? currentBuild.testResultAction.totalCount : 0
-                    def failed = currentBuild.testResultAction ? currentBuild.testResultAction.failCount : 0
-                    def passed = total - failed
+                    def total = 0
+                    def failed = 0
+                    def passed = 0
+                    try {
+                        def files = findFiles(glob: '**/build/test-results/test/*.xml')
+                        files.each { f ->
+                            def xml = readFile(f.path)
+                            def m = xml =~ /tests="(\d+)"/
+                            if (m) total += m[0][1].toInteger()
+                            def fm = xml =~ /failures="(\d+)"/
+                            if (fm) failed += fm[0][1].toInteger()
+                            def em = xml =~ /errors="(\d+)"/
+                            if (em) failed += em[0][1].toInteger()
+                        }
+                        passed = total - failed
+                    } catch (e) {}
                     sh """
                         curl -H "Content-Type: application/json" \
                         -X POST \
@@ -134,9 +147,22 @@ pipeline {
         failure {
             withCredentials([string(credentialsId: 'discord-webhook', variable: 'DISCORD_URL')]) {
                 script {
-                    def total = currentBuild.testResultAction ? currentBuild.testResultAction.totalCount : 0
-                    def failed = currentBuild.testResultAction ? currentBuild.testResultAction.failCount : 0
-                    def passed = total - failed
+                    def total = 0
+                    def failed = 0
+                    def passed = 0
+                    try {
+                        def files = findFiles(glob: '**/build/test-results/test/*.xml')
+                        files.each { f ->
+                            def xml = readFile(f.path)
+                            def m = xml =~ /tests="(\d+)"/
+                            if (m) total += m[0][1].toInteger()
+                            def fm = xml =~ /failures="(\d+)"/
+                            if (fm) failed += fm[0][1].toInteger()
+                            def em = xml =~ /errors="(\d+)"/
+                            if (em) failed += em[0][1].toInteger()
+                        }
+                        passed = total - failed
+                    } catch (e) {}
                     sh """
                         curl -H "Content-Type: application/json" \
                         -X POST \
