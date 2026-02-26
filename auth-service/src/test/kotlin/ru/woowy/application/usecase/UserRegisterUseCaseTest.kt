@@ -16,7 +16,7 @@ import ru.woowy.helper.randomUserRegisterRequest
 import ru.woowy.infrastructure.mapper.asDto
 import kotlin.test.assertEquals
 
-class UserRegisterUseCaseTest {
+internal class UserRegisterUseCaseTest {
     private val userRepository = mockk<UserRepository>()
     private val emailVerificationKeyRepository = mockk<EmailVerificationKeyRepository>()
     private val passwordEncoder = mockk<PasswordEncoder>()

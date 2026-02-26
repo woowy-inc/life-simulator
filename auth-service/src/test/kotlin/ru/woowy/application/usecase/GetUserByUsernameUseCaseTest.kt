@@ -9,7 +9,7 @@ import ru.woowy.domain.repository.UserRepository
 import ru.woowy.helper.randomUser
 import kotlin.test.assertNull
 
-class GetUserByUsernameUseCaseTest {
+internal class GetUserByUsernameUseCaseTest {
     private val userRepository = mockk<UserRepository>()
     private val user = randomUser()
     private val useCase = GetUserByUsernameUseCase(userRepository)

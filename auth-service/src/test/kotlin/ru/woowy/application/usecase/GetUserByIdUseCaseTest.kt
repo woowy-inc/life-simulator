@@ -12,7 +12,7 @@ import ru.woowy.infrastructure.mapper.asDto
 import java.util.UUID
 import kotlin.test.assertEquals
 
-class GetUserByIdUseCaseTest {
+internal class GetUserByIdUseCaseTest {
     private val userRepository = mockk<UserRepository>()
     private val useCase = GetUserByIdUseCase(userRepository)
     private val userId = UUID.randomUUID()

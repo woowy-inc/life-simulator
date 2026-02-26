@@ -8,7 +8,7 @@ import ru.woowy.application.config.app.AppProperties
 import java.security.KeyPairGenerator
 import java.security.interfaces.RSAPublicKey
 
-class GetJwksUseCaseTest {
+internal class GetJwksUseCaseTest {
     private val rsaPublicKey =
         KeyPairGenerator
             .getInstance("RSA")

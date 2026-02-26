@@ -8,6 +8,7 @@ import ru.woowy.infrastructure.mapper.asEntity
 import ru.woowy.infrastructure.persistance.repository.CrudUserRepository
 import ru.woowy.security.User
 import java.util.UUID
+import kotlin.jvm.optionals.getOrNull
 
 @Component
 internal class UserRepositoryAdapter(
@@ -17,7 +18,7 @@ internal class UserRepositoryAdapter(
 
     override fun findByUsername(username: String): User? = userRepository.findUserByUsername(username)?.asDomain()
 
-    override fun findById(userId: UUID): User? = userRepository.findById(userId)?.get()?.asDomain()
+    override fun findById(userId: UUID): User? = userRepository.findById(userId).getOrNull()?.asDomain()
 
     override fun add(request: UserRegisterRequest): User = userRepository.save(request.asEntity()).asDomain()
 

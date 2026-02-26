@@ -15,7 +15,7 @@ import ru.woowy.helper.randomUser
 import ru.woowy.helper.randomUsernameRequest
 import kotlin.test.assertEquals
 
-class UserLoginByUsernameUseCaseTest {
+internal class UserLoginByUsernameUseCaseTest {
     private val getUserByUsernameUseCase = mockk<GetUserByUsernameUseCase>()
     private val jwtTokenProvider = mockk<JwtTokenProvider>()
     private val passwordEncoder = mockk<PasswordEncoder>()

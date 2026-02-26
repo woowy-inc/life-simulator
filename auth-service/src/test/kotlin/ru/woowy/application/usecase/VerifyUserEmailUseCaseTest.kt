@@ -19,7 +19,7 @@ import ru.woowy.infrastructure.mapper.asDto
 import ru.woowy.security.UserRole
 import java.time.LocalDateTime
 
-class VerifyUserEmailUseCaseTest {
+internal class VerifyUserEmailUseCaseTest {
     private val emailVerificationKeyRepository = mockk<EmailVerificationKeyRepository>()
     private val userRepository = mockk<UserRepository>()
     private val applicationEventPublisher = mockk<ApplicationEventPublisher>()

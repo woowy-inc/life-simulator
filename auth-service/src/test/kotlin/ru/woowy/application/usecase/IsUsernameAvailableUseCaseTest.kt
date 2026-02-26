@@ -9,7 +9,7 @@ import ru.woowy.domain.repository.UserRepository
 import ru.woowy.helper.randomUsernameAvailableDto
 import ru.woowy.util.randomUsername
 
-class IsUsernameAvailableUseCaseTest {
+internal class IsUsernameAvailableUseCaseTest {
     private val userRepository = mockk<UserRepository>()
     private val useCase = IsUsernameAvailableUseCase(userRepository)
     private val username = randomUsername()
