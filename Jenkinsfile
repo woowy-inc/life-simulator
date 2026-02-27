@@ -80,22 +80,23 @@ pipeline {
                     script {
                         def image = "${env.REGISTRY}/${env.SERVICE_NAME}:${env.SERVICE_VERSION}"
                         def serviceDir = getServiceDir(env.SERVICE_NAME)
-                        sh '''
-                            ssh -i $SSH_KEY -o StrictHostKeyChecking=no ''' + env.DEPLOY_USER + '''@''' + env.DEPLOY_HOST + ''' bash -s << 'ENDSSH'
-                                docker login ''' + env.REGISTRY + ''' -u $REGISTRY_USER --password-stdin <<< $REGISTRY_TOKEN
-                                cd ''' + env.DEPLOY_PATH + '''/''' + serviceDir + '''
-                                export SERVICE_IMAGE=''' + image + '''
+                        sh """
+                            ssh -i \$SSH_KEY -o StrictHostKeyChecking=no ${env.DEPLOY_USER}@${env.DEPLOY_HOST} \\
+                            REGISTRY_USER=\$REGISTRY_USER REGISTRY_TOKEN=\$REGISTRY_TOKEN \\
+                            bash -s << 'ENDSSH'
+                                printf '%s' "\$REGISTRY_TOKEN" | docker login ${env.REGISTRY} -u "\$REGISTRY_USER" --password-stdin
+                                cd ${env.DEPLOY_PATH}/${serviceDir}
+                                export SERVICE_IMAGE=${image}
                                 docker compose pull
                                 docker compose up -d --no-deps
-                                docker images ''' + env.REGISTRY + '''/''' + env.SERVICE_NAME + ''' --format "{{.Tag}}" | grep -v ''' + env.SERVICE_VERSION + ''' | xargs -I {} docker rmi ''' + env.REGISTRY + '''/''' + env.SERVICE_NAME + ''':{} 2>/dev/null || true
-                                docker logout ''' + env.REGISTRY + '''
-ENDSSH
-                        '''
+                                docker images ${env.REGISTRY}/${env.SERVICE_NAME} --format "{{.Tag}}" | grep -v ${env.SERVICE_VERSION} | xargs -I {} docker rmi ${env.REGISTRY}/${env.SERVICE_NAME}:{} 2>/dev/null || true
+                                docker logout ${env.REGISTRY}
+        ENDSSH
+                        """
                     }
                 }
             }
         }
-    }
 
     post {
         always {
