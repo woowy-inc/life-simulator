@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "ru.woowy"
-version = "0.29.0"
+version = "0.30.0"
 
 repositories {
     mavenCentral()
@@ -32,7 +32,9 @@ dependencies {
     implementation(libs.kotlin.jackson)
     implementation(libs.kotlinx.coroutines)
     implementation(libs.jjwt.api)
-    implementation(libs.kotlinx.datetime)
+    implementation(libs.springboot.starter.cache)
+    implementation(libs.caffeine)
+
     runtimeOnly(libs.jjwt.impl)
     runtimeOnly(libs.jjwt.gson)
     runtimeOnly(libs.postgresql.jdbc)

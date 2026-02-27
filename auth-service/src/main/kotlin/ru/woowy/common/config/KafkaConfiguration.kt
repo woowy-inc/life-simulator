@@ -8,7 +8,7 @@ import ru.woowy.game.KafkaTopic
 
 @Configuration
 @EnableKafka
-class KafkaConfig {
+class KafkaConfiguration {
     @Bean
     fun userEventsTopic(): NewTopic = NewTopic(KafkaTopic.USER_EVENTS, 5, 1.toShort())
 }
