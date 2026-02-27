@@ -6,6 +6,7 @@ import io.swagger.v3.oas.models.info.Contact
 import io.swagger.v3.oas.models.info.Info
 import io.swagger.v3.oas.models.security.SecurityRequirement
 import io.swagger.v3.oas.models.servers.Server
+import org.springframework.boot.info.BuildProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import ru.woowy.application.config.app.AppConfiguration
@@ -14,6 +15,7 @@ import ru.woowy.application.config.security.AuthenticationScheme
 @Configuration
 internal class OpenApiConfig(
     private val authenticationScheme: AuthenticationScheme,
+    private val buildProperties: BuildProperties,
 ) {
     @Bean
     fun openApi(): OpenAPI {
@@ -23,7 +25,7 @@ internal class OpenApiConfig(
                 .description("Woowy LifeSim: Auth Service description")
                 .contact(Contact().name("Denis").email("dnartysh@yandex.ru"))
                 .summary("Woowy summary")
-                .version(AppConfiguration.APP_VERSION)
+                .version(buildProperties.version)
 
         val server =
             Server()

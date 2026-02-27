@@ -51,6 +51,7 @@ kotlin {
 }
 
 springBoot {
+    buildInfo()
     mainClass.set("ru.woowy.AuthServiceApplicationKt")
 }
 
