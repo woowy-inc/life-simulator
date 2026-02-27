@@ -6,13 +6,15 @@ import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.security.crypto.password.PasswordEncoder
-import ru.woowy.application.security.JwtTokenProvider
+import ru.woowy.auth.application.usecase.UserLoginByUsernameUseCase
+import ru.woowy.auth.infrastructure.security.JwtTokenProvider
 import ru.woowy.exception.NotFoundException
 import ru.woowy.exception.UnauthorizedException
 import ru.woowy.helper.randomToken
 import ru.woowy.helper.randomTokenDto
 import ru.woowy.helper.randomUser
 import ru.woowy.helper.randomUsernameRequest
+import ru.woowy.user.application.usecase.GetUserByUsernameUseCase
 import kotlin.test.assertEquals
 
 internal class UserLoginByUsernameUseCaseTest {

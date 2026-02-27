@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired
 import ru.woowy.RepositoryTest
 import ru.woowy.helper.randomEmailVerificationKey
 import ru.woowy.helper.randomUserRegisterRequest
-import ru.woowy.infrastructure.persistance.repository.CrudEmailVerificationKeyRepository
-import ru.woowy.infrastructure.persistance.repository.CrudUserRepository
+import ru.woowy.user.infrastructure.persistance.adapter.EmailVerificationKeyAdapter
+import ru.woowy.user.infrastructure.persistance.adapter.UserRepositoryAdapter
+import ru.woowy.user.infrastructure.persistance.repository.CrudEmailVerificationKeyRepository
+import ru.woowy.user.infrastructure.persistance.repository.CrudUserRepository
 import ru.woowy.util.randomString
 import kotlin.test.assertNull
 

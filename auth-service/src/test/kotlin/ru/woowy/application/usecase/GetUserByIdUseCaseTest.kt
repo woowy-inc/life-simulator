@@ -6,9 +6,10 @@ import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertNotNull
 import org.junit.jupiter.api.assertNull
-import ru.woowy.domain.repository.UserRepository
 import ru.woowy.helper.randomUser
-import ru.woowy.infrastructure.mapper.asDto
+import ru.woowy.user.application.usecase.GetUserByIdUseCase
+import ru.woowy.user.domain.repository.UserRepository
+import ru.woowy.user.infrastructure.mapper.asDto
 import java.util.UUID
 import kotlin.test.assertEquals
 

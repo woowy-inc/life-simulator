@@ -7,7 +7,8 @@ import org.junit.jupiter.api.assertNull
 import org.springframework.beans.factory.annotation.Autowired
 import ru.woowy.RepositoryTest
 import ru.woowy.helper.randomUserRegisterRequest
-import ru.woowy.infrastructure.persistance.repository.CrudUserRepository
+import ru.woowy.user.infrastructure.persistance.adapter.UserRepositoryAdapter
+import ru.woowy.user.infrastructure.persistance.repository.CrudUserRepository
 import ru.woowy.util.randomEmail
 import ru.woowy.util.randomPassword
 import ru.woowy.util.randomString

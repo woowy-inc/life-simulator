@@ -5,8 +5,9 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import ru.woowy.domain.repository.UserRepository
 import ru.woowy.helper.randomUser
+import ru.woowy.user.application.usecase.GetUserByUsernameUseCase
+import ru.woowy.user.domain.repository.UserRepository
 import kotlin.test.assertNull
 
 internal class GetUserByUsernameUseCaseTest {

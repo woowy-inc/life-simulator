@@ -4,7 +4,8 @@ import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
-import ru.woowy.application.config.app.AppProperties
+import ru.woowy.auth.application.usecase.GetJwksUseCase
+import ru.woowy.common.config.AppProperties
 import java.security.KeyPairGenerator
 import java.security.interfaces.RSAPublicKey
 

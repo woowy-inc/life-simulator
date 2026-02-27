@@ -1,14 +1,14 @@
 package ru.woowy.helper
 
-import ru.woowy.domain.model.EmailVerificationKey
-import ru.woowy.domain.model.RefreshTokenRequest
-import ru.woowy.domain.model.Token
-import ru.woowy.domain.model.TokenDto
-import ru.woowy.domain.model.UserRegisterRequest
-import ru.woowy.domain.model.UsernameAvailableDto
-import ru.woowy.domain.model.UsernameRequest
+import ru.woowy.auth.domain.model.RefreshTokenRequest
+import ru.woowy.auth.domain.model.Token
+import ru.woowy.auth.domain.model.TokenDto
 import ru.woowy.security.User
 import ru.woowy.security.UserRole
+import ru.woowy.user.domain.model.EmailVerificationKey
+import ru.woowy.user.domain.model.UserRegisterRequest
+import ru.woowy.user.domain.model.UsernameAvailableDto
+import ru.woowy.user.domain.model.UsernameRequest
 import ru.woowy.util.randomBoolean
 import ru.woowy.util.randomEmail
 import ru.woowy.util.randomLocalDateTime

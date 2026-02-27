@@ -8,12 +8,13 @@ import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.security.crypto.password.PasswordEncoder
-import ru.woowy.domain.repository.EmailVerificationKeyRepository
-import ru.woowy.domain.repository.UserRepository
 import ru.woowy.helper.randomEmailVerificationKey
 import ru.woowy.helper.randomUser
 import ru.woowy.helper.randomUserRegisterRequest
-import ru.woowy.infrastructure.mapper.asDto
+import ru.woowy.user.application.usecase.UserRegisterUseCase
+import ru.woowy.user.domain.repository.EmailVerificationKeyRepository
+import ru.woowy.user.domain.repository.UserRepository
+import ru.woowy.user.infrastructure.mapper.asDto
 import kotlin.test.assertEquals
 
 internal class UserRegisterUseCaseTest {

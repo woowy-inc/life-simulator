@@ -5,8 +5,9 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import ru.woowy.domain.repository.UserRepository
 import ru.woowy.helper.randomUsernameAvailableDto
+import ru.woowy.user.application.usecase.IsUsernameAvailableUseCase
+import ru.woowy.user.domain.repository.UserRepository
 import ru.woowy.util.randomUsername
 
 internal class IsUsernameAvailableUseCaseTest {

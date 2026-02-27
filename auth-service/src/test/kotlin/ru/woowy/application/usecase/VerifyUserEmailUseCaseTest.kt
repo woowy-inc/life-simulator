@@ -10,13 +10,14 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.springframework.context.ApplicationEventPublisher
 import ru.woowy.domain.model.UserRegisteredEvent
-import ru.woowy.domain.repository.EmailVerificationKeyRepository
-import ru.woowy.domain.repository.UserRepository
 import ru.woowy.exception.UnauthorizedException
 import ru.woowy.helper.randomEmailVerificationKey
 import ru.woowy.helper.randomUser
-import ru.woowy.infrastructure.mapper.asDto
 import ru.woowy.security.UserRole
+import ru.woowy.user.application.usecase.VerifyUserEmailUseCase
+import ru.woowy.user.domain.repository.EmailVerificationKeyRepository
+import ru.woowy.user.domain.repository.UserRepository
+import ru.woowy.user.infrastructure.mapper.asDto
 import java.time.LocalDateTime
 
 internal class VerifyUserEmailUseCaseTest {

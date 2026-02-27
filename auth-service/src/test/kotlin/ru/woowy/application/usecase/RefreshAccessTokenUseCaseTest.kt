@@ -5,13 +5,15 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import ru.woowy.application.security.JwtTokenProvider
-import ru.woowy.domain.model.TokenType
+import ru.woowy.auth.application.usecase.RefreshAccessTokenUseCase
+import ru.woowy.auth.domain.model.TokenType
+import ru.woowy.auth.infrastructure.security.JwtTokenProvider
 import ru.woowy.exception.UnauthorizedException
 import ru.woowy.helper.randomRefreshTokenRequest
 import ru.woowy.helper.randomToken
 import ru.woowy.helper.randomTokenDto
 import ru.woowy.helper.randomUser
+import ru.woowy.user.application.usecase.GetUserByUsernameUseCase
 import ru.woowy.util.randomUsername
 import kotlin.test.assertEquals
 
