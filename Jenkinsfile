@@ -56,7 +56,7 @@ pipeline {
                         usernameVariable: 'REGISTRY_USER',
                         passwordVariable: 'REGISTRY_TOKEN'
                     )]) {
-                        sh 'docker login $REGISTRY -u $REGISTRY_USER --password-stdin <<< $REGISTRY_TOKEN'
+                        sh 'printf "%s" "$REGISTRY_TOKEN" | docker login $REGISTRY -u $REGISTRY_USER --password-stdin'
                         sh "docker build -t ${image} -f ${env.SERVICE_NAME}/Dockerfile ."
                         sh "docker push ${image}"
                     }
