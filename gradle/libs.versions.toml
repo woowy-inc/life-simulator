@@ -47,6 +47,7 @@ springboot-starter-mail = { module = "org.springframework.boot:spring-boot-start
 springboot-starter-thymeleaf = { module = "org.springframework.boot:spring-boot-starter-thymeleaf", version.ref = "springBoot" }
 springboot-starter-cache = { module = "org.springframework.boot:spring-boot-starter-cache", version.ref = "springBoot" }
 springboot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }
+springboot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation", version.ref = "springBoot" }
 
 caffeine = { module = "com.github.ben-manes.caffeine:caffeine", version.ref = "caffeineCache" }
 
@@ -85,7 +86,6 @@ kotlin-jpa = { id = "org.jetbrains.kotlin.plugin.jpa", version.ref = "kotlin" }
 kotlinx-ecosystem = ["kotlinx-datetime", "kotlinx-serialization", "kotlinx-coroutines"]
 
 springboot-security-ecosystem = [
-    "springboot-starter-data-jpa",
     "springboot-starter-web",
     "springboot-starter-actuator",
     "springboot-starter-security",

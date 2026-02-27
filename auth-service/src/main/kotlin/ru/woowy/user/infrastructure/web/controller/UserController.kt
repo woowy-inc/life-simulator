@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -17,12 +18,13 @@ import ru.woowy.user.infrastructure.model.UserPrincipal
 
 @Tag(name = "Users")
 @RestController
+@Validated
 @RequestMapping(RestEndpoint.BASE_URL)
 internal class UserController(
     private val getUserByIdUseCase: GetUserByIdUseCase,
     private val isUsernameAvailableUseCase: IsUsernameAvailableUseCase,
 ) {
-    @Operation(summary = "Get current user profile", security = [])
+    @Operation(summary = "Get current user profile")
     @GetMapping("${RestEndpoint.PROFILE_URL}/current")
     fun getCurrentProfile(
         @AuthenticationPrincipal principal: UserPrincipal,

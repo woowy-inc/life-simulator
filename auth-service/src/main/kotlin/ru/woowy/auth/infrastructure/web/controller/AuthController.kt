@@ -2,7 +2,9 @@ package ru.woowy.auth.infrastructure.web.controller
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
+import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -21,6 +23,7 @@ import ru.woowy.user.domain.model.UsernameRequest
 
 @Tag(name = "Auth")
 @RestController
+@Validated
 @RequestMapping(RestEndpoint.BASE_URL)
 internal class AuthController(
     private val userLoginByUsernameUseCase: UserLoginByUsernameUseCase,
@@ -31,19 +34,19 @@ internal class AuthController(
     @Operation(summary = "Login by username", security = [])
     @PostMapping("${RestEndpoint.LOGIN_URL}/username")
     fun loginByUsername(
-        @RequestBody request: UsernameRequest,
+        @RequestBody @Valid request: UsernameRequest,
     ): ResponseEntity<TokenDto> = ResponseEntity.ok(userLoginByUsernameUseCase(request))
 
     @Operation(summary = "Refresh access token", security = [])
     @PostMapping("${RestEndpoint.TOKEN_URL}/refresh")
     fun refreshToken(
-        @RequestBody request: RefreshTokenRequest,
+        @RequestBody @Valid request: RefreshTokenRequest,
     ): ResponseEntity<TokenDto> = ResponseEntity.ok(refreshAccessTokenUseCase(request))
 
     @Operation(summary = "Register user", security = [])
     @PostMapping(RestEndpoint.REGISTER_URL)
     fun registerUser(
-        @RequestBody request: UserRegisterRequest,
+        @RequestBody @Valid request: UserRegisterRequest,
     ): ResponseEntity<UserDto> = ResponseEntity.ok(userRegisterUseCase(request))
 
     @Operation(summary = "Verify user email", security = [])
