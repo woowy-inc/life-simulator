@@ -56,7 +56,7 @@ pipeline {
                         usernameVariable: 'REGISTRY_USER',
                         passwordVariable: 'REGISTRY_TOKEN'
                     )]) {
-                        sh 'echo $REGISTRY_TOKEN | docker login $REGISTRY -u $REGISTRY_USER --password-stdin'
+                        sh 'docker login $REGISTRY -u $REGISTRY_USER --password-stdin <<< $REGISTRY_TOKEN'
                         sh "docker build -t ${image} -f ${env.SERVICE_NAME}/Dockerfile ."
                         sh "docker push ${image}"
                     }
@@ -80,17 +80,17 @@ pipeline {
                     script {
                         def image = "${env.REGISTRY}/${env.SERVICE_NAME}:${env.SERVICE_VERSION}"
                         def serviceDir = getServiceDir(env.SERVICE_NAME)
-                        sh """
-                            ssh -i \$SSH_KEY -o StrictHostKeyChecking=no ${env.DEPLOY_USER}@${env.DEPLOY_HOST} '
-                                echo \$REGISTRY_TOKEN | docker login ${env.REGISTRY} -u \$REGISTRY_USER --password-stdin
-                                cd ${env.DEPLOY_PATH}/${serviceDir}
-                                export SERVICE_IMAGE=${image}
+                        sh '''
+                            ssh -i $SSH_KEY -o StrictHostKeyChecking=no ''' + env.DEPLOY_USER + '''@''' + env.DEPLOY_HOST + ''' bash -s << 'ENDSSH'
+                                docker login ''' + env.REGISTRY + ''' -u $REGISTRY_USER --password-stdin <<< $REGISTRY_TOKEN
+                                cd ''' + env.DEPLOY_PATH + '''/''' + serviceDir + '''
+                                export SERVICE_IMAGE=''' + image + '''
                                 docker compose pull
                                 docker compose up -d --no-deps
-                                docker images ${env.REGISTRY}/${env.SERVICE_NAME} --format "{{.Tag}}" | grep -v ${env.SERVICE_VERSION} | xargs -I {} docker rmi ${env.REGISTRY}/${env.SERVICE_NAME}:{} 2>/dev/null || true
-                                docker logout ${env.REGISTRY}
-                            '
-                        """
+                                docker images ''' + env.REGISTRY + '''/''' + env.SERVICE_NAME + ''' --format "{{.Tag}}" | grep -v ''' + env.SERVICE_VERSION + ''' | xargs -I {} docker rmi ''' + env.REGISTRY + '''/''' + env.SERVICE_NAME + ''':{} 2>/dev/null || true
+                                docker logout ''' + env.REGISTRY + '''
+ENDSSH
+                        '''
                     }
                 }
             }
