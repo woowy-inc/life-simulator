@@ -16,6 +16,7 @@ vaultCore = "4.0.0"
 protobuf = "1.10.0"
 mockk = "1.14.9"
 testContainersPostgresql = "1.21.4"
+caffeineCache = "3.2.3"
 
 [libraries]
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -44,7 +45,10 @@ springboot-starter-oauth2-authorization-server = { module = "org.springframework
 springboot-starter-oauth2-resource-server = { module = "org.springframework.boot:spring-boot-starter-oauth2-resource-server", version.ref = "springBoot" }
 springboot-starter-mail = { module = "org.springframework.boot:spring-boot-starter-mail", version.ref = "springBoot" }
 springboot-starter-thymeleaf = { module = "org.springframework.boot:spring-boot-starter-thymeleaf", version.ref = "springBoot" }
+springboot-starter-cache = { module = "org.springframework.boot:spring-boot-starter-cache", version.ref = "springBoot" }
 springboot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "springBoot" }
+
+caffeine = { module = "com.github.ben-manes.caffeine:caffeine", version.ref = "caffeineCache" }
 
 springboot-kafka-starter = { module = "org.springframework.boot:spring-boot-starter-kafka", version.ref = "springBoot" }
 springboot-kafka = { module = "org.springframework.kafka:spring-kafka", version.ref = "springBoot" }
