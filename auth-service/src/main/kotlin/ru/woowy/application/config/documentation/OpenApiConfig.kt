@@ -9,12 +9,13 @@ import io.swagger.v3.oas.models.servers.Server
 import org.springframework.boot.info.BuildProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import ru.woowy.application.config.app.AppConfiguration
+import ru.woowy.application.config.app.AppProperties
 import ru.woowy.application.config.security.AuthenticationScheme
 
 @Configuration
 internal class OpenApiConfig(
     private val authenticationScheme: AuthenticationScheme,
+    private val appProperties: AppProperties,
     private val buildProperties: BuildProperties,
 ) {
     @Bean
@@ -29,7 +30,7 @@ internal class OpenApiConfig(
 
         val server =
             Server()
-                .url("http://localhost:9696") // TODO
+                .url(appProperties.serverUrl)
                 .description("Auth Service")
 
         val components =
