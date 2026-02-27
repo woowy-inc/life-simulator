@@ -80,10 +80,11 @@ pipeline {
                     script {
                         def image = "${env.REGISTRY}/${env.SERVICE_NAME}:${env.SERVICE_VERSION}"
                         def serviceDir = getServiceDir(env.SERVICE_NAME)
+                        def registryAuth = sh(script: 'echo -n $REGISTRY_USER:$REGISTRY_TOKEN | base64', returnStdout: true).trim()
                         sh """
                             ssh -i \$SSH_KEY -o StrictHostKeyChecking=no ${env.DEPLOY_USER}@${env.DEPLOY_HOST} '
                                 mkdir -p ~/.docker
-                                echo "{\\"auths\\": {\\"${env.REGISTRY}\\": {\\"auth\\": \\"\$(echo -n \$REGISTRY_USER:\$REGISTRY_TOKEN | base64)\\"}}}" > ~/.docker/config.json
+                                echo "{\\"auths\\": {\\"${env.REGISTRY}\\": {\\"auth\\": \\"${registryAuth}\\"}}}" > ~/.docker/config.json
                                 cd ${env.DEPLOY_PATH}/${serviceDir}
                                 export SERVICE_IMAGE=${image}
                                 docker compose pull
