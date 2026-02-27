@@ -36,12 +36,15 @@ class DeduplicateCorsHeadersFilter : OncePerRequestFilter() {
 
         override fun addHeader(
             name: String,
-            value: String,
+            value: String?,
         ) {
+            if (value == null) {
+                super.addHeader(name, null)
+                return
+            }
             if (name in headersToCheck) {
                 val existing = addedHeaders.getOrPut(name) { mutableSetOf() }
                 if (value in existing) return
-
                 existing.add(value)
             }
             super.addHeader(name, value)
@@ -49,12 +52,15 @@ class DeduplicateCorsHeadersFilter : OncePerRequestFilter() {
 
         override fun setHeader(
             name: String,
-            value: String,
+            value: String?,
         ) {
+            if (value == null) {
+                super.setHeader(name, null)
+                return
+            }
             if (name in headersToCheck) {
                 addedHeaders[name] = mutableSetOf(value)
             }
-
             super.setHeader(name, value)
         }
     }
