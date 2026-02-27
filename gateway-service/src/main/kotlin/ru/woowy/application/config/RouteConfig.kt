@@ -37,5 +37,9 @@ internal class RouteConfig {
                 .route(path("/world/**"), http())
                 .filter(lb(Service.WORLD_SERVICE.id))
                 .build(),
+        ).and(
+            route("not-found")
+                .route(path("/**")) { ServerResponse.notFound().build() }
+                .build(),
         )
 }
