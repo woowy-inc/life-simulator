@@ -102,3 +102,10 @@ springboot-kafka-ecosystem = [
     "springboot-server-tomcat",
     "kotlin-jackson",
 ]
+
+test-jpa-ecosystem = [
+    "springboot-data-jpa-test",
+    "springboot-testcontainers",
+    "testcontainers-postgresql",
+    "testcontainers-junit-jupiter",
+]
