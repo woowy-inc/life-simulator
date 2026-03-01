@@ -1,7 +1,7 @@
 package ru.woowy.user.infrastructure.mapper
 
 import ru.woowy.user.domain.model.EmailVerificationKey
-import ru.woowy.user.infrastructure.persistance.entity.EmailVerificationKeyEntity
+import ru.woowy.user.infrastructure.persistence.entity.EmailVerificationKeyEntity
 
 internal fun EmailVerificationKeyEntity.asDomain() = EmailVerificationKey(
     key = this.key,

@@ -1,4 +1,4 @@
-package ru.woowy.user.infrastructure.persistance.adapter
+package ru.woowy.user.infrastructure.persistence.adapter
 
 import org.springframework.stereotype.Component
 import ru.woowy.security.User
@@ -6,7 +6,7 @@ import ru.woowy.user.domain.model.UserRegisterRequest
 import ru.woowy.user.domain.repository.UserRepository
 import ru.woowy.user.infrastructure.mapper.asDomain
 import ru.woowy.user.infrastructure.mapper.asEntity
-import ru.woowy.user.infrastructure.persistance.repository.CrudUserRepository
+import ru.woowy.user.infrastructure.persistence.repository.CrudUserRepository
 import java.util.UUID
 import kotlin.jvm.optionals.getOrNull
 

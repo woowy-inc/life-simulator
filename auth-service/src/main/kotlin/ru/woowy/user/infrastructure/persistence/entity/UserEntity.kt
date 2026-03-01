@@ -1,4 +1,4 @@
-package ru.woowy.user.infrastructure.persistance.entity
+package ru.woowy.user.infrastructure.persistence.entity
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

@@ -4,7 +4,7 @@ import ru.woowy.domain.model.UserRegisterRequestedEvent
 import ru.woowy.domain.model.UserRegisteredEvent
 import ru.woowy.security.User
 import ru.woowy.security.UserDto
-import ru.woowy.user.infrastructure.persistance.entity.UserEntity
+import ru.woowy.user.infrastructure.persistence.entity.UserEntity
 import java.util.UUID
 import kotlin.time.Clock
 

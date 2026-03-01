@@ -2,7 +2,7 @@ package ru.woowy.user.infrastructure.mapper
 
 import ru.woowy.security.UserRole
 import ru.woowy.user.domain.model.UserRegisterRequest
-import ru.woowy.user.infrastructure.persistance.entity.UserEntity
+import ru.woowy.user.infrastructure.persistence.entity.UserEntity
 
 internal fun UserRegisterRequest.asEntity(): UserEntity = UserEntity(
     username = this.username,

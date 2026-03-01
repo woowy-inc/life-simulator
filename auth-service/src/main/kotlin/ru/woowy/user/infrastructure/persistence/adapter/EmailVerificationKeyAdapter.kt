@@ -1,11 +1,11 @@
-package ru.woowy.user.infrastructure.persistance.adapter
+package ru.woowy.user.infrastructure.persistence.adapter
 
 import org.springframework.stereotype.Component
 import ru.woowy.user.domain.model.EmailVerificationKey
 import ru.woowy.user.domain.repository.EmailVerificationKeyRepository
 import ru.woowy.user.infrastructure.mapper.asDomain
 import ru.woowy.user.infrastructure.mapper.asEntity
-import ru.woowy.user.infrastructure.persistance.repository.CrudEmailVerificationKeyRepository
+import ru.woowy.user.infrastructure.persistence.repository.CrudEmailVerificationKeyRepository
 
 @Component
 internal class EmailVerificationKeyAdapter(

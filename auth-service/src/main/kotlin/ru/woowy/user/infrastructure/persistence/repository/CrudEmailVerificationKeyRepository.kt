@@ -1,9 +1,9 @@
-package ru.woowy.user.infrastructure.persistance.repository
+package ru.woowy.user.infrastructure.persistence.repository
 
 import org.springframework.data.jpa.repository.EntityGraph
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
-import ru.woowy.user.infrastructure.persistance.entity.EmailVerificationKeyEntity
+import ru.woowy.user.infrastructure.persistence.entity.EmailVerificationKeyEntity
 import java.util.UUID
 
 @Repository

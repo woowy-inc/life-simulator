@@ -1,4 +1,4 @@
-package ru.woowy.infrastructure.persistance.adapter
+package ru.woowy.infrastructure.persistence.adapter
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired
 import ru.woowy.RepositoryTest
 import ru.woowy.helper.randomEmailVerificationKey
 import ru.woowy.helper.randomUserRegisterRequest
-import ru.woowy.user.infrastructure.persistance.adapter.EmailVerificationKeyAdapter
-import ru.woowy.user.infrastructure.persistance.adapter.UserRepositoryAdapter
-import ru.woowy.user.infrastructure.persistance.repository.CrudEmailVerificationKeyRepository
-import ru.woowy.user.infrastructure.persistance.repository.CrudUserRepository
+import ru.woowy.user.infrastructure.persistence.adapter.EmailVerificationKeyAdapter
+import ru.woowy.user.infrastructure.persistence.adapter.UserRepositoryAdapter
+import ru.woowy.user.infrastructure.persistence.repository.CrudEmailVerificationKeyRepository
+import ru.woowy.user.infrastructure.persistence.repository.CrudUserRepository
 import ru.woowy.util.randomString
 import kotlin.test.assertNull
 
