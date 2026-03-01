@@ -7,7 +7,7 @@ import org.springframework.messaging.handler.annotation.Payload
 import org.springframework.stereotype.Service
 import ru.woowy.application.usecase.SendEmailUseCase
 import ru.woowy.domain.model.Event
-import ru.woowy.game.KafkaTopic
+import ru.woowy.messaging.KafkaTopic
 
 @Service
 internal class UserEventHandler(
