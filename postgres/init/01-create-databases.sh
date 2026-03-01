@@ -5,6 +5,10 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-E
     -- Auth Service Database
     CREATE DATABASE lifesim_auth;
     GRANT ALL PRIVILEGES ON DATABASE lifesim_auth TO $POSTGRES_USER;
+
+    -- World Service Database
+    CREATE DATABASE lifesim_world;
+    GRANT ALL PRIVILEGES ON DATABASE lifesim_world TO $POSTGRES_USER;
 EOSQL
 
 echo "Databases created successfully"
