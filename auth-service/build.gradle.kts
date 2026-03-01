@@ -19,6 +19,7 @@ dependencies {
     implementation(project(":common-domain"))
     testImplementation(testFixtures(project(":common-domain")))
     implementation(project(":common-events"))
+    implementation(project(":common-security"))
 
     implementation(libs.bundles.springboot.security.ecosystem)
     implementation(libs.bundles.springboot.kafka.ecosystem)

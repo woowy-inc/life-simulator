@@ -8,13 +8,12 @@ import org.springframework.stereotype.Component
 import ru.woowy.auth.domain.model.Token
 import ru.woowy.auth.domain.model.TokenType
 import ru.woowy.common.config.AppProperties
+import ru.woowy.security.TokenClaim
 import ru.woowy.security.User
 import java.security.interfaces.RSAPrivateKey
 import java.security.interfaces.RSAPublicKey
 import java.time.Instant
 import java.util.Date
-
-private const val TOKEN_TYPE_CLAIM = "type"
 
 @Component
 internal class JwtTokenProvider(
@@ -43,10 +42,10 @@ internal class JwtTokenProvider(
                 .header()
                 .keyId(appProperties.jwt.keyId)
                 .and()
-                .subject(user.username)
-                .claim("email", user.username)
-                .claim("role", user.role.name)
-                .claim(TOKEN_TYPE_CLAIM, tokenType)
+                .subject(user.id.toString())
+                .claim(TokenClaim.USERNAME, user.username)
+                .claim(TokenClaim.ROLE, user.role.name)
+                .claim(TokenClaim.TOKEN_TYPE, tokenType)
                 .issuedAt(Date.from(now))
                 .expiration(Date.from(expiresAt))
                 .issuer(appProperties.jwt.issuer)
@@ -67,7 +66,7 @@ internal class JwtTokenProvider(
     fun extractUsername(token: String): String = parseClaims(token).subject
 
     fun extractTokenType(token: String): TokenType {
-        val stringType = parseClaims(token)[TOKEN_TYPE_CLAIM] as String
+        val stringType = parseClaims(token)[TokenClaim.TOKEN_TYPE] as String
 
         return TokenType.valueOf(stringType)
     }

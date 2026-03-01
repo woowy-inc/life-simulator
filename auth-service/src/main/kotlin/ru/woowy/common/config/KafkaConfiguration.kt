@@ -4,7 +4,7 @@ import org.apache.kafka.clients.admin.NewTopic
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.kafka.annotation.EnableKafka
-import ru.woowy.game.KafkaTopic
+import ru.woowy.messaging.KafkaTopic
 
 @Configuration
 @EnableKafka

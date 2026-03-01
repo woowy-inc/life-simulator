@@ -8,7 +8,7 @@ import org.springframework.transaction.event.TransactionalEventListener
 import ru.woowy.domain.model.Event
 import ru.woowy.domain.model.UserRegisterRequestedEvent
 import ru.woowy.domain.model.UserRegisteredEvent
-import ru.woowy.game.KafkaTopic
+import ru.woowy.messaging.KafkaTopic
 
 @Component
 internal class UserEventListener(

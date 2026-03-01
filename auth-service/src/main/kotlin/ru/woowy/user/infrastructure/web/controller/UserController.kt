@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import ru.woowy.common.web.RestEndpoint
+import ru.woowy.domain.model.UserPrincipal
 import ru.woowy.security.UserDto
 import ru.woowy.user.application.usecase.GetUserByIdUseCase
 import ru.woowy.user.application.usecase.IsUsernameAvailableUseCase
 import ru.woowy.user.domain.model.UsernameAvailableDto
-import ru.woowy.user.infrastructure.model.UserPrincipal
 
 @Tag(name = "Users")
 @RestController
@@ -28,7 +28,7 @@ internal class UserController(
     @GetMapping("${RestEndpoint.PROFILE_URL}/current")
     fun getCurrentProfile(
         @AuthenticationPrincipal principal: UserPrincipal,
-    ): ResponseEntity<UserDto> = ResponseEntity.ok(getUserByIdUseCase(principal.user.id))
+    ): ResponseEntity<UserDto> = ResponseEntity.ok(getUserByIdUseCase(principal.userId))
 
     @Operation(
         summary = "Check username availability",
