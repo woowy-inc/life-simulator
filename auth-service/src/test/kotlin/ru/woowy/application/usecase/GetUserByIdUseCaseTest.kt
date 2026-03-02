@@ -9,7 +9,6 @@ import org.junit.jupiter.api.assertNull
 import ru.woowy.helper.randomUser
 import ru.woowy.user.application.usecase.GetUserByIdUseCase
 import ru.woowy.user.domain.repository.UserRepository
-import ru.woowy.user.infrastructure.mapper.asDto
 import java.util.UUID
 import kotlin.test.assertEquals
 
@@ -20,10 +19,9 @@ internal class GetUserByIdUseCaseTest {
 
     @Test
     fun `should get user by id`() {
-        val user = randomUser()
-        val expected = user.asDto()
+        val expected = randomUser()
 
-        every { userRepository.findById(userId) } returns user
+        every { userRepository.findById(userId) } returns expected
 
         val actual = useCase(userId)
 

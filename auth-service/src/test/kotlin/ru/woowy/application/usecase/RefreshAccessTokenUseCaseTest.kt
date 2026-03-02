@@ -13,18 +13,20 @@ import ru.woowy.helper.randomRefreshTokenRequest
 import ru.woowy.helper.randomToken
 import ru.woowy.helper.randomTokenDto
 import ru.woowy.helper.randomUser
+import ru.woowy.user.application.usecase.GetUserByIdUseCase
 import ru.woowy.user.application.usecase.GetUserByUsernameUseCase
+import ru.woowy.util.randomUUID
 import ru.woowy.util.randomUsername
 import kotlin.test.assertEquals
 
 internal class RefreshAccessTokenUseCaseTest {
-    private val getUserByUsernameUseCase = mockk<GetUserByUsernameUseCase>()
+    private val getUserByIdUseCase = mockk<GetUserByIdUseCase>()
     private val jwtTokenProvider = mockk<JwtTokenProvider>()
     private val accessToken = randomToken()
     private val refreshToken = randomToken()
     private val request = randomRefreshTokenRequest(refreshToken.value)
 
-    private val useCase = RefreshAccessTokenUseCase(getUserByUsernameUseCase, jwtTokenProvider)
+    private val useCase = RefreshAccessTokenUseCase(getUserByIdUseCase, jwtTokenProvider)
 
     @Test
     fun `should refresh access token`() {
@@ -32,8 +34,8 @@ internal class RefreshAccessTokenUseCaseTest {
 
         every { jwtTokenProvider.isTokenValid(any()) } returns true
         every { jwtTokenProvider.extractTokenType(any()) } returns TokenType.REFRESH
-        every { jwtTokenProvider.extractUsername(any()) } returns randomUsername()
-        every { getUserByUsernameUseCase(any()) } returns randomUser()
+        every { jwtTokenProvider.extractUserId(any()) } returns randomUUID()
+        every { getUserByIdUseCase(any()) } returns randomUser()
         every { jwtTokenProvider.generateAccessToken(any()) } returns accessToken
         every { jwtTokenProvider.generateRefreshToken(any()) } returns refreshToken
 
@@ -43,8 +45,8 @@ internal class RefreshAccessTokenUseCaseTest {
 
         verify(exactly = 1) { jwtTokenProvider.isTokenValid(any()) }
         verify(exactly = 1) { jwtTokenProvider.extractTokenType(any()) }
-        verify(exactly = 1) { jwtTokenProvider.extractUsername(any()) }
-        verify(exactly = 1) { getUserByUsernameUseCase(any()) }
+        verify(exactly = 1) { jwtTokenProvider.extractUserId(any()) }
+        verify(exactly = 1) { getUserByIdUseCase(any()) }
         verify(exactly = 1) { jwtTokenProvider.generateAccessToken(any()) }
         verify(exactly = 1) { jwtTokenProvider.generateRefreshToken(any()) }
     }
@@ -66,8 +68,8 @@ internal class RefreshAccessTokenUseCaseTest {
     fun `should throw exception when get user by username returns null`() {
         every { jwtTokenProvider.isTokenValid(any()) } returns true
         every { jwtTokenProvider.extractTokenType(any()) } returns TokenType.REFRESH
-        every { jwtTokenProvider.extractUsername(any()) } returns randomUsername()
-        every { getUserByUsernameUseCase(any()) } returns null
+        every { jwtTokenProvider.extractUserId(any()) } returns randomUUID()
+        every { getUserByIdUseCase(any()) } returns null
 
         val actual =
             assertThrows<UnauthorizedException> {
