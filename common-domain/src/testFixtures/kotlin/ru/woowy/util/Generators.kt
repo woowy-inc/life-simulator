@@ -23,6 +23,11 @@ fun randomPassword(length: Int = 12): String {
     return (1..length).map { chars.random() }.joinToString("")
 }
 
+fun randomShort(
+    min: Int = 0,
+    max: Int = 1000,
+): Short = randomInt(min, max).toShort()
+
 fun randomInt(
     min: Int = 0,
     max: Int = 1000,
