@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "ru.woowy"
-version = "0.1.0"
+version = "0.2.0"
 
 repositories {
     mavenCentral()
@@ -40,6 +40,7 @@ dependencies {
 
     testImplementation(libs.bundles.test.jpa.ecosystem)
     testImplementation(libs.mockk)
+    testImplementation(testFixtures(project(":common-domain")))
     testImplementation(kotlin("test"))
 }
 
