@@ -3,7 +3,7 @@ package ru.woowy.infrastructure.persistence.adapter
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import ru.woowy.RepositoryTest
+import ru.woowy.JpaRepositoryTest
 import ru.woowy.helper.randomEmailVerificationKey
 import ru.woowy.helper.randomUserRegisterRequest
 import ru.woowy.user.infrastructure.persistence.adapter.EmailVerificationKeyAdapter
@@ -18,7 +18,7 @@ internal class EmailVerificationKeyAdapterTest
     constructor(
         crudUserRepository: CrudUserRepository,
         emailVerificationTokenRepository: CrudEmailVerificationKeyRepository,
-    ) : RepositoryTest() {
+    ) : JpaRepositoryTest() {
         private val userAdapter = UserRepositoryAdapter(crudUserRepository)
         private val adapter = EmailVerificationKeyAdapter(emailVerificationTokenRepository)
 

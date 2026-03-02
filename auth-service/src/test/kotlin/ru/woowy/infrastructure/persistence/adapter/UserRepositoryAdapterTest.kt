@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertNotNull
 import org.junit.jupiter.api.assertNull
 import org.springframework.beans.factory.annotation.Autowired
-import ru.woowy.RepositoryTest
+import ru.woowy.JpaRepositoryTest
 import ru.woowy.helper.randomUserRegisterRequest
 import ru.woowy.user.infrastructure.persistence.adapter.UserRepositoryAdapter
 import ru.woowy.user.infrastructure.persistence.repository.CrudUserRepository
@@ -22,7 +22,7 @@ internal class UserRepositoryAdapterTest
     @Autowired
     constructor(
         crudUserRepository: CrudUserRepository,
-    ) : RepositoryTest() {
+    ) : JpaRepositoryTest() {
         private val adapter = UserRepositoryAdapter(crudUserRepository)
 
         @Test
