@@ -36,16 +36,15 @@ create index if not exists idx_regions_code on regions (code);
 
 create table if not exists region_namecases
 (
-    id            uuid primary key not null default gen_random_uuid(),
-    region_id     uuid             not null references regions (id) on delete cascade,
+    region_id     uuid         not null references regions (id) on delete cascade,
 
-    nominative    varchar(255)     not null,
-    genitive      varchar(255)     not null,
-    dative        varchar(255)     not null,
-    accusative    varchar(255)     not null,
-    ablative      varchar(255)     not null,
-    prepositional varchar(255)     not null,
-    locative      varchar(255)     not null
+    nominative    varchar(255) not null,
+    genitive      varchar(255) not null,
+    dative        varchar(255) not null,
+    accusative    varchar(255) not null,
+    ablative      varchar(255) not null,
+    prepositional varchar(255) not null,
+    locative      varchar(255) not null
 );
 
 create index if not exists idx_region_namecases_region_id on region_namecases (region_id);
@@ -87,16 +86,15 @@ create index if not exists idx_cities_name on cities (name);
 
 create table if not exists city_namecases
 (
-    id            uuid primary key not null default gen_random_uuid(),
-    city_id       uuid             not null references cities (id) on delete cascade,
+    city_id       uuid         not null references cities (id) on delete cascade,
 
-    nominative    varchar(255)     not null,
-    genitive      varchar(255)     not null,
-    dative        varchar(255)     not null,
-    accusative    varchar(255)     not null,
-    ablative      varchar(255)     not null,
-    prepositional varchar(255)     not null,
-    locative      varchar(255)     not null
+    nominative    varchar(255) not null,
+    genitive      varchar(255) not null,
+    dative        varchar(255) not null,
+    accusative    varchar(255) not null,
+    ablative      varchar(255) not null,
+    prepositional varchar(255) not null,
+    locative      varchar(255) not null
 );
 
 create index if not exists idx_city_namecases_city_id on city_namecases (city_id);
