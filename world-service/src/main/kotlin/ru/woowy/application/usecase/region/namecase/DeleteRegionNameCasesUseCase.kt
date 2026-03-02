@@ -8,5 +8,5 @@ import ru.woowy.domain.repository.RegionNameCaseRepository
 internal class DeleteRegionNameCasesUseCase(
     private val nameCaseRepository: RegionNameCaseRepository,
 ) {
-    operator fun invoke(regionId: RegionId) = nameCaseRepository.delete(regionId)
+    operator fun invoke(regionId: RegionId) = nameCaseRepository.deleteAll(regionId)
 }

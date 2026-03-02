@@ -22,5 +22,5 @@ internal class RegionNameCaseRepositoryImpl(
     override fun add(nameCases: List<RegionNameCase>): List<RegionNameCase> =
         crudRepository.saveAll(nameCases.asEntityList()).toList().asDomainList()
 
-    override fun delete(regionId: RegionId) = crudRepository.deleteAllByRegionId(regionId)
+    override fun deleteAll(regionId: RegionId) = crudRepository.deleteAllByRegionId(regionId)
 }

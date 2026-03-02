@@ -10,5 +10,5 @@ internal interface RegionNameCaseRepository {
 
     fun add(nameCases: List<RegionNameCase>): List<RegionNameCase>
 
-    fun delete(regionId: RegionId)
+    fun deleteAll(regionId: RegionId)
 }
