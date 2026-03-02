@@ -3,6 +3,11 @@ package ru.woowy.auth.infrastructure.security
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.JwtException
 import io.jsonwebtoken.Jwts
+import java.security.interfaces.RSAPrivateKey
+import java.security.interfaces.RSAPublicKey
+import java.time.Instant
+import java.util.Date
+import java.util.UUID
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import ru.woowy.auth.domain.model.Token
@@ -10,10 +15,7 @@ import ru.woowy.auth.domain.model.TokenType
 import ru.woowy.common.config.AppProperties
 import ru.woowy.security.TokenClaim
 import ru.woowy.security.User
-import java.security.interfaces.RSAPrivateKey
-import java.security.interfaces.RSAPublicKey
-import java.time.Instant
-import java.util.Date
+import ru.woowy.security.UserId
 
 @Component
 internal class JwtTokenProvider(
@@ -63,7 +65,7 @@ internal class JwtTokenProvider(
         false
     }
 
-    fun extractUsername(token: String): String = parseClaims(token).subject
+    fun extractUserId(token: String): UserId = UUID.fromString(parseClaims(token).subject)
 
     fun extractTokenType(token: String): TokenType {
         val stringType = parseClaims(token)[TokenClaim.TOKEN_TYPE] as String

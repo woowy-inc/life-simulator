@@ -15,6 +15,7 @@ import ru.woowy.security.UserDto
 import ru.woowy.user.application.usecase.GetUserByIdUseCase
 import ru.woowy.user.application.usecase.IsUsernameAvailableUseCase
 import ru.woowy.user.domain.model.UsernameAvailableDto
+import ru.woowy.user.infrastructure.mapper.asDto
 
 @Tag(name = "Users")
 @RestController
@@ -28,7 +29,7 @@ internal class UserController(
     @GetMapping("${RestEndpoint.PROFILE_URL}/current")
     fun getCurrentProfile(
         @AuthenticationPrincipal principal: UserPrincipal,
-    ): ResponseEntity<UserDto> = ResponseEntity.ok(getUserByIdUseCase(principal.userId))
+    ): ResponseEntity<UserDto> = ResponseEntity.ok(getUserByIdUseCase(principal.userId)?.asDto())
 
     @Operation(
         summary = "Check username availability",

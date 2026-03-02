@@ -7,12 +7,13 @@ import ru.woowy.auth.domain.model.TokenDto
 import ru.woowy.auth.domain.model.TokenType
 import ru.woowy.auth.infrastructure.security.JwtTokenProvider
 import ru.woowy.extension.unauthorized
+import ru.woowy.user.application.usecase.GetUserByIdUseCase
 import ru.woowy.user.application.usecase.GetUserByUsernameUseCase
 
 @Service
 @Transactional
 internal class RefreshAccessTokenUseCase(
-    private val getUserByUsernameUseCase: GetUserByUsernameUseCase,
+    private val getUserByIdUseCase: GetUserByIdUseCase,
     private val jwtTokenProvider: JwtTokenProvider,
 ) {
     companion object {
@@ -27,8 +28,8 @@ internal class RefreshAccessTokenUseCase(
             unauthorized(REFRESH_TOKEN_IS_NOT_VALID)
         }
 
-        val username = jwtTokenProvider.extractUsername(request.refreshToken)
-        val user = getUserByUsernameUseCase(username) ?: unauthorized(REFRESH_TOKEN_IS_NOT_VALID)
+        val userId = jwtTokenProvider.extractUserId(request.refreshToken)
+        val user = getUserByIdUseCase(userId) ?: unauthorized(REFRESH_TOKEN_IS_NOT_VALID)
 
         val accessToken = jwtTokenProvider.generateAccessToken(user)
         val refreshToken = jwtTokenProvider.generateRefreshToken(user)

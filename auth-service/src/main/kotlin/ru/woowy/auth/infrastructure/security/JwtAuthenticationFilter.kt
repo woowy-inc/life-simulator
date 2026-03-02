@@ -27,8 +27,8 @@ internal class JwtAuthenticationFilter(
                 return
             }
 
-            val username = jwtTokenProvider.extractUsername(token)
-            val userDetails = userDetailsService.loadUserByUsername(username)
+            val userId = jwtTokenProvider.extractUserId(token).toString()
+            val userDetails = userDetailsService.loadUserByUsername(userId)
 
             val authentication =
                 UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)
