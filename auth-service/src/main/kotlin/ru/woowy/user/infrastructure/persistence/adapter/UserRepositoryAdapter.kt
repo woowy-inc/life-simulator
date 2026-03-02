@@ -1,6 +1,8 @@
 package ru.woowy.user.infrastructure.persistence.adapter
 
+import org.springframework.cache.annotation.CacheEvict
 import org.springframework.stereotype.Component
+import ru.woowy.common.cache.CacheName
 import ru.woowy.security.User
 import ru.woowy.user.domain.model.UserRegisterRequest
 import ru.woowy.user.domain.repository.UserRepository
@@ -22,5 +24,12 @@ internal class UserRepositoryAdapter(
 
     override fun add(request: UserRegisterRequest): User = userRepository.save(request.asEntity()).asDomain()
 
+    @CacheEvict(
+        cacheNames = [
+            CacheName.USER_BY_USERNAME,
+            CacheName.USER_BY_USER_ID,
+            CacheName.USERNAME_AVAILABILITY_BY_USERNAME,
+        ],
+    )
     override fun update(user: User): User = userRepository.save(user.asEntity()).asDomain()
 }
