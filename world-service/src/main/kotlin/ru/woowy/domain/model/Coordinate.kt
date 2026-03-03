@@ -1,8 +1,6 @@
 package ru.woowy.domain.model
 
-import java.math.BigDecimal
-
 internal data class Coordinate(
-    val latitude: BigDecimal,
-    val longitude: BigDecimal,
+    val latitude: Double,
+    val longitude: Double,
 )

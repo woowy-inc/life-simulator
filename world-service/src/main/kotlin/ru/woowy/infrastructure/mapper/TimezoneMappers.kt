@@ -9,10 +9,3 @@ internal fun TimezoneEntity.asDomain() = Timezone(
     utcOffset = this.utcOffset,
     mskOffset = this.mskOffset,
 )
-
-internal fun Timezone.asEntity() = TimezoneEntity(
-    timezoneId = this.timezoneId,
-    abbreviation = this.abbreviation,
-    utcOffset = this.utcOffset,
-    mskOffset = this.mskOffset,
-)

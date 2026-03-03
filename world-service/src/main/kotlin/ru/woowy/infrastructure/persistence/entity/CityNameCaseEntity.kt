@@ -6,15 +6,15 @@ import jakarta.persistence.FetchType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToOne
-import ru.woowy.domain.model.RegionNameCaseId
+import ru.woowy.domain.model.CityNameCaseId
 
-@Entity(name = "region_namecases")
-internal class RegionNameCaseEntity(
+@Entity(name = "city_namecases")
+internal class CityNameCaseEntity(
     @Id
-    var id: RegionNameCaseId,
+    var id: CityNameCaseId,
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "region_id", nullable = false)
-    var region: RegionEntity,
+    @JoinColumn(name = "city_id", nullable = false)
+    var city: CityEntity,
     @Column(length = 255, nullable = false)
     var nominative: String,
     @Column(length = 255, nullable = false)
@@ -32,7 +32,7 @@ internal class RegionNameCaseEntity(
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is RegionNameCaseEntity) return false
+        if (other !is CityNameCaseEntity) return false
 
         return id == other.id
     }

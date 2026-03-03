@@ -5,39 +5,48 @@ import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.jpa.test.autoconfigure.TestEntityManager
 import ru.woowy.helper.randomRegion
+import ru.woowy.helper.randomRegionNameCase
 import ru.woowy.infrastructure.JpaRepositoryTest
-import ru.woowy.infrastructure.persistence.jpa.CrudRegionRepository
+import ru.woowy.infrastructure.persistence.jpa.JpaRegionNameCaseRepository
+import ru.woowy.infrastructure.persistence.jpa.JpaRegionRepository
 import ru.woowy.util.randomString
 import ru.woowy.util.randomUUID
 
 internal class RegionRepositoryImplTest
     @Autowired
     constructor(
-        private val crudRepository: CrudRegionRepository,
+        private val jpaRegionRepository: JpaRegionRepository,
+        private val jpaRegionNameCaseRepository: JpaRegionNameCaseRepository,
+        private val entityManager: TestEntityManager,
     ) : JpaRepositoryTest() {
-        private val repository = RegionRepositoryImpl(crudRepository)
+        private val nameCaseRepository = RegionNameCaseRepositoryImpl(jpaRegionRepository, jpaRegionNameCaseRepository)
+        private val repository = RegionRepositoryImpl(jpaRegionRepository)
 
         @BeforeEach
-        fun setUp() = crudRepository.deleteAll()
+        fun setUp() = jpaRegionRepository.deleteAll()
 
         @Test
         fun `region should be added`() {
-            val request = randomRegion()
-
+            val request = randomRegion(nameCase = null)
             val actual = repository.add(request)
-
             assertEquals(request, actual)
         }
 
         @Test
         fun `region should be found by id`() {
-            val request = randomRegion()
+            val request = randomRegion(nameCase = null)
             repository.add(request)
+            val nameCase = randomRegionNameCase(regionId = request.id)
+            nameCaseRepository.add(nameCase)
+
+            entityManager.flush()
+            entityManager.clear()
 
             val actual = repository.findById(request.id)
 
-            assertEquals(request, actual)
+            assertEquals(request.copy(nameCase = nameCase), actual)
         }
 
         @Test

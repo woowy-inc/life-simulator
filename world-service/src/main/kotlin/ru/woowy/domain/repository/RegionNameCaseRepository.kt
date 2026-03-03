@@ -6,9 +6,9 @@ import ru.woowy.domain.model.RegionNameCase
 internal interface RegionNameCaseRepository {
     fun findAllByRegionId(regionId: RegionId): List<RegionNameCase>
 
-    fun add(nameCase: RegionNameCase): RegionNameCase
+    fun add(case: RegionNameCase): RegionNameCase
 
-    fun add(nameCases: List<RegionNameCase>): List<RegionNameCase>
+    fun update(case: RegionNameCase): RegionNameCase?
 
     fun deleteAll(regionId: RegionId)
 }

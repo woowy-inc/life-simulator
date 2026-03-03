@@ -14,15 +14,7 @@ internal class RegionNameCaseUseCaseImpl(
 
     override fun add(nameCase: RegionNameCase): RegionNameCase = caseRepository.add(nameCase)
 
-    override fun add(nameCases: List<RegionNameCase>): List<RegionNameCase> = caseRepository.add(nameCases)
-
-    override fun update(nameCases: List<RegionNameCase>): List<RegionNameCase> {
-        nameCases
-            .groupBy { case -> case.regionId }
-            .forEach { (regionId, _) -> caseRepository.deleteAll(regionId) }
-
-        return caseRepository.add(nameCases)
-    }
+    override fun update(nameCase: RegionNameCase): RegionNameCase? = caseRepository.update(nameCase)
 
     override fun delete(regionId: RegionId) = caseRepository.deleteAll(regionId)
 }

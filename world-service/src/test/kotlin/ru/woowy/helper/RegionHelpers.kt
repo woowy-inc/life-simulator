@@ -3,6 +3,7 @@ package ru.woowy.helper
 import ru.woowy.domain.model.Region
 import ru.woowy.domain.model.RegionId
 import ru.woowy.domain.model.RegionNameCase
+import ru.woowy.domain.model.RegionNameCaseId
 import ru.woowy.util.randomInt
 import ru.woowy.util.randomLong
 import ru.woowy.util.randomShort
@@ -27,6 +28,7 @@ internal fun randomRegion(
     yearFounded: Short = randomShort(1900, 2026),
     area: Int = randomInt(),
     district: String = randomString(),
+    nameCase: RegionNameCase? = randomRegionNameCase(),
 ): Region = Region(
     id = id,
     okato = okato,
@@ -45,9 +47,11 @@ internal fun randomRegion(
     yearFounded = yearFounded,
     area = area,
     district = district,
+    nameCase = nameCase,
 )
 
 internal fun randomRegionNameCase(
+    id: RegionNameCaseId = randomUUID(),
     regionId: RegionId = randomUUID(),
     nominative: String = randomString(),
     genitive: String = randomString(),
@@ -57,6 +61,7 @@ internal fun randomRegionNameCase(
     prepositional: String = randomString(),
     locative: String = randomString(),
 ): RegionNameCase = RegionNameCase(
+    id = id,
     regionId = regionId,
     nominative = nominative,
     genitive = genitive,

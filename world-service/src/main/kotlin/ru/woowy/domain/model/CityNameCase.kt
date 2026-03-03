@@ -1,6 +1,11 @@
 package ru.woowy.domain.model
 
+import java.util.UUID
+
+internal typealias CityNameCaseId = UUID
+
 internal data class CityNameCase(
+    val id: CityNameCaseId,
     val cityId: CityId,
     override val nominative: String,
     override val genitive: String,

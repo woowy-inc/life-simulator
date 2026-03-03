@@ -36,6 +36,7 @@ create index if not exists idx_regions_code on regions (code);
 
 create table if not exists region_namecases
 (
+    id            uuid         not null primary key default gen_random_uuid(),
     region_id     uuid         not null references regions (id) on delete cascade,
 
     nominative    varchar(255) not null,
@@ -75,8 +76,8 @@ create table if not exists cities
     year_founded     smallint         not null,
     year_city_status smallint         not null,
 
-    latitude         decimal(10, 7)   not null,
-    longitude        decimal(10, 7)   not null
+    latitude         double precision not null,
+    longitude        double precision not null
 );
 
 create index if not exists idx_cities_region_id on cities (region_id);
@@ -86,6 +87,7 @@ create index if not exists idx_cities_name on cities (name);
 
 create table if not exists city_namecases
 (
+    id            uuid         not null primary key default gen_random_uuid(),
     city_id       uuid         not null references cities (id) on delete cascade,
 
     nominative    varchar(255) not null,

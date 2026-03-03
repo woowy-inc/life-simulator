@@ -7,18 +7,18 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import ru.woowy.helper.randomTimezone
 import ru.woowy.infrastructure.JpaRepositoryTest
-import ru.woowy.infrastructure.persistence.jpa.CrudTimezoneRepository
+import ru.woowy.infrastructure.persistence.jpa.JpaTimezoneRepository
 import ru.woowy.util.randomString
 
 internal class TimezoneRepositoryImplTest
     @Autowired
     constructor(
-        private val crudRepository: CrudTimezoneRepository,
+        private val jpaTimezoneRepository: JpaTimezoneRepository,
     ) : JpaRepositoryTest() {
-        private val repository = TimezoneRepositoryImpl(crudRepository)
+        private val repository = TimezoneRepositoryImpl(jpaTimezoneRepository)
 
         @BeforeEach
-        fun setUp() = crudRepository.deleteAll()
+        fun setUp() = jpaTimezoneRepository.deleteAll()
 
         @Test
         fun `timezone should be added`() {

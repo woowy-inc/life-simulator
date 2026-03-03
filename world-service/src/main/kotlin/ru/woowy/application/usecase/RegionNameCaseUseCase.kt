@@ -8,9 +8,7 @@ internal interface RegionNameCaseUseCase {
 
     fun add(nameCase: RegionNameCase): RegionNameCase
 
-    fun add(nameCases: List<RegionNameCase>): List<RegionNameCase>
-
-    fun update(nameCases: List<RegionNameCase>): List<RegionNameCase>
+    fun update(nameCase: RegionNameCase): RegionNameCase?
 
     fun delete(regionId: RegionId)
 }

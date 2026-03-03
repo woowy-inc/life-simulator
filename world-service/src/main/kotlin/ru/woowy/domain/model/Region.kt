@@ -22,5 +22,5 @@ internal data class Region(
     val yearFounded: Short,
     val area: Int,
     val district: String,
-//    val nameCase: RegionNameCase,
+    val nameCase: RegionNameCase?,
 )

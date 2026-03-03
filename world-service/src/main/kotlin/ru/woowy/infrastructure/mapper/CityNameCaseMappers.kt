@@ -1,11 +1,12 @@
 package ru.woowy.infrastructure.mapper
 
-import ru.woowy.domain.model.RegionNameCase
-import ru.woowy.infrastructure.persistence.entity.RegionNameCaseEntity
+import ru.woowy.domain.model.CityNameCase
+import ru.woowy.infrastructure.persistence.entity.CityEntity
+import ru.woowy.infrastructure.persistence.entity.CityNameCaseEntity
 
-internal fun RegionNameCaseEntity.asDomain(): RegionNameCase = RegionNameCase(
+internal fun CityNameCaseEntity.asDomain(): CityNameCase = CityNameCase(
     id = this.id,
-    regionId = this.region.id,
+    cityId = this.city.id,
     nominative = this.nominative,
     genitive = this.genitive,
     dative = this.dative,

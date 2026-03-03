@@ -1,6 +1,11 @@
 package ru.woowy.domain.model
 
+import java.util.UUID
+
+internal typealias RegionNameCaseId = UUID
+
 internal data class RegionNameCase(
+    val id: RegionNameCaseId,
     val regionId: RegionId,
     override val nominative: String,
     override val genitive: String,

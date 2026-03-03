@@ -21,25 +21,5 @@ internal fun RegionEntity.asDomain(): Region = Region(
     yearFounded = this.yearFounded,
     area = this.area,
     district = this.district,
-//    nameCase = RegionNameCase()
-)
-
-internal fun Region.asEntity(): RegionEntity = RegionEntity(
-    id = this.id,
-    okato = this.okato,
-    oktmo = this.oktmo,
-    code = this.code,
-    iso31662 = this.iso31662,
-    label = this.label,
-    name = this.name,
-    nameEn = this.nameEn,
-    fullName = this.fullName,
-    unofficialName = this.unofficialName,
-    type = this.type,
-    typeShort = this.typeShort,
-    contentType = this.contentType,
-    population = this.population,
-    yearFounded = this.yearFounded,
-    area = this.area,
-    district = this.district,
+    nameCase = this.nameCase?.asDomain(),
 )
