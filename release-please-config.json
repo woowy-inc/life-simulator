@@ -1,0 +1,66 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "release-type": "simple",
+  "packages": {
+    "auth-service": {
+      "extra-files": [
+        {
+          "type": "generic",
+          "path": "auth-service/build.gradle.kts",
+          "search-by-regex": true,
+          "patterns": [
+            [
+              "version = \"[0-9]+\\.[0-9]+\\.[0-9]+\"",
+              "version = \"{{version}}\""
+            ]
+          ]
+        }
+      ]
+    },
+    "gateway-service": {
+      "extra-files": [
+        {
+          "type": "generic",
+          "path": "gateway-service/build.gradle.kts",
+          "search-by-regex": true,
+          "patterns": [
+            [
+              "version = \"[0-9]+\\.[0-9]+\\.[0-9]+\"",
+              "version = \"{{version}}\""
+            ]
+          ]
+        }
+      ]
+    },
+    "eureka-service": {
+      "extra-files": [
+        {
+          "type": "generic",
+          "path": "eureka-service/build.gradle.kts",
+          "search-by-regex": true,
+          "patterns": [
+            [
+              "version = \"[0-9]+\\.[0-9]+\\.[0-9]+\"",
+              "version = \"{{version}}\""
+            ]
+          ]
+        }
+      ]
+    },
+    "notification-service": {
+      "extra-files": [
+        {
+          "type": "generic",
+          "path": "notification-service/build.gradle.kts",
+          "search-by-regex": true,
+          "patterns": [
+            [
+              "version = \"[0-9]+\\.[0-9]+\\.[0-9]+\"",
+              "version = \"{{version}}\""
+            ]
+          ]
+        }
+      ]
+    }
+  }
+}
