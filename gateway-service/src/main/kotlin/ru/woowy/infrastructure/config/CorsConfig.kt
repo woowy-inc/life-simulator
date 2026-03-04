@@ -1,4 +1,4 @@
-package ru.woowy.application.config
+package ru.woowy.infrastructure.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -8,7 +8,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import org.springframework.web.filter.CorsFilter
 
 @Configuration
-internal class CorsConfig(
+class CorsConfig(
     private val appProperties: AppProperties,
 ) {
     @Bean

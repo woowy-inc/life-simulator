@@ -9,7 +9,7 @@ import org.springframework.cloud.client.loadbalancer.LoadBalancerClient
 import org.springframework.web.client.RestClient
 import org.springframework.web.client.body
 
-internal class ApiDocumentationProxyServiceTest {
+class ApiDocumentationProxyServiceTest {
     private val loadBalancerClient = mockk<LoadBalancerClient>()
     private val restClient = mockk<RestClient>(relaxed = true)
     private val service = ApiDocumentationProxyServiceImpl(loadBalancerClient, restClient)

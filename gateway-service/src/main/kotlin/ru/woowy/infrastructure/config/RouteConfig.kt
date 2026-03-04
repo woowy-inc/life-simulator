@@ -1,4 +1,4 @@
-package ru.woowy.application.config
+package ru.woowy.infrastructure.config
 
 import org.springframework.cloud.gateway.server.mvc.filter.LoadBalancerFilterFunctions.lb
 import org.springframework.cloud.gateway.server.mvc.handler.GatewayRouterFunctions.route
@@ -11,7 +11,7 @@ import org.springframework.web.servlet.function.ServerResponse
 import ru.woowy.security.Service
 
 @Configuration
-internal class RouteConfig {
+class RouteConfig {
     @Bean
     fun gatewayRoutes(): RouterFunction<ServerResponse> = route("auth-jwks")
         .GET("/.well-known/**", http())

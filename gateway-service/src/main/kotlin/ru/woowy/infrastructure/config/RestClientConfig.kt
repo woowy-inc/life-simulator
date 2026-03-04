@@ -1,11 +1,11 @@
-package ru.woowy.application.config
+package ru.woowy.infrastructure.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.client.RestClient
 
 @Configuration
-internal class RestClientConfig {
+class RestClientConfig {
     @Bean
     fun restClient(): RestClient = RestClient.create()
 }

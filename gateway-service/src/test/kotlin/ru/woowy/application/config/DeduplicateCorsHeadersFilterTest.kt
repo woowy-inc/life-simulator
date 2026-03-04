@@ -8,9 +8,10 @@ import jakarta.servlet.http.HttpServletResponse
 import org.junit.jupiter.api.Test
 import org.springframework.mock.web.MockHttpServletRequest
 import org.springframework.mock.web.MockHttpServletResponse
+import ru.woowy.infrastructure.config.DeduplicateCorsHeadersFilter
 import kotlin.test.assertEquals
 
-internal class DeduplicateCorsHeadersFilterTest {
+class DeduplicateCorsHeadersFilterTest {
     private val request = mockk<HttpServletRequest>(relaxed = true)
     private val filterChain = mockk<FilterChain>(relaxed = true)
     private val filter = DeduplicateCorsHeadersFilter()

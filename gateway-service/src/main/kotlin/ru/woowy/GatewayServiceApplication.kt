@@ -6,7 +6,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient
 
 @SpringBootApplication
 @EnableDiscoveryClient
-internal class GatewayServiceApplication
+class GatewayServiceApplication
 
 fun main(args: Array<String>) {
     runApplication<GatewayServiceApplication>(*args)

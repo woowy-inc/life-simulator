@@ -9,7 +9,7 @@ import ru.woowy.domain.service.ApiDocumentationProxyService
 import ru.woowy.security.ServiceId
 
 @RestController
-internal class ApiDocumentationProxyController(
+class ApiDocumentationProxyController(
     private val apiDocumentationProxyService: ApiDocumentationProxyService,
 ) {
     @GetMapping("/api-docs/{serviceId}")

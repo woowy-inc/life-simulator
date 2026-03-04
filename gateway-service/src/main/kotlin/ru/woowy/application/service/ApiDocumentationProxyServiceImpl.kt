@@ -9,14 +9,12 @@ import ru.woowy.extension.internalError
 import ru.woowy.security.ServiceId
 
 @Service
-internal class ApiDocumentationProxyServiceImpl(
+class ApiDocumentationProxyServiceImpl(
     private val loadBalancerClient: LoadBalancerClient,
     private val restClient: RestClient,
 ) : ApiDocumentationProxyService {
     override fun get(serviceId: ServiceId): String {
-        val instance =
-            loadBalancerClient.choose(serviceId)
-                ?: internalError("Service $serviceId unavailable")
+        val instance = loadBalancerClient.choose(serviceId)
 
         val uri = "http://${instance.host}:${instance.port}/v3/api-docs"
 

@@ -1,4 +1,4 @@
-package ru.woowy.application.config
+package ru.woowy.infrastructure.config
 
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
