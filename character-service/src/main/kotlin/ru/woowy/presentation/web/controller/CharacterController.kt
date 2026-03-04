@@ -6,4 +6,4 @@ import ru.woowy.presentation.web.RestEndpoint
 
 @RestController
 @RequestMapping(RestEndpoint.BASE_URL)
-internal class CharacterController
+class CharacterController
