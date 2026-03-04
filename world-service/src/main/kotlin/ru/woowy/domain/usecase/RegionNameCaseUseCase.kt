@@ -1,9 +1,9 @@
-package ru.woowy.application.usecase
+package ru.woowy.domain.usecase
 
 import ru.woowy.domain.model.RegionId
 import ru.woowy.domain.model.RegionNameCase
 
-internal interface RegionNameCaseUseCase {
+interface RegionNameCaseUseCase {
     fun getAll(regionId: RegionId): List<RegionNameCase>
 
     fun add(nameCase: RegionNameCase): RegionNameCase

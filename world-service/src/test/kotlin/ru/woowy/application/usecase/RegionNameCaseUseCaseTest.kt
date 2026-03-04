@@ -7,11 +7,10 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import ru.woowy.application.usecase.impl.RegionNameCaseUseCaseImpl
 import ru.woowy.domain.repository.RegionNameCaseRepository
 import ru.woowy.helper.randomRegionNameCase
 
-internal class RegionNameCaseUseCaseTest {
+class RegionNameCaseUseCaseTest {
     private val caseRepository = mockk<RegionNameCaseRepository>(relaxed = true)
     private val request = randomRegionNameCase()
     private val useCase = RegionNameCaseUseCaseImpl(caseRepository)

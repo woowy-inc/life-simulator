@@ -6,11 +6,10 @@ import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import ru.woowy.application.usecase.impl.CityNameCaseUseCaseImpl
 import ru.woowy.domain.repository.CityNameCaseRepository
 import ru.woowy.helper.randomCityNameCase
 
-internal class CityNameCaseUseCaseTest {
+class CityNameCaseUseCaseTest {
     private val nameCaseRepository = mockk<CityNameCaseRepository>(relaxed = true)
     private val request = randomCityNameCase()
     private val useCase = CityNameCaseUseCaseImpl(nameCaseRepository)

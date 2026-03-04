@@ -3,7 +3,7 @@ package ru.woowy.infrastructure.mapper
 import ru.woowy.domain.model.Region
 import ru.woowy.infrastructure.persistence.entity.RegionEntity
 
-internal fun RegionEntity.asDomain(): Region = Region(
+fun RegionEntity.asDomain(): Region = Region(
     id = this.id,
     okato = this.okato,
     oktmo = this.oktmo,

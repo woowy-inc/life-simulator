@@ -4,7 +4,7 @@ import java.util.UUID
 
 typealias RegionId = UUID
 
-internal data class Region(
+data class Region(
     val id: RegionId,
     val okato: String,
     val oktmo: String,

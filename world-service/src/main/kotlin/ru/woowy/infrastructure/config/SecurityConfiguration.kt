@@ -6,4 +6,4 @@ import ru.woowy.application.config.ResourceServerSecurityConfiguration
 
 @Configuration
 @Import(ResourceServerSecurityConfiguration::class)
-internal class SecurityConfiguration
+class SecurityConfiguration

@@ -1,13 +1,13 @@
-package ru.woowy.application.usecase.impl
+package ru.woowy.application.usecase
 
 import org.springframework.stereotype.Service
-import ru.woowy.application.usecase.TimezoneUseCase
 import ru.woowy.domain.model.Timezone
 import ru.woowy.domain.model.TimezoneId
 import ru.woowy.domain.repository.TimezoneRepository
+import ru.woowy.domain.usecase.TimezoneUseCase
 
 @Service
-internal class TimezoneUseCaseImpl(
+class TimezoneUseCaseImpl(
     private val timezoneRepository: TimezoneRepository,
 ) : TimezoneUseCase {
     override fun get(timezoneId: TimezoneId): Timezone? = timezoneRepository.findByTimezoneId(timezoneId)

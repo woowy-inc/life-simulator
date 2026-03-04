@@ -1,9 +1,9 @@
-package ru.woowy.application.usecase
+package ru.woowy.domain.usecase
 
 import ru.woowy.domain.model.CityId
 import ru.woowy.domain.model.CityNameCase
 
-internal interface CityNameCaseUseCase {
+interface CityNameCaseUseCase {
     fun findAll(cityId: CityId): List<CityNameCase>
 
     fun add(nameCase: CityNameCase): CityNameCase

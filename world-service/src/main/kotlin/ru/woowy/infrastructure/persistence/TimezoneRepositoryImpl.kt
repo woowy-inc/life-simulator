@@ -10,7 +10,7 @@ import ru.woowy.infrastructure.persistence.jpa.JpaTimezoneRepository
 import kotlin.jvm.optionals.getOrNull
 
 @Repository
-internal class TimezoneRepositoryImpl(
+class TimezoneRepositoryImpl(
     private val jpaTimezoneRepository: JpaTimezoneRepository,
 ) : TimezoneRepository {
     override fun findByTimezoneId(timezoneId: TimezoneId): Timezone? =
@@ -22,7 +22,7 @@ internal class TimezoneRepositoryImpl(
 
     override fun delete(timezoneId: TimezoneId) = jpaTimezoneRepository.deleteById(timezoneId)
 
-    internal fun Timezone.asEntity() = TimezoneEntity(
+    private fun Timezone.asEntity() = TimezoneEntity(
         timezoneId = this.timezoneId,
         abbreviation = this.abbreviation,
         utcOffset = this.utcOffset,

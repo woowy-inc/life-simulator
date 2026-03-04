@@ -3,9 +3,8 @@ package ru.woowy.infrastructure.mapper
 import ru.woowy.domain.model.City
 import ru.woowy.domain.model.Coordinate
 import ru.woowy.infrastructure.persistence.entity.CityEntity
-import ru.woowy.infrastructure.persistence.entity.RegionEntity
 
-internal fun CityEntity.asDomain(): City = City(
+fun CityEntity.asDomain(): City = City(
     id = this.id,
     region = this.region.asDomain(),
     nameCase = this.nameCase?.asDomain(),

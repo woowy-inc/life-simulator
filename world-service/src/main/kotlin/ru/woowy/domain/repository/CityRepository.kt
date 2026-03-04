@@ -3,7 +3,7 @@ package ru.woowy.domain.repository
 import ru.woowy.domain.model.City
 import ru.woowy.domain.model.CityId
 
-internal interface CityRepository {
+interface CityRepository {
     fun findAll(): List<City>
 
     fun findById(cityId: CityId): City?

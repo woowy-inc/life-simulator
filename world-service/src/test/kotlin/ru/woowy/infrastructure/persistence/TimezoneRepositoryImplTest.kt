@@ -10,7 +10,7 @@ import ru.woowy.infrastructure.JpaRepositoryTest
 import ru.woowy.infrastructure.persistence.jpa.JpaTimezoneRepository
 import ru.woowy.util.randomString
 
-internal class TimezoneRepositoryImplTest
+class TimezoneRepositoryImplTest
     @Autowired
     constructor(
         private val jpaTimezoneRepository: JpaTimezoneRepository,

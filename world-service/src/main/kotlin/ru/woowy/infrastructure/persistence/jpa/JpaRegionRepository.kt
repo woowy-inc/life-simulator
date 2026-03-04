@@ -6,7 +6,7 @@ import ru.woowy.domain.model.RegionId
 import ru.woowy.infrastructure.persistence.entity.RegionEntity
 import java.util.Optional
 
-internal interface JpaRegionRepository : JpaRepository<RegionEntity, RegionId> {
+interface JpaRegionRepository : JpaRepository<RegionEntity, RegionId> {
     @EntityGraph(attributePaths = ["nameCase"])
     override fun findById(id: RegionId): Optional<RegionEntity>
 

@@ -10,7 +10,7 @@ import jakarta.persistence.OneToOne
 import ru.woowy.domain.model.CityId
 
 @Entity(name = "cities")
-internal class CityEntity(
+class CityEntity(
     @Id
     var id: CityId,
     @ManyToOne(fetch = FetchType.LAZY)
@@ -53,10 +53,9 @@ internal class CityEntity(
     var latitude: Double,
     @Column(nullable = false)
     var longitude: Double,
-) {
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "city")
-    var nameCase: CityNameCaseEntity? = null
-
+    var nameCase: CityNameCaseEntity? = null,
+) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is CityEntity) return false

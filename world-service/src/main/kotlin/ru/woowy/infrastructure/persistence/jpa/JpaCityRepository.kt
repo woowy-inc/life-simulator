@@ -1,12 +1,15 @@
 package ru.woowy.infrastructure.persistence.jpa
 
+import org.springframework.data.jpa.domain.Specification
 import org.springframework.data.jpa.repository.EntityGraph
 import org.springframework.data.jpa.repository.JpaRepository
 import ru.woowy.domain.model.CityId
 import ru.woowy.infrastructure.persistence.entity.CityEntity
 import java.util.Optional
 
-internal interface JpaCityRepository : JpaRepository<CityEntity, CityId> {
+interface JpaCityRepository :
+    JpaRepository<CityEntity, CityId>,
+    Specification<CityEntity> {
     @EntityGraph(attributePaths = ["region", "region.nameCase", "timezone", "nameCase"])
     override fun findAll(): List<CityEntity>
 

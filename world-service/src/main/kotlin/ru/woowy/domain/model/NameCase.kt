@@ -1,6 +1,6 @@
 package ru.woowy.domain.model
 
-internal abstract class NameCase {
+abstract class NameCase {
     abstract val nominative: String
     abstract val genitive: String
     abstract val dative: String

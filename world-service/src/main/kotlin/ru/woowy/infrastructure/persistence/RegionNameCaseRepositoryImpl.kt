@@ -11,7 +11,7 @@ import ru.woowy.infrastructure.persistence.jpa.JpaRegionNameCaseRepository
 import ru.woowy.infrastructure.persistence.jpa.JpaRegionRepository
 
 @Repository
-internal class RegionNameCaseRepositoryImpl(
+class RegionNameCaseRepositoryImpl(
     private val jpaRegionRepository: JpaRegionRepository,
     private val jpaRegionNameCaseRepository: JpaRegionNameCaseRepository,
 ) : RegionNameCaseRepository {
@@ -19,18 +19,18 @@ internal class RegionNameCaseRepositoryImpl(
         jpaRegionNameCaseRepository.findAllByRegionId(regionId).map { it.asDomain() }
 
     override fun add(case: RegionNameCase): RegionNameCase =
-        jpaRegionNameCaseRepository.save(case.asEntity(case)).asDomain()
+        jpaRegionNameCaseRepository.save(case.asEntity()).asDomain()
 
     override fun update(case: RegionNameCase): RegionNameCase? {
         if (!jpaRegionNameCaseRepository.existsById(case.id)) return null
 
-        return jpaRegionNameCaseRepository.save(case.asEntity(case)).asDomain()
+        return jpaRegionNameCaseRepository.save(case.asEntity()).asDomain()
     }
 
     override fun deleteAll(regionId: RegionId) = jpaRegionNameCaseRepository.deleteAllByRegionId(regionId)
 
-    private fun RegionNameCase.asEntity(case: RegionNameCase): RegionNameCaseEntity {
-        val region = jpaRegionRepository.getReferenceById(case.regionId)
+    private fun RegionNameCase.asEntity(): RegionNameCaseEntity {
+        val region = jpaRegionRepository.getReferenceById(this.regionId)
 
         return asEntity(region)
     }

@@ -3,7 +3,7 @@ package ru.woowy.domain.repository
 import ru.woowy.domain.model.Region
 import ru.woowy.domain.model.RegionId
 
-internal interface RegionRepository {
+interface RegionRepository {
     fun findById(regionId: RegionId): Region?
 
     fun add(region: Region): Region

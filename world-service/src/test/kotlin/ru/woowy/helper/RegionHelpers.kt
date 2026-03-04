@@ -10,7 +10,7 @@ import ru.woowy.util.randomShort
 import ru.woowy.util.randomString
 import ru.woowy.util.randomUUID
 
-internal fun randomRegion(
+fun randomRegion(
     id: RegionId = randomUUID(),
     okato: String = randomString(),
     oktmo: String = randomString(),
@@ -50,7 +50,7 @@ internal fun randomRegion(
     nameCase = nameCase,
 )
 
-internal fun randomRegionNameCase(
+fun randomRegionNameCase(
     id: RegionNameCaseId = randomUUID(),
     regionId: RegionId = randomUUID(),
     nominative: String = randomString(),

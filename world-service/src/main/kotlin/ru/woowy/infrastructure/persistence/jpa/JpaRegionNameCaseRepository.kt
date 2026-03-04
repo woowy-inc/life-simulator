@@ -5,7 +5,7 @@ import ru.woowy.domain.model.RegionId
 import ru.woowy.infrastructure.persistence.entity.RegionNameCaseEntity
 import java.util.UUID
 
-internal interface JpaRegionNameCaseRepository : JpaRepository<RegionNameCaseEntity, RegionId> {
+interface JpaRegionNameCaseRepository : JpaRepository<RegionNameCaseEntity, RegionId> {
     fun findAllByRegionId(regionId: RegionId): List<RegionNameCaseEntity>
 
     fun deleteAllByRegionId(regionId: UUID)

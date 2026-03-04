@@ -16,7 +16,7 @@ import ru.woowy.infrastructure.persistence.jpa.JpaRegionRepository
 import ru.woowy.infrastructure.persistence.jpa.JpaTimezoneRepository
 import ru.woowy.util.randomUUID
 
-internal class CityNameCaseRepositoryImplTest
+class CityNameCaseRepositoryImplTest
     @Autowired
     constructor(
         private val jpaCityRepository: JpaCityRepository,

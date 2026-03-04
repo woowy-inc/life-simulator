@@ -14,7 +14,7 @@ import ru.woowy.infrastructure.persistence.jpa.JpaTimezoneRepository
 import kotlin.jvm.optionals.getOrNull
 
 @Repository
-internal class CityRepositoryImpl(
+class CityRepositoryImpl(
     private val jpaCityRepository: JpaCityRepository,
     private val jpaRegionRepository: JpaRegionRepository,
     private val jpaTimezoneRepository: JpaTimezoneRepository,
@@ -23,15 +23,15 @@ internal class CityRepositoryImpl(
 
     override fun findById(cityId: CityId): City? = jpaCityRepository.findById(cityId).getOrNull()?.asDomain()
 
-    override fun add(city: City): City = jpaCityRepository.save(city.asEntity(city)).asDomain()
+    override fun add(city: City): City = jpaCityRepository.save(city.asEntity()).asDomain()
 
-    override fun update(city: City): City? = jpaCityRepository.save(city.asEntity(city)).asDomain()
+    override fun update(city: City): City? = jpaCityRepository.save(city.asEntity()).asDomain()
 
     override fun delete(cityId: CityId) = jpaCityRepository.deleteById(cityId)
 
-    private fun City.asEntity(city: City): CityEntity {
-        val region = jpaRegionRepository.getReferenceById(city.region.id)
-        val timezone = jpaTimezoneRepository.getReferenceById(city.timezone.timezoneId)
+    private fun City.asEntity(): CityEntity {
+        val region = jpaRegionRepository.getReferenceById(this.region.id)
+        val timezone = jpaTimezoneRepository.getReferenceById(this.timezone.timezoneId)
 
         return asEntity(region, timezone)
     }

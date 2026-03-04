@@ -6,7 +6,7 @@ import jakarta.persistence.Id
 import ru.woowy.domain.model.TimezoneId
 
 @Entity(name = "timezones")
-internal class TimezoneEntity(
+class TimezoneEntity(
     @Id
     @Column(name = "timezone_id")
     var timezoneId: TimezoneId,

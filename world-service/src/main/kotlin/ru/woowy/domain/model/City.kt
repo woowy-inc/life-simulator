@@ -4,7 +4,7 @@ import java.util.UUID
 
 typealias CityId = UUID
 
-internal data class City(
+data class City(
     val id: CityId,
     val region: Region,
     val nameCase: CityNameCase?,

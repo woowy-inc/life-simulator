@@ -5,13 +5,12 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertNull
-import ru.woowy.application.usecase.impl.TimezoneUseCaseImpl
 import ru.woowy.domain.repository.TimezoneRepository
 import ru.woowy.helper.randomTimezone
 import ru.woowy.util.randomString
 import kotlin.test.assertEquals
 
-internal class TimezoneUseCaseTest {
+class TimezoneUseCaseTest {
     private val timezoneRepository = mockk<TimezoneRepository>(relaxed = true)
     private val request = randomTimezone()
     private val useCase = TimezoneUseCaseImpl(timezoneRepository)

@@ -14,7 +14,7 @@ import ru.woowy.infrastructure.persistence.jpa.JpaRegionRepository
 import ru.woowy.util.randomString
 import ru.woowy.util.randomUUID
 
-internal class RegionRepositoryImplTest
+class RegionRepositoryImplTest
     @Autowired
     constructor(
         private val jpaRegionRepository: JpaRegionRepository,

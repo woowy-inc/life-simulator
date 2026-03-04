@@ -5,7 +5,7 @@ import ru.woowy.domain.model.CityNameCaseId
 import ru.woowy.infrastructure.persistence.entity.CityNameCaseEntity
 import java.util.UUID
 
-internal interface JpaCityNameCaseRepository : JpaRepository<CityNameCaseEntity, CityNameCaseId> {
+interface JpaCityNameCaseRepository : JpaRepository<CityNameCaseEntity, CityNameCaseId> {
     fun findAllByCityId(cityId: UUID): List<CityNameCaseEntity>
 
     fun deleteAllByCityId(cityId: UUID)

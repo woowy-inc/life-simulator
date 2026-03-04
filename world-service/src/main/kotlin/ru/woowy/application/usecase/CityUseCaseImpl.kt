@@ -1,13 +1,13 @@
-package ru.woowy.application.usecase.impl
+package ru.woowy.application.usecase
 
 import org.springframework.stereotype.Service
-import ru.woowy.application.usecase.CityUseCase
 import ru.woowy.domain.model.City
 import ru.woowy.domain.model.CityId
 import ru.woowy.domain.repository.CityRepository
+import ru.woowy.domain.usecase.CityUseCase
 
 @Service
-internal class CityUseCaseImpl(
+class CityUseCaseImpl(
     private val cityRepository: CityRepository,
 ) : CityUseCase {
     override fun get(cityId: CityId): City? = cityRepository.findById(cityId)

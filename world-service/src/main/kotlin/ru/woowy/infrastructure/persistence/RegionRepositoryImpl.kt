@@ -10,7 +10,7 @@ import ru.woowy.infrastructure.persistence.jpa.JpaRegionRepository
 import kotlin.jvm.optionals.getOrNull
 
 @Repository
-internal class RegionRepositoryImpl(
+class RegionRepositoryImpl(
     private val jpaRegionRepository: JpaRegionRepository,
 ) : RegionRepository {
     override fun findById(regionId: RegionId): Region? = jpaRegionRepository.findById(regionId).getOrNull()?.asDomain()

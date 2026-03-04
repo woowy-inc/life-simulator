@@ -4,7 +4,7 @@ import ru.woowy.domain.model.Timezone
 import ru.woowy.domain.model.TimezoneId
 import ru.woowy.util.randomString
 
-internal fun randomTimezone(
+fun randomTimezone(
     timezoneId: TimezoneId = randomString(),
     abbreviation: String = randomString(),
     utcOffset: String = randomString(),

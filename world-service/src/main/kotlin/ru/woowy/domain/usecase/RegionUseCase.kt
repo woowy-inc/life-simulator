@@ -1,9 +1,9 @@
-package ru.woowy.application.usecase
+package ru.woowy.domain.usecase
 
 import ru.woowy.domain.model.Region
 import ru.woowy.domain.model.RegionId
 
-internal interface RegionUseCase {
+interface RegionUseCase {
     fun get(regionId: RegionId): Region?
 
     fun add(region: Region): Region

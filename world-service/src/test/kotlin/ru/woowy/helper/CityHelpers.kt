@@ -15,7 +15,7 @@ import ru.woowy.util.randomShort
 import ru.woowy.util.randomString
 import ru.woowy.util.randomUUID
 
-internal fun randomCity(
+fun randomCity(
     id: CityId = randomUUID(),
     region: Region = randomRegion(nameCase = null),
     nameCase: CityNameCase? = randomCityNameCase(),
@@ -59,7 +59,7 @@ internal fun randomCity(
     coordinate = coordinate,
 )
 
-internal fun randomCityNameCase(
+fun randomCityNameCase(
     id: CityNameCaseId = randomUUID(),
     cityId: CityId = randomUUID(),
     nominative: String = randomString(),
@@ -81,7 +81,7 @@ internal fun randomCityNameCase(
     locative = locative,
 )
 
-internal fun randomCoordinate(
+fun randomCoordinate(
     latitude: Double = randomDouble(-90.0, 90.0),
     longitude: Double = randomDouble(-180.0, 180.0),
 ): Coordinate = Coordinate(

@@ -11,19 +11,19 @@ import ru.woowy.infrastructure.persistence.jpa.JpaCityNameCaseRepository
 import ru.woowy.infrastructure.persistence.jpa.JpaCityRepository
 
 @Repository
-internal class CityNameCaseRepositoryImpl(
+class CityNameCaseRepositoryImpl(
     private val jpaCityNameCaseRepository: JpaCityNameCaseRepository,
     private val jpaCityRepository: JpaCityRepository,
 ) : CityNameCaseRepository {
     override fun findAllByCityId(cityId: CityId): List<CityNameCase> =
         jpaCityNameCaseRepository.findAllByCityId(cityId).map { it.asDomain() }
 
-    override fun add(case: CityNameCase): CityNameCase = jpaCityNameCaseRepository.save(case.asEntity(case)).asDomain()
+    override fun add(case: CityNameCase): CityNameCase = jpaCityNameCaseRepository.save(case.asEntity()).asDomain()
 
     override fun deleteAll(cityId: CityId) = jpaCityNameCaseRepository.deleteAllByCityId(cityId)
 
-    private fun CityNameCase.asEntity(case: CityNameCase): CityNameCaseEntity {
-        val city = jpaCityRepository.getReferenceById(case.cityId)
+    private fun CityNameCase.asEntity(): CityNameCaseEntity {
+        val city = jpaCityRepository.getReferenceById(this.cityId)
 
         return asEntity(city)
     }

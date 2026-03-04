@@ -1,9 +1,9 @@
-package ru.woowy.application.usecase
+package ru.woowy.domain.usecase
 
 import ru.woowy.domain.model.Timezone
 import ru.woowy.domain.model.TimezoneId
 
-internal interface TimezoneUseCase {
+interface TimezoneUseCase {
     fun get(timezoneId: TimezoneId): Timezone?
 
     fun add(timezone: Timezone): Timezone

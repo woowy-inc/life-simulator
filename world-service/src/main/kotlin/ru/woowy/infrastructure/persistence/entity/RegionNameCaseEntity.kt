@@ -9,7 +9,7 @@ import jakarta.persistence.OneToOne
 import ru.woowy.domain.model.RegionNameCaseId
 
 @Entity(name = "region_namecases")
-internal class RegionNameCaseEntity(
+class RegionNameCaseEntity(
     @Id
     var id: RegionNameCaseId,
     @OneToOne(fetch = FetchType.LAZY)

@@ -1,13 +1,13 @@
-package ru.woowy.application.usecase.impl
+package ru.woowy.application.usecase
 
 import org.springframework.stereotype.Service
-import ru.woowy.application.usecase.RegionUseCase
 import ru.woowy.domain.model.Region
 import ru.woowy.domain.model.RegionId
 import ru.woowy.domain.repository.RegionRepository
+import ru.woowy.domain.usecase.RegionUseCase
 
 @Service
-internal class RegionUseCaseImpl(
+class RegionUseCaseImpl(
     private val regionRepository: RegionRepository,
 ) : RegionUseCase {
     override fun get(regionId: RegionId): Region? = regionRepository.findById(regionId)

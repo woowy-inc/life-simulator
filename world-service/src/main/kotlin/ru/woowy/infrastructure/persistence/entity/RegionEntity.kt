@@ -7,7 +7,7 @@ import jakarta.persistence.OneToOne
 import ru.woowy.domain.model.RegionId
 
 @Entity(name = "regions")
-internal class RegionEntity(
+class RegionEntity(
     @Id
     var id: RegionId,
     @Column(length = 20, nullable = false)
