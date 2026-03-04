@@ -1,14 +1,14 @@
 package ru.woowy.helper
 
-import ru.woowy.auth.domain.model.RefreshTokenRequest
-import ru.woowy.auth.domain.model.Token
-import ru.woowy.auth.domain.model.TokenDto
+import ru.woowy.domain.model.EmailVerificationKey
+import ru.woowy.domain.model.RefreshTokenRequest
+import ru.woowy.domain.model.Token
+import ru.woowy.domain.model.TokenDto
+import ru.woowy.domain.model.UserRegisterRequest
+import ru.woowy.domain.model.UsernameAvailableDto
+import ru.woowy.domain.model.UsernameRequest
 import ru.woowy.security.User
 import ru.woowy.security.UserRole
-import ru.woowy.user.domain.model.EmailVerificationKey
-import ru.woowy.user.domain.model.UserRegisterRequest
-import ru.woowy.user.domain.model.UsernameAvailableDto
-import ru.woowy.user.domain.model.UsernameRequest
 import ru.woowy.util.randomBoolean
 import ru.woowy.util.randomEmail
 import ru.woowy.util.randomLocalDateTime
@@ -20,7 +20,7 @@ import ru.woowy.util.randomUsername
 import java.time.LocalDateTime
 import java.util.UUID
 
-internal fun randomUser(request: UserRegisterRequest = randomUserRegisterRequest()): User = User(
+fun randomUser(request: UserRegisterRequest = randomUserRegisterRequest()): User = User(
     id = randomUUID(),
     username = request.username,
     email = request.email,
@@ -30,7 +30,7 @@ internal fun randomUser(request: UserRegisterRequest = randomUserRegisterRequest
     isEmailVerified = randomBoolean(),
 )
 
-internal fun randomUser(
+fun randomUser(
     id: UUID = randomUUID(),
     username: String = randomUsername(),
     email: String = randomEmail(),
@@ -48,7 +48,7 @@ internal fun randomUser(
     isEmailVerified = isEmailVerified,
 )
 
-internal fun randomUserRegisterRequest(
+fun randomUserRegisterRequest(
     username: String = randomUsername(),
     email: String = randomEmail(),
     password: String = randomPassword(),
@@ -60,7 +60,7 @@ internal fun randomUserRegisterRequest(
     firstName = firstName,
 )
 
-internal fun randomUsernameRequest(
+fun randomUsernameRequest(
     username: String = randomUsername(),
     password: String = randomPassword(),
 ): UsernameRequest = UsernameRequest(
@@ -68,7 +68,7 @@ internal fun randomUsernameRequest(
     password = password,
 )
 
-internal fun randomEmailVerificationKey(
+fun randomEmailVerificationKey(
     key: String = randomString(),
     user: User = randomUser(),
     expiresAt: LocalDateTime = randomLocalDateTime(),
@@ -80,7 +80,7 @@ internal fun randomEmailVerificationKey(
     used = used,
 )
 
-internal fun randomToken(
+fun randomToken(
     value: String = randomString(),
     expiration: Long = randomLong(min = 2_000_000, max = 3_000_000),
 ): Token = Token(
@@ -88,7 +88,7 @@ internal fun randomToken(
     expiration = expiration,
 )
 
-internal fun randomTokenDto(
+fun randomTokenDto(
     accessToken: Token = randomToken(),
     refreshToken: Token = randomToken(),
 ): TokenDto = TokenDto(
@@ -98,7 +98,7 @@ internal fun randomTokenDto(
     refreshTokenExpiresIn = refreshToken.expiration,
 )
 
-internal fun randomTokenDto(
+fun randomTokenDto(
     accessToken: String = randomString(),
     accessTokenExpiresIn: Long = randomLong(min = 2_000_000, max = 3_000_000),
     refreshToken: String = randomString(),
@@ -110,7 +110,7 @@ internal fun randomTokenDto(
     refreshTokenExpiresIn = refreshTokenExpiresIn,
 )
 
-internal fun randomUsernameAvailableDto(
+fun randomUsernameAvailableDto(
     username: String = randomUsername(),
     isAvailable: Boolean = randomBoolean(),
 ): UsernameAvailableDto = UsernameAvailableDto(
@@ -118,5 +118,5 @@ internal fun randomUsernameAvailableDto(
     isAvailable = isAvailable,
 )
 
-internal fun randomRefreshTokenRequest(refreshToken: String = randomString()): RefreshTokenRequest =
+fun randomRefreshTokenRequest(refreshToken: String = randomString()): RefreshTokenRequest =
     RefreshTokenRequest(refreshToken)

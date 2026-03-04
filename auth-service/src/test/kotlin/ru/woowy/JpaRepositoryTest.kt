@@ -9,7 +9,7 @@ import org.testcontainers.junit.jupiter.Testcontainers
 @DataJpaTest
 @Testcontainers
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-internal class JpaRepositoryTest {
+class JpaRepositoryTest {
     companion object {
         @JvmStatic
         @DynamicPropertySource
