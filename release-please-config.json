@@ -3,7 +3,7 @@
   "release-type": "simple",
   "include-component-in-tag": true,
   "packages": {
-    "auth-service": {
+    "AuthService": {
       "extra-files": [
         {
           "type": "generic",
@@ -18,7 +18,7 @@
         }
       ]
     },
-    "gateway-service": {
+    "GatewayService": {
       "extra-files": [
         {
           "type": "generic",
@@ -33,7 +33,7 @@
         }
       ]
     },
-    "eureka-service": {
+    "EurekaService": {
       "extra-files": [
         {
           "type": "generic",
@@ -48,7 +48,7 @@
         }
       ]
     },
-    "notification-service": {
+    "NotificationService": {
       "extra-files": [
         {
           "type": "generic",
