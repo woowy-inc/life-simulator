@@ -5,10 +5,10 @@ import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertInstanceOf
 import org.junit.jupiter.api.Test
-import ru.woowy.application.model.VerifiedEmail
-import ru.woowy.application.model.VerifyEmail
 import ru.woowy.domain.model.UserRegisterRequestedEvent
 import ru.woowy.domain.model.UserRegisteredEvent
+import ru.woowy.domain.model.VerifiedEmail
+import ru.woowy.domain.model.VerifyEmail
 
 class EmailFactoryTest {
     private val factory = EmailFactory()

@@ -7,17 +7,18 @@ import ru.woowy.application.email.EmailFactory
 import ru.woowy.application.email.EmailTemplateRenderer
 import ru.woowy.domain.model.Event
 import ru.woowy.domain.service.EmailService
+import ru.woowy.domain.usecase.EmailUseCase
 
 @Service
-internal class SendEmailUseCase(
+class EmailUseCaseImpl(
     private val emailService: EmailService,
     private val emailFactory: EmailFactory,
     private val emailBodyResolver: EmailBodyResolver,
     private val renderer: EmailTemplateRenderer,
-) {
-    private val logger = LoggerFactory.getLogger(SendEmailUseCase::class.java)
+) : EmailUseCase {
+    private val logger = LoggerFactory.getLogger(this::class.java)
 
-    suspend operator fun invoke(event: Event) {
+    override fun send(event: Event) {
         try {
             val emailBody = emailBodyResolver.resolve(event)
             val body = renderer.render(emailBody)

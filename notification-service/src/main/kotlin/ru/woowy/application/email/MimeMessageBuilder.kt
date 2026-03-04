@@ -4,11 +4,11 @@ import jakarta.mail.internet.MimeMessage
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.mail.javamail.MimeMessageHelper
 import org.springframework.stereotype.Component
-import ru.woowy.application.config.AppProperties
 import ru.woowy.domain.model.Email
+import ru.woowy.infrastructure.config.AppProperties
 
 @Component
-internal class MimeMessageBuilder(
+class MimeMessageBuilder(
     private val mailSender: JavaMailSender,
     private val appProperties: AppProperties,
 ) : MessageBuilder {

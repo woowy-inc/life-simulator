@@ -17,12 +17,12 @@ import ru.woowy.domain.model.EmailBody
 import ru.woowy.domain.model.Event
 import ru.woowy.domain.service.EmailService
 
-internal class SendEmailUseCaseTest {
+class EmailUseCaseImplTest {
     private val emailService = mockk<EmailService>()
     private val emailFactory = mockk<EmailFactory>()
     private val emailBodyResolver = mockk<EmailBodyResolver>()
     private val renderer = mockk<EmailTemplateRenderer>()
-    private val useCase = SendEmailUseCase(emailService, emailFactory, emailBodyResolver, renderer)
+    private val useCase = EmailUseCaseImpl(emailService, emailFactory, emailBodyResolver, renderer)
 
     private val event = mockk<Event>()
     private val emailBody = mockk<EmailBody>()
@@ -37,7 +37,7 @@ internal class SendEmailUseCaseTest {
         every { email.to } returns "test@test.com"
         coEvery { emailService.send(email) } just Runs
 
-        useCase(event)
+        useCase.send(event)
 
         coVerify(exactly = 1) { emailService.send(email) }
     }
@@ -50,14 +50,14 @@ internal class SendEmailUseCaseTest {
         every { email.to } returns "test@test.com"
         coEvery { emailService.send(email) } throws RuntimeException()
 
-        assertDoesNotThrow { useCase(event) }
+        assertDoesNotThrow { useCase.send(event) }
     }
 
     @Test
     fun `should not throw when resolver fails`() = runTest {
         every { emailBodyResolver.resolve(event) } throws RuntimeException()
 
-        assertDoesNotThrow { useCase(event) }
+        assertDoesNotThrow { useCase.send(event) }
 
         coVerify(exactly = 0) { emailService.send(any()) }
     }

@@ -1,10 +1,10 @@
-package ru.woowy.application.config
+package ru.woowy.infrastructure.config
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.NestedConfigurationProperty
 
 @ConfigurationProperties(prefix = "app")
-internal data class AppProperties(
+data class AppProperties(
     val frontendUrl: String,
     @NestedConfigurationProperty
     val mail: MailProperties,

@@ -1,8 +1,6 @@
-package ru.woowy.application.model
+package ru.woowy.domain.model
 
-import ru.woowy.domain.model.Email
-
-internal data class VerifyEmail(
+data class VerifyEmail(
     override val to: String,
     override val body: String,
     override val isHtml: Boolean = true,

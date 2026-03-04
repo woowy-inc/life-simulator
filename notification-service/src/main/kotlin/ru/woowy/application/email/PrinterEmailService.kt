@@ -8,7 +8,7 @@ import ru.woowy.domain.service.EmailService
 
 @Service
 @Profile("dev")
-internal class PrinterEmailService : EmailService {
+class PrinterEmailService : EmailService {
     private val logger = LoggerFactory.getLogger(PrinterEmailService::class.java)
 
     override fun send(email: Email) {

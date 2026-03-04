@@ -5,13 +5,13 @@ import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.kafka.support.Acknowledgment
 import org.springframework.messaging.handler.annotation.Payload
 import org.springframework.stereotype.Service
-import ru.woowy.application.usecase.SendEmailUseCase
 import ru.woowy.domain.model.Event
+import ru.woowy.domain.usecase.EmailUseCase
 import ru.woowy.messaging.KafkaTopic
 
 @Service
-internal class UserEventHandler(
-    private val sendEmailUseCase: SendEmailUseCase,
+class UserEventHandler(
+    private val emailUseCase: EmailUseCase,
 ) {
     private val logger = LoggerFactory.getLogger(UserEventHandler::class.java)
 
@@ -21,7 +21,7 @@ internal class UserEventHandler(
         ack: Acknowledgment,
     ) {
         logger.info("Received $event")
-        sendEmailUseCase(event)
+        emailUseCase.send(event)
         ack.acknowledge()
     }
 }

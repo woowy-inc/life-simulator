@@ -1,16 +1,16 @@
 package ru.woowy.application.email
 
 import org.springframework.stereotype.Component
-import ru.woowy.application.config.AppProperties
-import ru.woowy.application.model.EmailVerifiedEmailBody
-import ru.woowy.application.model.VerifyEmailBody
 import ru.woowy.domain.model.EmailBody
+import ru.woowy.domain.model.EmailVerifiedEmailBody
 import ru.woowy.domain.model.Event
 import ru.woowy.domain.model.UserRegisterRequestedEvent
 import ru.woowy.domain.model.UserRegisteredEvent
+import ru.woowy.domain.model.VerifyEmailBody
+import ru.woowy.infrastructure.config.AppProperties
 
 @Component
-internal class EmailBodyResolver(
+class EmailBodyResolver(
     private val appProperties: AppProperties,
 ) {
     fun resolve(event: Event): EmailBody = when (event) {

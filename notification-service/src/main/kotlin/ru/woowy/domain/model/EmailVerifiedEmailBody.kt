@@ -1,8 +1,6 @@
-package ru.woowy.application.model
+package ru.woowy.domain.model
 
-import ru.woowy.domain.model.EmailBody
-
-internal data class EmailVerifiedEmailBody(
+data class EmailVerifiedEmailBody(
     private val firstName: String,
     private val username: String,
     private val email: String,

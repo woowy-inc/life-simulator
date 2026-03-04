@@ -8,7 +8,7 @@ import ru.woowy.domain.service.EmailService
 
 @Service
 @Profile("prod")
-internal class EmailServiceImpl(
+class EmailServiceImpl(
     private val mailSender: JavaMailSender,
     private val messageBuilder: MessageBuilder,
 ) : EmailService {
