@@ -1,12 +1,13 @@
 {
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
   "release-type": "simple",
+  "include-component-in-tag": true,
   "packages": {
     "auth-service": {
       "extra-files": [
         {
           "type": "generic",
-          "path": "auth-service/build.gradle.kts",
+          "path": "build.gradle.kts",
           "search-by-regex": true,
           "patterns": [
             [
@@ -21,7 +22,7 @@
       "extra-files": [
         {
           "type": "generic",
-          "path": "gateway-service/build.gradle.kts",
+          "path": "build.gradle.kts",
           "search-by-regex": true,
           "patterns": [
             [
@@ -36,7 +37,7 @@
       "extra-files": [
         {
           "type": "generic",
-          "path": "eureka-service/build.gradle.kts",
+          "path": "build.gradle.kts",
           "search-by-regex": true,
           "patterns": [
             [
@@ -51,7 +52,7 @@
       "extra-files": [
         {
           "type": "generic",
-          "path": "notification-service/build.gradle.kts",
+          "path": "build.gradle.kts",
           "search-by-regex": true,
           "patterns": [
             [
