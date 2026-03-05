@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Configure Git
         run: |
@@ -26,6 +26,7 @@ jobs:
 
       - name: Release auth-service
         run: |
+          git pull --rebase origin main
           npx -y monotag@latest tag-push \
             --path=auth-service \
             --separator=/v \
@@ -34,10 +35,11 @@ jobs:
             --git-username="github-actions[bot]" \
             --git-email="github-actions[bot]@users.noreply.github.com"
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Release gateway-service
         run: |
+          git pull --rebase origin main
           npx -y monotag@latest tag-push \
             --path=gateway-service \
             --separator=/v \
@@ -46,10 +48,11 @@ jobs:
             --git-username="github-actions[bot]" \
             --git-email="github-actions[bot]@users.noreply.github.com"
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Release eureka-service
         run: |
+          git pull --rebase origin main
           npx -y monotag@latest tag-push \
             --path=eureka-service \
             --separator=/v \
@@ -58,10 +61,11 @@ jobs:
             --git-username="github-actions[bot]" \
             --git-email="github-actions[bot]@users.noreply.github.com"
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Release notification-service
         run: |
+          git pull --rebase origin main
           npx -y monotag@latest tag-push \
             --path=notification-service \
             --separator=/v \
@@ -70,10 +74,11 @@ jobs:
             --git-username="github-actions[bot]" \
             --git-email="github-actions[bot]@users.noreply.github.com"
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Update build.gradle.kts versions
         run: |
+          git pull --rebase origin main
           CHANGED=0
           for SERVICE in auth-service gateway-service eureka-service notification-service; do
             VERSION=$(npx -y monotag@latest latest --path=$SERVICE --separator=/v | grep -oP '\d+\.\d+\.\d+')
