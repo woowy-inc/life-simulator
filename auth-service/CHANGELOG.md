@@ -1,5 +1,20 @@
 # Changelog
 
+## auth-service/v0.36.0 (2026-03-05)
+
+### Features
+
+* auth-service: test monotag release6 [[31374a2](https://github.com/woowy-team/life-simulator/commit/31374a27ec69d3e599a54c4914e734cdda1112d7)]
+
+### Maintenance
+
+* release: bump versions [skip ci] [[fd51c0f](https://github.com/woowy-team/life-simulator/commit/fd51c0f6709896e479ba9a0a24f0ae28007bfd79)]
+
+### Info
+
+* Authors: Denis <dnartysh@yandex.ru>, github-actions[bot <github-actions[bot]@users.noreply.github.com>]
+
+
 ## auth-service/v0.35.1 (2026-03-05)
 
 ### Maintenance
