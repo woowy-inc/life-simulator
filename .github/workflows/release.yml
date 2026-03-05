@@ -31,13 +31,17 @@ jobs:
           npx -y monotag@latest tag-push \
             --path=auth-service \
             --separator=/v \
-            --changelog-file=auth-service/CHANGELOG.md \
             --conv-commit=true \
             --git-username="github-actions[bot]" \
             --git-email="github-actions[bot]@users.noreply.github.com"
           AFTER=$(npx -y monotag@latest latest --path=auth-service --separator=/v)
           if [ "$BEFORE" != "$AFTER" ]; then
             echo "tag=$AFTER" >> $GITHUB_OUTPUT
+            npx -y monotag@latest tag \
+              --path=auth-service \
+              --separator=/v \
+              --conv-commit=true \
+              --notes-file=/tmp/auth-notes.md
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -47,7 +51,7 @@ jobs:
         run: |
           gh release create "${{ steps.auth.outputs.tag }}" \
             --title "${{ steps.auth.outputs.tag }}" \
-            --notes-file auth-service/CHANGELOG.md
+            --notes-file /tmp/auth-notes.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -61,13 +65,17 @@ jobs:
           npx -y monotag@latest tag-push \
             --path=gateway-service \
             --separator=/v \
-            --changelog-file=gateway-service/CHANGELOG.md \
             --conv-commit=true \
             --git-username="github-actions[bot]" \
             --git-email="github-actions[bot]@users.noreply.github.com"
           AFTER=$(npx -y monotag@latest latest --path=gateway-service --separator=/v)
           if [ "$BEFORE" != "$AFTER" ]; then
             echo "tag=$AFTER" >> $GITHUB_OUTPUT
+            npx -y monotag@latest tag \
+              --path=gateway-service \
+              --separator=/v \
+              --conv-commit=true \
+              --notes-file=/tmp/gateway-notes.md
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -77,7 +85,7 @@ jobs:
         run: |
           gh release create "${{ steps.gateway.outputs.tag }}" \
             --title "${{ steps.gateway.outputs.tag }}" \
-            --notes-file gateway-service/CHANGELOG.md
+            --notes-file /tmp/gateway-notes.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -91,13 +99,17 @@ jobs:
           npx -y monotag@latest tag-push \
             --path=eureka-service \
             --separator=/v \
-            --changelog-file=eureka-service/CHANGELOG.md \
             --conv-commit=true \
             --git-username="github-actions[bot]" \
             --git-email="github-actions[bot]@users.noreply.github.com"
           AFTER=$(npx -y monotag@latest latest --path=eureka-service --separator=/v)
           if [ "$BEFORE" != "$AFTER" ]; then
             echo "tag=$AFTER" >> $GITHUB_OUTPUT
+            npx -y monotag@latest tag \
+              --path=eureka-service \
+              --separator=/v \
+              --conv-commit=true \
+              --notes-file=/tmp/eureka-notes.md
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -107,7 +119,7 @@ jobs:
         run: |
           gh release create "${{ steps.eureka.outputs.tag }}" \
             --title "${{ steps.eureka.outputs.tag }}" \
-            --notes-file eureka-service/CHANGELOG.md
+            --notes-file /tmp/eureka-notes.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -121,13 +133,17 @@ jobs:
           npx -y monotag@latest tag-push \
             --path=notification-service \
             --separator=/v \
-            --changelog-file=notification-service/CHANGELOG.md \
             --conv-commit=true \
             --git-username="github-actions[bot]" \
             --git-email="github-actions[bot]@users.noreply.github.com"
           AFTER=$(npx -y monotag@latest latest --path=notification-service --separator=/v)
           if [ "$BEFORE" != "$AFTER" ]; then
             echo "tag=$AFTER" >> $GITHUB_OUTPUT
+            npx -y monotag@latest tag \
+              --path=notification-service \
+              --separator=/v \
+              --conv-commit=true \
+              --notes-file=/tmp/notification-notes.md
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -137,6 +153,6 @@ jobs:
         run: |
           gh release create "${{ steps.notification.outputs.tag }}" \
             --title "${{ steps.notification.outputs.tag }}" \
-            --notes-file notification-service/CHANGELOG.md
+            --notes-file /tmp/notification-notes.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
