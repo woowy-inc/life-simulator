@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration
 import ru.woowy.infrastructure.security.AuthenticationScheme
 
 @Configuration
-class OpenApiConfiguration(
+class OpenApiConfig(
     private val authenticationScheme: AuthenticationScheme,
     private val appProperties: AppProperties,
     private val buildProperties: BuildProperties,

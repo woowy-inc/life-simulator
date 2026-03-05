@@ -18,7 +18,7 @@ private const val RSA_PUBLIC_KEY = "jwt.rsa.public"
 private const val RSA_PRIVATE_KEY = "jwt.rsa.private"
 
 @Configuration
-class JwkAuthorizationConfiguration(
+class JwkAuthorizationConfig(
     private val vaultTemplate: VaultTemplate,
     @param:Value("\${spring.cloud.vault.kv.backend}")
     private val backend: String,

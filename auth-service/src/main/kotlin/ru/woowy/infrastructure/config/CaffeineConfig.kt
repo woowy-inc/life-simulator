@@ -11,7 +11,7 @@ import java.time.Duration
 
 @Configuration
 @EnableCaching
-class CaffeineConfiguration(
+class CaffeineConfig(
     private val appProperties: AppProperties,
 ) {
     @Bean
