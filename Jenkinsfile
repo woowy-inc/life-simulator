@@ -17,7 +17,7 @@ pipeline {
                 script {
                     def tag = env.REF ?: ''
 
-                    def matcher = tag =~ /^(.+-service)-(v.+)$/
+                    def matcher = tag =~ /^(.+-service)\/(v.+)$/
                     if (!matcher.matches()) {
                         currentBuild.result = 'NOT_BUILT'
                         error("'${tag}' is not a valid service tag, skipping")
