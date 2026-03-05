@@ -33,11 +33,13 @@ jobs:
             --separator=/v \
             --changelog-file=auth-service/CHANGELOG.md \
             --conv-commit=true \
+            --ignore-path=auth-service/build.gradle.kts \
             --git-username="github-actions[bot]" \
             --git-email="github-actions[bot]@users.noreply.github.com"
           AFTER=$(npx -y monotag@latest latest --path=auth-service --separator=/v)
           if [ "$BEFORE" != "$AFTER" ]; then
             echo "tag=$AFTER" >> $GITHUB_OUTPUT
+            echo "version=$(echo $AFTER | grep -oP '\d+\.\d+\.\d+')" >> $GITHUB_OUTPUT
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -63,11 +65,13 @@ jobs:
             --separator=/v \
             --changelog-file=gateway-service/CHANGELOG.md \
             --conv-commit=true \
+            --ignore-path=gateway-service/build.gradle.kts \
             --git-username="github-actions[bot]" \
             --git-email="github-actions[bot]@users.noreply.github.com"
           AFTER=$(npx -y monotag@latest latest --path=gateway-service --separator=/v)
           if [ "$BEFORE" != "$AFTER" ]; then
             echo "tag=$AFTER" >> $GITHUB_OUTPUT
+            echo "version=$(echo $AFTER | grep -oP '\d+\.\d+\.\d+')" >> $GITHUB_OUTPUT
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -93,11 +97,13 @@ jobs:
             --separator=/v \
             --changelog-file=eureka-service/CHANGELOG.md \
             --conv-commit=true \
+            --ignore-path=eureka-service/build.gradle.kts \
             --git-username="github-actions[bot]" \
             --git-email="github-actions[bot]@users.noreply.github.com"
           AFTER=$(npx -y monotag@latest latest --path=eureka-service --separator=/v)
           if [ "$BEFORE" != "$AFTER" ]; then
             echo "tag=$AFTER" >> $GITHUB_OUTPUT
+            echo "version=$(echo $AFTER | grep -oP '\d+\.\d+\.\d+')" >> $GITHUB_OUTPUT
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -123,11 +129,13 @@ jobs:
             --separator=/v \
             --changelog-file=notification-service/CHANGELOG.md \
             --conv-commit=true \
+            --ignore-path=notification-service/build.gradle.kts \
             --git-username="github-actions[bot]" \
             --git-email="github-actions[bot]@users.noreply.github.com"
           AFTER=$(npx -y monotag@latest latest --path=notification-service --separator=/v)
           if [ "$BEFORE" != "$AFTER" ]; then
             echo "tag=$AFTER" >> $GITHUB_OUTPUT
+            echo "version=$(echo $AFTER | grep -oP '\d+\.\d+\.\d+')" >> $GITHUB_OUTPUT
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -145,8 +153,13 @@ jobs:
         run: |
           git fetch origin main && git reset --hard origin/main
           CHANGED=0
+          declare -A VERSIONS
+          VERSIONS[auth-service]="${{ steps.auth.outputs.version }}"
+          VERSIONS[gateway-service]="${{ steps.gateway.outputs.version }}"
+          VERSIONS[eureka-service]="${{ steps.eureka.outputs.version }}"
+          VERSIONS[notification-service]="${{ steps.notification.outputs.version }}"
           for SERVICE in auth-service gateway-service eureka-service notification-service; do
-            VERSION=$(npx -y monotag@latest latest --path=$SERVICE --separator=/v | grep -oP '\d+\.\d+\.\d+')
+            VERSION="${VERSIONS[$SERVICE]}"
             if [ -n "$VERSION" ]; then
               sed -i "s/^version = \".*\"/version = \"$VERSION\"/" $SERVICE/build.gradle.kts
               git add $SERVICE/build.gradle.kts
