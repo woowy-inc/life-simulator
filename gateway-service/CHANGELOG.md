@@ -9,6 +9,31 @@
 ### Maintenance
 
 * release: bump versions [skip ci] [[2435c28](https://github.com/woowy-team/life-simulator/commit/2435c2832c4085ae874a6f807d803b80c7e215e9)]
+* release: bump versions [skip ci] [[8ff4766](https://github.com/woowy-team/life-simulator/commit/8ff476665a13e716332e44614d5023b734a6c7e1)]
+* release: gateway-service/v0.0.1 [[f555276](https://github.com/woowy-team/life-simulator/commit/f55527643f88816266c6e76b39b1560f40295651)]
+* release: gateway-service/v0.28.2 [[51a826f](https://github.com/woowy-team/life-simulator/commit/51a826f1c5ad0fe55c384db006db9726f217fa69)]
+* release: notification-service/v0.28.1 [[b9b46b8](https://github.com/woowy-team/life-simulator/commit/b9b46b8f6e49c00ab1bc9d12d539c8d33b5b7b77)]
+* GatewayService: add catch all route [[c2b586d](https://github.com/woowy-team/life-simulator/commit/c2b586de6d13204d4871d300abae1cb35ac571ee)]
+* GatewayService: build info [[eb0c893](https://github.com/woowy-team/life-simulator/commit/eb0c8936d716d0e129c0b87afb4fa94287be07d1)]
+* GatewayService: clean code [[346d7ed](https://github.com/woowy-team/life-simulator/commit/346d7edbcd0e4ca3310bf80e97c69d77a665a37b)]
+* release main [[8fa28d9](https://github.com/woowy-team/life-simulator/commit/8fa28d987dc7678f70882ba368e14a131b1f7c0b)]
+* release main [[67ee0f6](https://github.com/woowy-team/life-simulator/commit/67ee0f69b4be261ec0a8e683e66738f938439b86)]
+* release main [[a391fe1](https://github.com/woowy-team/life-simulator/commit/a391fe1190f2bc2721ec86963fd76155869aa4e2)]
+
+### Info
+
+* Authors: Denis <dnartysh@yandex.ru>, Denis Nartysh <73255013+dnartysh@users.noreply.github.com>, github-actions[bot <github-actions[bot]@users.noreply.github.com>]
+
+
+## gateway-service/v0.0.1 (2026-02-27)
+
+### Bug Fixes
+
+* AuthService: add header nullable check [[c1937af](https://github.com/woowy-team/life-simulator/commit/c1937af8c78ad94011abebd679616f9a70a77085)]
+
+### Maintenance
+
+* release: bump versions [skip ci] [[2435c28](https://github.com/woowy-team/life-simulator/commit/2435c2832c4085ae874a6f807d803b80c7e215e9)]
 * release: gateway-service/v0.28.2 [[51a826f](https://github.com/woowy-team/life-simulator/commit/51a826f1c5ad0fe55c384db006db9726f217fa69)]
 * release: notification-service/v0.28.1 [[b9b46b8](https://github.com/woowy-team/life-simulator/commit/b9b46b8f6e49c00ab1bc9d12d539c8d33b5b7b77)]
 * GatewayService: add catch all route [[c2b586d](https://github.com/woowy-team/life-simulator/commit/c2b586de6d13204d4871d300abae1cb35ac571ee)]
