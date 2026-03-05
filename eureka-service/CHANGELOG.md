@@ -1,5 +1,16 @@
 # Changelog
 
+## eureka-service/v0.27.3 (2026-03-05)
+
+### Maintenance
+
+* release: notification-service/v0.28.1 [[b9b46b8](https://github.com/woowy-team/life-simulator/commit/b9b46b8f6e49c00ab1bc9d12d539c8d33b5b7b77)]
+
+### Info
+
+* Authors: github-actions[bot <github-actions[bot]@users.noreply.github.com>]
+
+
 ## eureka-service/v0.27.2 (2026-03-04)
 
 ### Maintenance
