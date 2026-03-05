@@ -46,6 +46,7 @@ dependencies {
 
     testImplementation(libs.bundles.test.jpa.ecosystem)
     testImplementation(libs.mockk)
+
     testImplementation(kotlin("test"))
 }
 
