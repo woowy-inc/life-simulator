@@ -1,5 +1,16 @@
 # Changelog
 
+## eureka-service/v0.27.8 (2026-03-05)
+
+### Maintenance
+
+* release: bump versions [skip ci] [[5874bc6](https://github.com/woowy-team/life-simulator/commit/5874bc6217749171f922be3f557ce5f8b802a7fd)]
+
+### Info
+
+* Authors: github-actions[bot <github-actions[bot]@users.noreply.github.com>]
+
+
 ## eureka-service/v0.27.7 (2026-03-05)
 
 ### Maintenance
