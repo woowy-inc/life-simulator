@@ -26,7 +26,6 @@ jobs:
 
       - name: Release auth-service
         run: |
-          git pull --rebase origin main
           npx -y monotag@latest tag-push \
             --path=auth-service \
             --separator=/v \
@@ -37,9 +36,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Sync after auth-service
+        run: git fetch origin main && git reset --hard origin/main
+
       - name: Release gateway-service
         run: |
-          git pull --rebase origin main
           npx -y monotag@latest tag-push \
             --path=gateway-service \
             --separator=/v \
@@ -50,9 +51,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Sync after gateway-service
+        run: git fetch origin main && git reset --hard origin/main
+
       - name: Release eureka-service
         run: |
-          git pull --rebase origin main
           npx -y monotag@latest tag-push \
             --path=eureka-service \
             --separator=/v \
@@ -63,9 +66,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Sync after eureka-service
+        run: git fetch origin main && git reset --hard origin/main
+
       - name: Release notification-service
         run: |
-          git pull --rebase origin main
           npx -y monotag@latest tag-push \
             --path=notification-service \
             --separator=/v \
@@ -78,7 +83,7 @@ jobs:
 
       - name: Update build.gradle.kts versions
         run: |
-          git pull --rebase origin main
+          git fetch origin main && git reset --hard origin/main
           CHANGED=0
           for SERVICE in auth-service gateway-service eureka-service notification-service; do
             VERSION=$(npx -y monotag@latest latest --path=$SERVICE --separator=/v | grep -oP '\d+\.\d+\.\d+')
