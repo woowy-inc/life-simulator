@@ -28,21 +28,26 @@ jobs:
       - name: Release auth-service
         id: auth
         run: |
-          BEFORE=$(npx -y monotag@latest latest --path=auth-service --separator=/v)
-          npx -y monotag@latest tag-push \
-            --path=auth-service \
-            --separator=/v \
-            --conv-commit=true \
-            --git-username="github-actions[bot]" \
-            --git-email="github-actions[bot]@users.noreply.github.com"
-          AFTER=$(npx -y monotag@latest latest --path=auth-service --separator=/v)
-          if [ "$BEFORE" != "$AFTER" ]; then
-            echo "tag=$AFTER" >> $GITHUB_OUTPUT
+          NEXT=$(npx -y monotag@latest tag --path=auth-service --separator=/v --conv-commit=true 2>/dev/null | head -1)
+          CURRENT=$(npx -y monotag@latest latest --path=auth-service --separator=/v)
+          if [ "$NEXT" != "$CURRENT" ] && [ -n "$NEXT" ]; then
+            VERSION=$(echo "$NEXT" | grep -oP '\d+\.\d+\.\d+')
+            sed -i "s/^version = \".*\"/version = \"$VERSION\"/" auth-service/build.gradle.kts
+            git add auth-service/build.gradle.kts
+            git commit -m "chore(release): $NEXT [skip ci]"
+            git push
+            npx -y monotag@latest tag-push \
+              --path=auth-service \
+              --separator=/v \
+              --conv-commit=true \
+              --git-username="github-actions[bot]" \
+              --git-email="github-actions[bot]@users.noreply.github.com"
             npx -y monotag@latest tag \
               --path=auth-service \
               --separator=/v \
               --conv-commit=true \
               --notes-file=/tmp/auth-notes.md
+            echo "tag=$NEXT" >> $GITHUB_OUTPUT
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
@@ -62,21 +67,26 @@ jobs:
       - name: Release gateway-service
         id: gateway
         run: |
-          BEFORE=$(npx -y monotag@latest latest --path=gateway-service --separator=/v)
-          npx -y monotag@latest tag-push \
-            --path=gateway-service \
-            --separator=/v \
-            --conv-commit=true \
-            --git-username="github-actions[bot]" \
-            --git-email="github-actions[bot]@users.noreply.github.com"
-          AFTER=$(npx -y monotag@latest latest --path=gateway-service --separator=/v)
-          if [ "$BEFORE" != "$AFTER" ]; then
-            echo "tag=$AFTER" >> $GITHUB_OUTPUT
+          NEXT=$(npx -y monotag@latest tag --path=gateway-service --separator=/v --conv-commit=true 2>/dev/null | head -1)
+          CURRENT=$(npx -y monotag@latest latest --path=gateway-service --separator=/v)
+          if [ "$NEXT" != "$CURRENT" ] && [ -n "$NEXT" ]; then
+            VERSION=$(echo "$NEXT" | grep -oP '\d+\.\d+\.\d+')
+            sed -i "s/^version = \".*\"/version = \"$VERSION\"/" gateway-service/build.gradle.kts
+            git add gateway-service/build.gradle.kts
+            git commit -m "chore(release): $NEXT [skip ci]"
+            git push
+            npx -y monotag@latest tag-push \
+              --path=gateway-service \
+              --separator=/v \
+              --conv-commit=true \
+              --git-username="github-actions[bot]" \
+              --git-email="github-actions[bot]@users.noreply.github.com"
             npx -y monotag@latest tag \
               --path=gateway-service \
               --separator=/v \
               --conv-commit=true \
               --notes-file=/tmp/gateway-notes.md
+            echo "tag=$NEXT" >> $GITHUB_OUTPUT
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
@@ -96,21 +106,26 @@ jobs:
       - name: Release eureka-service
         id: eureka
         run: |
-          BEFORE=$(npx -y monotag@latest latest --path=eureka-service --separator=/v)
-          npx -y monotag@latest tag-push \
-            --path=eureka-service \
-            --separator=/v \
-            --conv-commit=true \
-            --git-username="github-actions[bot]" \
-            --git-email="github-actions[bot]@users.noreply.github.com"
-          AFTER=$(npx -y monotag@latest latest --path=eureka-service --separator=/v)
-          if [ "$BEFORE" != "$AFTER" ]; then
-            echo "tag=$AFTER" >> $GITHUB_OUTPUT
+          NEXT=$(npx -y monotag@latest tag --path=eureka-service --separator=/v --conv-commit=true 2>/dev/null | head -1)
+          CURRENT=$(npx -y monotag@latest latest --path=eureka-service --separator=/v)
+          if [ "$NEXT" != "$CURRENT" ] && [ -n "$NEXT" ]; then
+            VERSION=$(echo "$NEXT" | grep -oP '\d+\.\d+\.\d+')
+            sed -i "s/^version = \".*\"/version = \"$VERSION\"/" eureka-service/build.gradle.kts
+            git add eureka-service/build.gradle.kts
+            git commit -m "chore(release): $NEXT [skip ci]"
+            git push
+            npx -y monotag@latest tag-push \
+              --path=eureka-service \
+              --separator=/v \
+              --conv-commit=true \
+              --git-username="github-actions[bot]" \
+              --git-email="github-actions[bot]@users.noreply.github.com"
             npx -y monotag@latest tag \
               --path=eureka-service \
               --separator=/v \
               --conv-commit=true \
               --notes-file=/tmp/eureka-notes.md
+            echo "tag=$NEXT" >> $GITHUB_OUTPUT
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
@@ -130,21 +145,26 @@ jobs:
       - name: Release notification-service
         id: notification
         run: |
-          BEFORE=$(npx -y monotag@latest latest --path=notification-service --separator=/v)
-          npx -y monotag@latest tag-push \
-            --path=notification-service \
-            --separator=/v \
-            --conv-commit=true \
-            --git-username="github-actions[bot]" \
-            --git-email="github-actions[bot]@users.noreply.github.com"
-          AFTER=$(npx -y monotag@latest latest --path=notification-service --separator=/v)
-          if [ "$BEFORE" != "$AFTER" ]; then
-            echo "tag=$AFTER" >> $GITHUB_OUTPUT
+          NEXT=$(npx -y monotag@latest tag --path=notification-service --separator=/v --conv-commit=true 2>/dev/null | head -1)
+          CURRENT=$(npx -y monotag@latest latest --path=notification-service --separator=/v)
+          if [ "$NEXT" != "$CURRENT" ] && [ -n "$NEXT" ]; then
+            VERSION=$(echo "$NEXT" | grep -oP '\d+\.\d+\.\d+')
+            sed -i "s/^version = \".*\"/version = \"$VERSION\"/" notification-service/build.gradle.kts
+            git add notification-service/build.gradle.kts
+            git commit -m "chore(release): $NEXT [skip ci]"
+            git push
+            npx -y monotag@latest tag-push \
+              --path=notification-service \
+              --separator=/v \
+              --conv-commit=true \
+              --git-username="github-actions[bot]" \
+              --git-email="github-actions[bot]@users.noreply.github.com"
             npx -y monotag@latest tag \
               --path=notification-service \
               --separator=/v \
               --conv-commit=true \
               --notes-file=/tmp/notification-notes.md
+            echo "tag=$NEXT" >> $GITHUB_OUTPUT
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
