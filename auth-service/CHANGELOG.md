@@ -1,5 +1,16 @@
 # Changelog
 
+## auth-service/v0.35.1 (2026-03-05)
+
+### Maintenance
+
+* release: bump versions [skip ci] [[8ff4766](https://github.com/woowy-team/life-simulator/commit/8ff476665a13e716332e44614d5023b734a6c7e1)]
+
+### Info
+
+* Authors: github-actions[bot <github-actions[bot]@users.noreply.github.com>]
+
+
 ## auth-service/v0.35.0 (2026-03-05)
 
 ### Features
