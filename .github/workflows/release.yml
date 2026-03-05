@@ -25,7 +25,9 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Release auth-service
+        id: auth
         run: |
+          BEFORE=$(npx -y monotag@latest latest --path=auth-service --separator=/v)
           npx -y monotag@latest tag-push \
             --path=auth-service \
             --separator=/v \
@@ -33,6 +35,19 @@ jobs:
             --conv-commit=true \
             --git-username="github-actions[bot]" \
             --git-email="github-actions[bot]@users.noreply.github.com"
+          AFTER=$(npx -y monotag@latest latest --path=auth-service --separator=/v)
+          if [ "$BEFORE" != "$AFTER" ]; then
+            echo "tag=$AFTER" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: GitHub Release auth-service
+        if: steps.auth.outputs.tag != ''
+        run: |
+          gh release create "${{ steps.auth.outputs.tag }}" \
+            --title "${{ steps.auth.outputs.tag }}" \
+            --notes-file auth-service/CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -40,7 +55,9 @@ jobs:
         run: git fetch origin main && git reset --hard origin/main
 
       - name: Release gateway-service
+        id: gateway
         run: |
+          BEFORE=$(npx -y monotag@latest latest --path=gateway-service --separator=/v)
           npx -y monotag@latest tag-push \
             --path=gateway-service \
             --separator=/v \
@@ -48,6 +65,19 @@ jobs:
             --conv-commit=true \
             --git-username="github-actions[bot]" \
             --git-email="github-actions[bot]@users.noreply.github.com"
+          AFTER=$(npx -y monotag@latest latest --path=gateway-service --separator=/v)
+          if [ "$BEFORE" != "$AFTER" ]; then
+            echo "tag=$AFTER" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: GitHub Release gateway-service
+        if: steps.gateway.outputs.tag != ''
+        run: |
+          gh release create "${{ steps.gateway.outputs.tag }}" \
+            --title "${{ steps.gateway.outputs.tag }}" \
+            --notes-file gateway-service/CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -55,7 +85,9 @@ jobs:
         run: git fetch origin main && git reset --hard origin/main
 
       - name: Release eureka-service
+        id: eureka
         run: |
+          BEFORE=$(npx -y monotag@latest latest --path=eureka-service --separator=/v)
           npx -y monotag@latest tag-push \
             --path=eureka-service \
             --separator=/v \
@@ -63,6 +95,19 @@ jobs:
             --conv-commit=true \
             --git-username="github-actions[bot]" \
             --git-email="github-actions[bot]@users.noreply.github.com"
+          AFTER=$(npx -y monotag@latest latest --path=eureka-service --separator=/v)
+          if [ "$BEFORE" != "$AFTER" ]; then
+            echo "tag=$AFTER" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: GitHub Release eureka-service
+        if: steps.eureka.outputs.tag != ''
+        run: |
+          gh release create "${{ steps.eureka.outputs.tag }}" \
+            --title "${{ steps.eureka.outputs.tag }}" \
+            --notes-file eureka-service/CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -70,7 +115,9 @@ jobs:
         run: git fetch origin main && git reset --hard origin/main
 
       - name: Release notification-service
+        id: notification
         run: |
+          BEFORE=$(npx -y monotag@latest latest --path=notification-service --separator=/v)
           npx -y monotag@latest tag-push \
             --path=notification-service \
             --separator=/v \
@@ -78,6 +125,19 @@ jobs:
             --conv-commit=true \
             --git-username="github-actions[bot]" \
             --git-email="github-actions[bot]@users.noreply.github.com"
+          AFTER=$(npx -y monotag@latest latest --path=notification-service --separator=/v)
+          if [ "$BEFORE" != "$AFTER" ]; then
+            echo "tag=$AFTER" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: GitHub Release notification-service
+        if: steps.notification.outputs.tag != ''
+        run: |
+          gh release create "${{ steps.notification.outputs.tag }}" \
+            --title "${{ steps.notification.outputs.tag }}" \
+            --notes-file notification-service/CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
