@@ -1,0 +1,89 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Release auth-service
+        run: |
+          npx -y monotag@latest tag-push \
+            --path=auth-service \
+            --separator=/v \
+            --changelog-file=auth-service/CHANGELOG.md \
+            --conv-commit=true \
+            --git-username="github-actions[bot]" \
+            --git-email="github-actions[bot]@users.noreply.github.com"
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+
+      - name: Release gateway-service
+        run: |
+          npx -y monotag@latest tag-push \
+            --path=gateway-service \
+            --separator=/v \
+            --changelog-file=gateway-service/CHANGELOG.md \
+            --conv-commit=true \
+            --git-username="github-actions[bot]" \
+            --git-email="github-actions[bot]@users.noreply.github.com"
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+
+      - name: Release eureka-service
+        run: |
+          npx -y monotag@latest tag-push \
+            --path=eureka-service \
+            --separator=/v \
+            --changelog-file=eureka-service/CHANGELOG.md \
+            --conv-commit=true \
+            --git-username="github-actions[bot]" \
+            --git-email="github-actions[bot]@users.noreply.github.com"
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+
+      - name: Release notification-service
+        run: |
+          npx -y monotag@latest tag-push \
+            --path=notification-service \
+            --separator=/v \
+            --changelog-file=notification-service/CHANGELOG.md \
+            --conv-commit=true \
+            --git-username="github-actions[bot]" \
+            --git-email="github-actions[bot]@users.noreply.github.com"
+        env:
+          GITHUB_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+
+      - name: Update build.gradle.kts versions
+        run: |
+          CHANGED=0
+          for SERVICE in auth-service gateway-service eureka-service notification-service; do
+            VERSION=$(npx -y monotag@latest latest --path=$SERVICE --separator=/v | grep -oP '\d+\.\d+\.\d+')
+            if [ -n "$VERSION" ]; then
+              sed -i "s/^version = \".*\"/version = \"$VERSION\"/" $SERVICE/build.gradle.kts
+              git add $SERVICE/build.gradle.kts
+              CHANGED=1
+            fi
+          done
+          if [ "$CHANGED" = "1" ]; then
+            git diff --cached --quiet || git commit -m "chore(release): bump versions [skip ci]"
+            git push
+          fi
