@@ -1,5 +1,16 @@
 # Changelog
 
+## auth-service/v0.39.0 (2026-03-05)
+
+### Features
+
+* auth-service: test monotag release13 [[632295d](https://github.com/woowy-team/life-simulator/commit/632295d4076292ad9a5206ed23436acbdde7bf08)]
+
+### Info
+
+* Authors: Denis <dnartysh@yandex.ru>
+
+
 ## auth-service/v0.38.0 (2026-03-05)
 
 ### Features
