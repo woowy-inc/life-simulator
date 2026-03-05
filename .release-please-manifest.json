@@ -1,6 +1,6 @@
 {
-  "AuthService": "0.32.4",
-  "GatewayService": "0.28.1",
-  "EurekaService": "0.27.2",
-  "NotificationService": "0.28.0"
+  "auth-service": "0.32.4",
+  "gateway-service": "0.28.1",
+  "eureka-service": "0.27.2",
+  "notification-service": "0.28.0"
 }
