@@ -1,5 +1,16 @@
 # Changelog
 
+## notification-service/v0.28.5 (2026-03-05)
+
+### Maintenance
+
+* release: bump versions [skip ci] [[fd51c0f](https://github.com/woowy-team/life-simulator/commit/fd51c0f6709896e479ba9a0a24f0ae28007bfd79)]
+
+### Info
+
+* Authors: github-actions[bot <github-actions[bot]@users.noreply.github.com>]
+
+
 ## notification-service/v0.28.4 (2026-03-05)
 
 ### Maintenance
