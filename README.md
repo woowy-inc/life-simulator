@@ -15,6 +15,7 @@ reduce work performance, potentially resulting in job loss.
 * Difficulty Modes: Easy, Normal, and Hardcore with different starting conditions
 * Persistent Consequences: No save scumming - live with your decisions
 
+
 ### Services
 
 * Auth Service: JWT-based authentication and user management
