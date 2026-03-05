@@ -1,5 +1,19 @@
 # Changelog
 
+## eureka-service/v0.27.2 (2026-03-04)
+
+### Maintenance
+
+* release main [[8fa28d9](https://github.com/woowy-team/life-simulator/commit/8fa28d987dc7678f70882ba368e14a131b1f7c0b)]
+* release main [[67ee0f6](https://github.com/woowy-team/life-simulator/commit/67ee0f69b4be261ec0a8e683e66738f938439b86)]
+* release main [[3dfe9a6](https://github.com/woowy-team/life-simulator/commit/3dfe9a6fab783a09ca98adfddaec8b13cf49a695)]
+* release main [[a391fe1](https://github.com/woowy-team/life-simulator/commit/a391fe1190f2bc2721ec86963fd76155869aa4e2)]
+
+### Info
+
+* Authors: Denis Nartysh <73255013+dnartysh@users.noreply.github.com>
+
+
 ## [0.28.0](https://github.com/woowy-team/life-simulator/compare/v0.27.2...v0.28.0) (2026-03-05)
 
 

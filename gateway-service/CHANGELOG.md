@@ -1,5 +1,27 @@
 # Changelog
 
+## gateway-service/v0.28.1 (2026-02-26)
+
+### Bug Fixes
+
+* AuthService: add header nullable check [[c1937af](https://github.com/woowy-team/life-simulator/commit/c1937af8c78ad94011abebd679616f9a70a77085)]
+
+### Maintenance
+
+* GatewayService: add catch all route [[c2b586d](https://github.com/woowy-team/life-simulator/commit/c2b586de6d13204d4871d300abae1cb35ac571ee)]
+* GatewayService: add unit tests [[a81e1c9](https://github.com/woowy-team/life-simulator/commit/a81e1c94c64916bbe1248e37cc22fece2a4c2531)]
+* GatewayService: build info [[eb0c893](https://github.com/woowy-team/life-simulator/commit/eb0c8936d716d0e129c0b87afb4fa94287be07d1)]
+* GatewayService: clean code [[346d7ed](https://github.com/woowy-team/life-simulator/commit/346d7edbcd0e4ca3310bf80e97c69d77a665a37b)]
+* GatewayService: rename documentation controller instead of docs controller [[ee3d4a0](https://github.com/woowy-team/life-simulator/commit/ee3d4a041d0fdd6267f727d322067c1a6a293a36)]
+* release main [[8fa28d9](https://github.com/woowy-team/life-simulator/commit/8fa28d987dc7678f70882ba368e14a131b1f7c0b)]
+* release main [[67ee0f6](https://github.com/woowy-team/life-simulator/commit/67ee0f69b4be261ec0a8e683e66738f938439b86)]
+* release main [[a391fe1](https://github.com/woowy-team/life-simulator/commit/a391fe1190f2bc2721ec86963fd76155869aa4e2)]
+
+### Info
+
+* Authors: Denis <dnartysh@yandex.ru>, Denis Nartysh <73255013+dnartysh@users.noreply.github.com>
+
+
 ## [0.29.0](https://github.com/woowy-team/life-simulator/compare/v0.28.1...v0.29.0) (2026-03-05)
 
 
