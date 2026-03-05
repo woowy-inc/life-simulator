@@ -1,6 +1,7 @@
 package ru.woowy.infrastructure.persistence.repository
 
 import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Caching
 import org.springframework.stereotype.Repository
 import ru.woowy.domain.model.CacheName
 import ru.woowy.domain.model.UserRegisterRequest
@@ -24,11 +25,11 @@ class UserRepositoryImpl(
 
     override fun add(request: UserRegisterRequest): User = jpaUserRepository.save(request.asEntity()).asDomain()
 
-    @CacheEvict(
-        cacheNames = [
-            CacheName.USER_BY_USERNAME,
-            CacheName.USER_BY_USER_ID,
-            CacheName.USERNAME_AVAILABILITY_BY_USERNAME,
+    @Caching(
+        evict = [
+            CacheEvict(cacheNames = [CacheName.USER_BY_USERNAME], key = "#user.username"),
+            CacheEvict(cacheNames = [CacheName.USER_BY_USER_ID], key = "#user.id"),
+            CacheEvict(cacheNames = [CacheName.USERNAME_AVAILABILITY_BY_USERNAME], key = "#user.username"),
         ],
     )
     override fun update(user: User): User = jpaUserRepository.save(user.asEntity()).asDomain()
