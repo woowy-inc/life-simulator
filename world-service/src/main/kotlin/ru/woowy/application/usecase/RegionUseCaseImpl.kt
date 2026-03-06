@@ -17,4 +17,6 @@ class RegionUseCaseImpl(
     override fun update(region: Region): Region? = regionRepository.update(region)
 
     override fun delete(regionId: RegionId) = regionRepository.delete(regionId)
+
+    override fun import(data: List<Region>): List<Region> = regionRepository.addOrUpdate(data)
 }

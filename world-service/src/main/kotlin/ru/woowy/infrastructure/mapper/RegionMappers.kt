@@ -21,5 +21,4 @@ fun RegionEntity.asDomain(): Region = Region(
     yearFounded = this.yearFounded,
     area = this.area,
     district = this.district,
-    nameCase = this.nameCase?.asDomain(),
 )

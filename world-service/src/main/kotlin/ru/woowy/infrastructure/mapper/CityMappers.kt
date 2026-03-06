@@ -7,7 +7,6 @@ import ru.woowy.infrastructure.persistence.entity.CityEntity
 fun CityEntity.asDomain(): City = City(
     id = this.id,
     region = this.region.asDomain(),
-    nameCase = this.nameCase?.asDomain(),
     timezone = this.timezone.asDomain(),
     okato = this.okato,
     oktmo = this.oktmo,

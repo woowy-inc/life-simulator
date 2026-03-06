@@ -45,16 +45,14 @@ class CityEntity(
     var zip: Int,
     @Column(nullable = false)
     var population: Long,
-    @Column(name = "year_founded", nullable = false)
-    var yearFounded: Short,
-    @Column(name = "year_city_status", nullable = false)
-    var yearCityStatus: Short,
+    @Column(name = "year_founded", length = 50, nullable = false)
+    var yearFounded: String,
+    @Column(name = "year_city_status", length = 50, nullable = false)
+    var yearCityStatus: String,
     @Column(nullable = false)
     var latitude: Double,
     @Column(nullable = false)
     var longitude: Double,
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "city")
-    var nameCase: CityNameCaseEntity? = null,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

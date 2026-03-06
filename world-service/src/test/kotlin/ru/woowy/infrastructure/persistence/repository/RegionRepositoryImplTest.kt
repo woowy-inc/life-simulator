@@ -1,4 +1,4 @@
-package ru.woowy.infrastructure.persistence
+package ru.woowy.infrastructure.persistence.repository
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.jpa.test.autoconfigure.TestEntityManager
 import ru.woowy.helper.randomRegion
 import ru.woowy.helper.randomRegionNameCase
-import ru.woowy.infrastructure.JpaRepositoryTest
-import ru.woowy.infrastructure.persistence.jpa.JpaRegionNameCaseRepository
+import ru.woowy.infrastructure.persistence.JpaRepositoryTest
 import ru.woowy.infrastructure.persistence.jpa.JpaRegionRepository
 import ru.woowy.util.randomString
 import ru.woowy.util.randomUUID

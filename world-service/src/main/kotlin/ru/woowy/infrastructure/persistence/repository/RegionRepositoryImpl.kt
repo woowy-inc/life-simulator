@@ -1,4 +1,4 @@
-package ru.woowy.infrastructure.persistence
+package ru.woowy.infrastructure.persistence.repository
 
 import org.springframework.stereotype.Repository
 import ru.woowy.domain.model.Region
@@ -16,6 +16,10 @@ class RegionRepositoryImpl(
     override fun findById(regionId: RegionId): Region? = jpaRegionRepository.findById(regionId).getOrNull()?.asDomain()
 
     override fun add(region: Region): Region = jpaRegionRepository.save(region.asEntity()).asDomain()
+
+    override fun addOrUpdate(regions: List<Region>): List<Region> = jpaRegionRepository
+        .saveAll(regions.map { it.asEntity() })
+        .map { it.asDomain() }
 
     override fun update(region: Region): Region? = jpaRegionRepository.save(region.asEntity()).asDomain()
 

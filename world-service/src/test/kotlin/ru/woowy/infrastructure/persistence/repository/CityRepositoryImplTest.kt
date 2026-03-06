@@ -1,4 +1,4 @@
-package ru.woowy.infrastructure.persistence
+package ru.woowy.infrastructure.persistence.repository
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
@@ -10,11 +10,11 @@ import ru.woowy.helper.randomCity
 import ru.woowy.helper.randomCityNameCase
 import ru.woowy.helper.randomRegion
 import ru.woowy.helper.randomTimezone
-import ru.woowy.infrastructure.JpaRepositoryTest
-import ru.woowy.infrastructure.persistence.jpa.JpaCityNameCaseRepository
+import ru.woowy.infrastructure.persistence.JpaRepositoryTest
 import ru.woowy.infrastructure.persistence.jpa.JpaCityRepository
 import ru.woowy.infrastructure.persistence.jpa.JpaRegionRepository
 import ru.woowy.infrastructure.persistence.jpa.JpaTimezoneRepository
+import ru.woowy.util.randomString
 import ru.woowy.util.randomUUID
 
 class CityRepositoryImplTest
@@ -96,7 +96,7 @@ class CityRepositoryImplTest
             val request = randomCity(region = region, timezone = timezone, nameCase = null)
             repository.add(request)
 
-            val updated = request.copy(name = ru.woowy.util.randomString())
+            val updated = request.copy(name = randomString())
 
             testEntityManager.flush()
             testEntityManager.clear()

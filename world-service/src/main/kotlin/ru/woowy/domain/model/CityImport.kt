@@ -1,18 +1,19 @@
 package ru.woowy.domain.model
 
-import java.util.UUID
+import com.fasterxml.jackson.annotation.JsonProperty
 
-typealias CityId = UUID
-
-data class City(
+data class CityImport(
+    @field:JsonProperty("guid")
     val id: CityId,
-    val region: Region,
-    val timezone: Timezone,
+    val region: RegionImport,
+    val timezone: TimezoneImport,
     val okato: String,
     val oktmo: String,
     val label: String,
     val name: String,
+    @field:JsonProperty("name_alt")
     val nameAlt: String,
+    @field:JsonProperty("name_en")
     val nameEn: String,
     val type: String,
     val typeShort: String,
@@ -23,5 +24,6 @@ data class City(
     val population: Long,
     val yearFounded: String,
     val yearCityStatus: String,
-    val coordinate: Coordinate,
+    @field:JsonProperty("coords")
+    val coordinate: CoordinateImport,
 )

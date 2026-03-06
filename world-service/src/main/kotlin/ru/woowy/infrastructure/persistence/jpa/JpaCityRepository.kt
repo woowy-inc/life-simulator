@@ -12,4 +12,6 @@ interface JpaCityRepository : JpaRepository<CityEntity, CityId> {
 
     @EntityGraph(attributePaths = ["region", "region.nameCase", "timezone", "nameCase"])
     override fun findById(id: CityId): Optional<CityEntity>
+
+    fun existsBy(): Boolean
 }

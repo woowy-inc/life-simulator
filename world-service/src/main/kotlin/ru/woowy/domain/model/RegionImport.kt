@@ -1,18 +1,20 @@
 package ru.woowy.domain.model
 
-import java.util.UUID
+import com.fasterxml.jackson.annotation.JsonProperty
 
-typealias RegionId = UUID
-
-data class Region(
+data class RegionImport(
+    @field:JsonProperty("guid")
     val id: RegionId,
     val okato: String,
     val oktmo: String,
     val code: String,
+    @field:JsonProperty("iso_3166-2")
     val iso31662: String,
     val label: String,
     val name: String,
+    @field:JsonProperty("name_en")
     val nameEn: String,
+    @field:JsonProperty("fullname")
     val fullName: String,
     val unofficialName: String?,
     val type: String,

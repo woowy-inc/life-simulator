@@ -10,7 +10,11 @@ interface CityRepository {
 
     fun add(city: City): City
 
+    fun addOrUpdate(cities: List<City>): List<City>
+
     fun update(city: City): City?
 
     fun delete(cityId: CityId)
+
+    fun isEmpty(): Boolean
 }

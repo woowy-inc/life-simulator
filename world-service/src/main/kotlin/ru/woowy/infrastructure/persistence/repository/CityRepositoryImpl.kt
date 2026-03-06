@@ -1,4 +1,4 @@
-package ru.woowy.infrastructure.persistence
+package ru.woowy.infrastructure.persistence.repository
 
 import org.springframework.stereotype.Repository
 import ru.woowy.domain.model.City
@@ -25,9 +25,15 @@ class CityRepositoryImpl(
 
     override fun add(city: City): City = jpaCityRepository.save(city.asEntity()).asDomain()
 
+    override fun addOrUpdate(cities: List<City>): List<City> = jpaCityRepository
+        .saveAll(cities.map { it.asEntity() })
+        .map { it.asDomain() }
+
     override fun update(city: City): City? = jpaCityRepository.save(city.asEntity()).asDomain()
 
     override fun delete(cityId: CityId) = jpaCityRepository.deleteById(cityId)
+
+    override fun isEmpty(): Boolean = !jpaCityRepository.existsBy()
 
     private fun City.asEntity(): CityEntity {
         val region = jpaRegionRepository.getReferenceById(this.region.id)

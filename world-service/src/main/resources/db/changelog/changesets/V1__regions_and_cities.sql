@@ -26,29 +26,13 @@ create table if not exists regions
     content_type    varchar(50)      not null,
 
     population      bigint           not null,
-    year_founded    smallint         not null,
+    year_founded    varchar(50)      not null,
     area            integer          not null,
     district        varchar(255)     not null
 );
 
 create index if not exists idx_regions_label on regions (label);
 create index if not exists idx_regions_code on regions (code);
-
-create table if not exists region_namecases
-(
-    id            uuid         not null primary key default gen_random_uuid(),
-    region_id     uuid         not null references regions (id) on delete cascade,
-
-    nominative    varchar(255) not null,
-    genitive      varchar(255) not null,
-    dative        varchar(255) not null,
-    accusative    varchar(255) not null,
-    ablative      varchar(255) not null,
-    prepositional varchar(255) not null,
-    locative      varchar(255) not null
-);
-
-create index if not exists idx_region_namecases_region_id on region_namecases (region_id);
 
 create table if not exists cities
 (
@@ -73,8 +57,8 @@ create table if not exists cities
 
     zip              integer          not null,
     population       bigint           not null,
-    year_founded     smallint         not null,
-    year_city_status smallint         not null,
+    year_founded     varchar(50)      not null,
+    year_city_status varchar(50)      not null,
 
     latitude         double precision not null,
     longitude        double precision not null
@@ -84,19 +68,3 @@ create index if not exists idx_cities_region_id on cities (region_id);
 create index if not exists idx_cities_timezone_id on cities (timezone_id);
 create index if not exists idx_cities_label on cities (label);
 create index if not exists idx_cities_name on cities (name);
-
-create table if not exists city_namecases
-(
-    id            uuid         not null primary key default gen_random_uuid(),
-    city_id       uuid         not null references cities (id) on delete cascade,
-
-    nominative    varchar(255) not null,
-    genitive      varchar(255) not null,
-    dative        varchar(255) not null,
-    accusative    varchar(255) not null,
-    ablative      varchar(255) not null,
-    prepositional varchar(255) not null,
-    locative      varchar(255) not null
-);
-
-create index if not exists idx_city_namecases_city_id on city_namecases (city_id);

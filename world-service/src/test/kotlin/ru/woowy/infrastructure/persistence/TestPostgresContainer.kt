@@ -1,4 +1,4 @@
-package ru.woowy.infrastructure
+package ru.woowy.infrastructure.persistence
 
 import org.testcontainers.containers.PostgreSQLContainer
 

@@ -17,4 +17,8 @@ class CityUseCaseImpl(
     override fun update(city: City): City? = cityRepository.update(city)
 
     override fun delete(cityId: CityId) = cityRepository.delete(cityId)
+
+    override fun isEmpty(): Boolean = cityRepository.isEmpty()
+
+    override fun import(data: List<City>): List<City> = cityRepository.addOrUpdate(data)
 }

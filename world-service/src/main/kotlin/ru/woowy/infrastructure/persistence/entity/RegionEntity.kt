@@ -3,7 +3,6 @@ package ru.woowy.infrastructure.persistence.entity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
-import jakarta.persistence.OneToOne
 import ru.woowy.domain.model.RegionId
 
 @Entity(name = "regions")
@@ -36,14 +35,12 @@ class RegionEntity(
     var contentType: String,
     @Column(nullable = false)
     var population: Long,
-    @Column(name = "year_founded", nullable = false)
-    var yearFounded: Short,
+    @Column(name = "year_founded", length = 50, nullable = false)
+    var yearFounded: String,
     @Column(nullable = false)
     var area: Int,
     @Column(length = 255, nullable = false)
     var district: String,
-    @OneToOne(mappedBy = "region")
-    var nameCase: RegionNameCaseEntity? = null,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

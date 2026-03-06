@@ -8,6 +8,8 @@ interface TimezoneRepository {
 
     fun add(timezone: Timezone): Timezone
 
+    fun addOrUpdate(timezones: List<Timezone>): List<Timezone>
+
     fun update(timezone: Timezone): Timezone?
 
     fun delete(timezoneId: TimezoneId)

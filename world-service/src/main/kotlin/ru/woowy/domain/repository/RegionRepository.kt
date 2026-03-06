@@ -8,6 +8,8 @@ interface RegionRepository {
 
     fun add(region: Region): Region
 
+    fun addOrUpdate(regions: List<Region>): List<Region>
+
     fun update(region: Region): Region?
 
     fun delete(regionId: RegionId)

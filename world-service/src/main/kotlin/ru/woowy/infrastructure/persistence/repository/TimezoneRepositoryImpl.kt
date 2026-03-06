@@ -1,4 +1,4 @@
-package ru.woowy.infrastructure.persistence
+package ru.woowy.infrastructure.persistence.repository
 
 import org.springframework.stereotype.Repository
 import ru.woowy.domain.model.Timezone
@@ -17,6 +17,10 @@ class TimezoneRepositoryImpl(
         jpaTimezoneRepository.findById(timezoneId).getOrNull()?.asDomain()
 
     override fun add(timezone: Timezone): Timezone = jpaTimezoneRepository.save(timezone.asEntity()).asDomain()
+
+    override fun addOrUpdate(timezones: List<Timezone>): List<Timezone> = jpaTimezoneRepository
+        .saveAll(timezones.map { it.asEntity() })
+        .map { it.asDomain() }
 
     override fun update(timezone: Timezone): Timezone? = jpaTimezoneRepository.save(timezone.asEntity()).asDomain()
 

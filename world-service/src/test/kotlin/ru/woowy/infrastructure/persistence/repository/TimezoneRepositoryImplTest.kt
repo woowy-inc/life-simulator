@@ -1,4 +1,4 @@
-package ru.woowy.infrastructure.persistence
+package ru.woowy.infrastructure.persistence.repository
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import ru.woowy.helper.randomTimezone
-import ru.woowy.infrastructure.JpaRepositoryTest
+import ru.woowy.infrastructure.persistence.JpaRepositoryTest
 import ru.woowy.infrastructure.persistence.jpa.JpaTimezoneRepository
 import ru.woowy.util.randomString
 
