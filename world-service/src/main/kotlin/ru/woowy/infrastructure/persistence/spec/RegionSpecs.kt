@@ -10,4 +10,5 @@ object RegionSpecs {
     val FULL_NAME = RegionEntity::fullName.name
     val UNOFFICIAL_NAME = RegionEntity::unofficialName.name
     val DISTRICT = RegionEntity::district.name
+    val POPULATION = RegionEntity::population.name
 }

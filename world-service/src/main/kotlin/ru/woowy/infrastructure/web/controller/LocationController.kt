@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import ru.woowy.domain.model.CityPageable
 import ru.woowy.domain.usecase.CityUseCase
+import ru.woowy.infrastructure.model.CitySortColumn
 import ru.woowy.infrastructure.web.RestEndpoint
 
 @RestController
@@ -17,9 +18,12 @@ class LocationController(
 ) {
     @GetMapping(RestEndpoint.LOCATION)
     fun getLocations(
+        @RequestParam sortColumn: CitySortColumn = CitySortColumn.POPULATION,
+        @RequestParam sortOrder: Sort.Direction = Sort.Direction.DESC,
         @RequestParam page: Int? = null,
         @RequestParam count: Int? = null,
         @RequestParam search: String? = null,
-        @RequestParam order: Sort.Direction? = null,
-    ): ResponseEntity<CityPageable> = ResponseEntity.ok(cityUseCase.getAll(search, page, count))
+    ): ResponseEntity<CityPageable> = ResponseEntity.ok(
+        cityUseCase.getAll(sortColumn, sortOrder, search, page, count),
+    )
 }
