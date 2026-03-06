@@ -17,6 +17,7 @@ protobuf = "1.10.0"
 mockk = "1.14.9"
 testContainersPostgresql = "1.21.4"
 caffeineCache = "3.2.3"
+slf4j = "2.0.17"
 
 [libraries]
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -73,6 +74,7 @@ jjwt-gson = { module = "io.jsonwebtoken:jjwt-gson", version.ref = "jjwt" }
 kotlin-serialization-protobuf = { module = "org.jetbrains.kotlinx:kotlinx-serialization-protobuf", version.ref = "protobuf" }
 
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
 
 [plugins]
 spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
