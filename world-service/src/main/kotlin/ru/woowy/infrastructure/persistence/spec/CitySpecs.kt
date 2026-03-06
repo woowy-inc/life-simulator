@@ -21,7 +21,6 @@ object CitySpecs {
 
         val pattern = search.queryFormat()
         val region = city.join<CityEntity, RegionEntity>(RegionSpecs.REGION, JoinType.LEFT)
-        select.distinct(true)
 
         builder.likeAny(
             pattern,
