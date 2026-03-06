@@ -3,6 +3,7 @@ package ru.woowy.application.usecase
 import org.springframework.stereotype.Service
 import ru.woowy.domain.model.City
 import ru.woowy.domain.model.CityId
+import ru.woowy.domain.model.CityPageable
 import ru.woowy.domain.repository.CityRepository
 import ru.woowy.domain.usecase.CityUseCase
 
@@ -10,6 +11,12 @@ import ru.woowy.domain.usecase.CityUseCase
 class CityUseCaseImpl(
     private val cityRepository: CityRepository,
 ) : CityUseCase {
+    override fun getAll(
+        search: String?,
+        page: Int?,
+        count: Int?,
+    ): CityPageable = cityRepository.findAll(search, page, count)
+
     override fun get(cityId: CityId): City? = cityRepository.findById(cityId)
 
     override fun add(city: City): City = cityRepository.add(city)

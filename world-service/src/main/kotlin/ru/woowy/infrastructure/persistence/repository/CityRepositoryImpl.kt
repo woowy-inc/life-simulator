@@ -1,8 +1,10 @@
 package ru.woowy.infrastructure.persistence.repository
 
+import org.springframework.data.domain.PageRequest
 import org.springframework.stereotype.Repository
 import ru.woowy.domain.model.City
 import ru.woowy.domain.model.CityId
+import ru.woowy.domain.model.CityPageable
 import ru.woowy.domain.repository.CityRepository
 import ru.woowy.infrastructure.mapper.asDomain
 import ru.woowy.infrastructure.persistence.entity.CityEntity
@@ -11,6 +13,7 @@ import ru.woowy.infrastructure.persistence.entity.TimezoneEntity
 import ru.woowy.infrastructure.persistence.jpa.JpaCityRepository
 import ru.woowy.infrastructure.persistence.jpa.JpaRegionRepository
 import ru.woowy.infrastructure.persistence.jpa.JpaTimezoneRepository
+import ru.woowy.infrastructure.persistence.spec.CitySpecs
 import kotlin.jvm.optionals.getOrNull
 
 @Repository
@@ -19,7 +22,27 @@ class CityRepositoryImpl(
     private val jpaRegionRepository: JpaRegionRepository,
     private val jpaTimezoneRepository: JpaTimezoneRepository,
 ) : CityRepository {
-    override fun findAll(): List<City> = jpaCityRepository.findAll().map { it.asDomain() }
+    override fun findAll(
+        search: String?,
+        page: Int?,
+        count: Int?,
+    ): CityPageable {
+        val pageable = PageRequest.of(page ?: 0, count ?: 30)
+
+        val page =
+            jpaCityRepository
+                .findAll(CitySpecs.bySearch(search), pageable)
+                .map { it.asDomain() }
+
+        return CityPageable(
+            page = page.number,
+            totalPages = page.totalPages,
+            totalRecords = page.totalElements,
+            data = page.content,
+        )
+    }
+
+    override fun findAll(): CityPageable = findAll(null, null, null)
 
     override fun findById(cityId: CityId): City? = jpaCityRepository.findById(cityId).getOrNull()?.asDomain()
 

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.jpa.test.autoconfigure.TestEntityManager
+import ru.woowy.domain.model.CityPageable
 import ru.woowy.helper.randomCity
 import ru.woowy.helper.randomRegion
 import ru.woowy.helper.randomTimezone
@@ -51,6 +52,7 @@ class CityRepositoryImplTest
             val region = regionRepository.add(randomRegion())
             val timezone = timezoneRepository.add(randomTimezone())
             val request = randomCity(region = region, timezone = timezone)
+            val expected = CityPageable(0, 1, 1, listOf(request))
             repository.add(request)
 
             testEntityManager.flush()
@@ -58,7 +60,7 @@ class CityRepositoryImplTest
 
             val actual = repository.findAll()
 
-            assertEquals(listOf(request), actual)
+            assertEquals(expected, actual)
         }
 
         @Test

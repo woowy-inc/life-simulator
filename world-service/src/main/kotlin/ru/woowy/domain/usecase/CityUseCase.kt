@@ -2,9 +2,16 @@ package ru.woowy.domain.usecase
 
 import ru.woowy.domain.model.City
 import ru.woowy.domain.model.CityId
+import ru.woowy.domain.model.CityPageable
 import ru.woowy.domain.model.Importable
 
 interface CityUseCase : Importable<City> {
+    fun getAll(
+        search: String?,
+        page: Int?,
+        count: Int?,
+    ): CityPageable
+
     fun get(cityId: CityId): City?
 
     fun add(city: City): City

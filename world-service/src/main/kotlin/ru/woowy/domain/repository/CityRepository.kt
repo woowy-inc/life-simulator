@@ -2,9 +2,16 @@ package ru.woowy.domain.repository
 
 import ru.woowy.domain.model.City
 import ru.woowy.domain.model.CityId
+import ru.woowy.domain.model.CityPageable
 
 interface CityRepository {
-    fun findAll(): List<City>
+    fun findAll(
+        search: String?,
+        page: Int?,
+        count: Int?,
+    ): CityPageable
+
+    fun findAll(): CityPageable
 
     fun findById(cityId: CityId): City?
 
