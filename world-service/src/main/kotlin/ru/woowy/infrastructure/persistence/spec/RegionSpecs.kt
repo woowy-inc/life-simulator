@@ -1,11 +1,13 @@
 package ru.woowy.infrastructure.persistence.spec
 
+import ru.woowy.infrastructure.persistence.entity.RegionEntity
+
 object RegionSpecs {
     const val REGION = "region"
 
-    const val REGION_NAME = "name"
-    const val REGION_NAME_EN = "nameEn"
-    const val REGION_FULL_NAME = "fullName"
-    const val REGION_UNOFFICIAL_NAME = "unofficialName"
-    const val REGION_DISTRICT = "district"
+    val NAME = RegionEntity::name.name
+    val NAME_EN = RegionEntity::nameEn.name
+    val FULL_NAME = RegionEntity::fullName.name
+    val UNOFFICIAL_NAME = RegionEntity::unofficialName.name
+    val DISTRICT = RegionEntity::district.name
 }
