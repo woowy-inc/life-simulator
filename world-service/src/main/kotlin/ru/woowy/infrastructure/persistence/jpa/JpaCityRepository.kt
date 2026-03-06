@@ -7,10 +7,10 @@ import ru.woowy.infrastructure.persistence.entity.CityEntity
 import java.util.Optional
 
 interface JpaCityRepository : JpaRepository<CityEntity, CityId> {
-    @EntityGraph(attributePaths = ["region", "region.nameCase", "timezone", "nameCase"])
+    @EntityGraph(attributePaths = ["region", "timezone"])
     override fun findAll(): List<CityEntity>
 
-    @EntityGraph(attributePaths = ["region", "region.nameCase", "timezone", "nameCase"])
+    @EntityGraph(attributePaths = ["region", "timezone"])
     override fun findById(id: CityId): Optional<CityEntity>
 
     fun existsBy(): Boolean
