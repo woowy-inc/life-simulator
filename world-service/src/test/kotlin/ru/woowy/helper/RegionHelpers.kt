@@ -2,11 +2,8 @@ package ru.woowy.helper
 
 import ru.woowy.domain.model.Region
 import ru.woowy.domain.model.RegionId
-import ru.woowy.domain.model.RegionNameCase
-import ru.woowy.domain.model.RegionNameCaseId
 import ru.woowy.util.randomInt
 import ru.woowy.util.randomLong
-import ru.woowy.util.randomShort
 import ru.woowy.util.randomString
 import ru.woowy.util.randomUUID
 
@@ -25,10 +22,9 @@ fun randomRegion(
     typeShort: String = randomString(),
     contentType: String = randomString(),
     population: Long = randomLong(),
-    yearFounded: Short = randomShort(1900, 2026),
+    yearFounded: String = randomString(),
     area: Int = randomInt(),
     district: String = randomString(),
-    nameCase: RegionNameCase? = randomRegionNameCase(),
 ): Region = Region(
     id = id,
     okato = okato,
@@ -47,27 +43,4 @@ fun randomRegion(
     yearFounded = yearFounded,
     area = area,
     district = district,
-    nameCase = nameCase,
-)
-
-fun randomRegionNameCase(
-    id: RegionNameCaseId = randomUUID(),
-    regionId: RegionId = randomUUID(),
-    nominative: String = randomString(),
-    genitive: String = randomString(),
-    dative: String = randomString(),
-    accusative: String = randomString(),
-    ablative: String = randomString(),
-    prepositional: String = randomString(),
-    locative: String = randomString(),
-): RegionNameCase = RegionNameCase(
-    id = id,
-    regionId = regionId,
-    nominative = nominative,
-    genitive = genitive,
-    dative = dative,
-    accusative = accusative,
-    ablative = ablative,
-    prepositional = prepositional,
-    locative = locative,
 )

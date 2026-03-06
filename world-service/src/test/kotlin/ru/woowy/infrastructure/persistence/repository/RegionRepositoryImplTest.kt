@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.jpa.test.autoconfigure.TestEntityManager
 import ru.woowy.helper.randomRegion
-import ru.woowy.helper.randomRegionNameCase
 import ru.woowy.infrastructure.persistence.JpaRepositoryTest
 import ru.woowy.infrastructure.persistence.jpa.JpaRegionRepository
 import ru.woowy.util.randomString
@@ -17,10 +16,8 @@ class RegionRepositoryImplTest
     @Autowired
     constructor(
         private val jpaRegionRepository: JpaRegionRepository,
-        private val jpaRegionNameCaseRepository: JpaRegionNameCaseRepository,
         private val entityManager: TestEntityManager,
     ) : JpaRepositoryTest() {
-        private val nameCaseRepository = RegionNameCaseRepositoryImpl(jpaRegionRepository, jpaRegionNameCaseRepository)
         private val repository = RegionRepositoryImpl(jpaRegionRepository)
 
         @BeforeEach
@@ -28,24 +25,22 @@ class RegionRepositoryImplTest
 
         @Test
         fun `region should be added`() {
-            val request = randomRegion(nameCase = null)
+            val request = randomRegion()
             val actual = repository.add(request)
             assertEquals(request, actual)
         }
 
         @Test
         fun `region should be found by id`() {
-            val request = randomRegion(nameCase = null)
+            val request = randomRegion()
             repository.add(request)
-            val nameCase = randomRegionNameCase(regionId = request.id)
-            nameCaseRepository.add(nameCase)
 
             entityManager.flush()
             entityManager.clear()
 
             val actual = repository.findById(request.id)
 
-            assertEquals(request.copy(nameCase = nameCase), actual)
+            assertEquals(request, actual)
         }
 
         @Test
