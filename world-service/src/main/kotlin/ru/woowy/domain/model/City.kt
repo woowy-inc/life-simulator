@@ -7,7 +7,6 @@ typealias CityId = UUID
 data class City(
     val id: CityId,
     val region: Region,
-    val nameCase: CityNameCase?,
     val timezone: Timezone,
     val okato: String,
     val oktmo: String,
@@ -22,7 +21,7 @@ data class City(
     val isCapital: Boolean,
     val zip: Int,
     val population: Long,
-    val yearFounded: Short,
-    val yearCityStatus: Short,
+    val yearFounded: String,
+    val yearCityStatus: String,
     val coordinate: Coordinate,
 )

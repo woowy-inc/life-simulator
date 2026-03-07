@@ -21,6 +21,8 @@ dependencies {
     implementation(project(":common-events"))
     implementation(project(":common-security"))
 
+    implementation(libs.bundles.kotlinx.ecosystem)
+
     implementation(libs.springboot.starter.web)
     implementation(libs.springboot.starter.eureka.client)
     implementation(libs.springboot.starter.oauth2.resource.server)
@@ -34,7 +36,6 @@ dependencies {
     implementation(libs.kotlin.jackson)
     implementation(libs.kotlinx.coroutines)
     implementation(libs.caffeine)
-    implementation(libs.bundles.kotlinx.ecosystem)
 
     runtimeOnly(libs.postgresql.jdbc)
 

@@ -17,4 +17,6 @@ class TimezoneUseCaseImpl(
     override fun update(timezone: Timezone): Timezone? = timezoneRepository.update(timezone)
 
     override fun delete(timezoneId: TimezoneId) = timezoneRepository.delete(timezoneId)
+
+    override fun import(data: List<Timezone>): List<Timezone> = timezoneRepository.addOrUpdate(data)
 }

@@ -19,8 +19,7 @@ data class Region(
     val typeShort: String,
     val contentType: String,
     val population: Long,
-    val yearFounded: Short,
+    val yearFounded: String,
     val area: Int,
     val district: String,
-    val nameCase: RegionNameCase?,
 )
