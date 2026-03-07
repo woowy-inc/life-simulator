@@ -177,3 +177,42 @@ jobs:
             --notes-file /tmp/notification-notes.md
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+
+      - name: Sync after notification-service
+        run: git fetch origin main && git reset --hard origin/main
+
+      - name: Release world-service
+        id: world
+        run: |
+          NEXT=$(npx -y monotag@latest tag --path=world-service --separator=/v --conv-commit=true 2>/dev/null | head -1)
+          CURRENT=$(npx -y monotag@latest latest --path=world-service --separator=/v)
+          if [ "$NEXT" != "$CURRENT" ] && [ -n "$NEXT" ]; then
+            VERSION=$(echo "$NEXT" | grep -oP '\d+\.\d+\.\d+')
+            sed -i "s/^version = \".*\"/version = \"$VERSION\"/" world-service/build.gradle.kts
+            git add world-service/build.gradle.kts
+            git commit -m "chore(release): $NEXT [skip ci]"
+            git push
+            npx -y monotag@latest tag-push \
+              --path=world-service \
+              --separator=/v \
+              --conv-commit=true \
+              --git-username="github-actions[bot]" \
+              --git-email="github-actions[bot]@users.noreply.github.com"
+            npx -y monotag@latest tag \
+              --path=world-service \
+              --separator=/v \
+              --conv-commit=true \
+              --notes-file=/tmp/world-notes.md
+            echo "tag=$NEXT" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+
+      - name: GitHub Release world-service
+        if: steps.world.outputs.tag != ''
+        run: |
+          gh release create "${{ steps.world.outputs.tag }}" \
+            --title "${{ steps.world.outputs.tag }}" \
+            --notes-file /tmp/world-notes.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
