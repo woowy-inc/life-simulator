@@ -196,7 +196,7 @@ def getServiceDir(String serviceName) {
         'auth-service' : 'auth',
         'gateway-service' : 'gateway',
         'eureka-service' : 'eureka',
-        'notification-service' : 'notification'
+        'notification-service' : 'notification',
         'world-service' : 'world'
     ]
     def dir = dirs[serviceName]

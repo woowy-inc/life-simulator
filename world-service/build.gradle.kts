@@ -42,7 +42,6 @@ dependencies {
     testImplementation(libs.bundles.test.jpa.ecosystem)
     testImplementation(libs.mockk)
     testImplementation(testFixtures(project(":common-domain")))
-
     testImplementation(kotlin("test"))
 }
 
