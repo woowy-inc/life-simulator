@@ -11,7 +11,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: ${AOUTH2_RESOURCE_SERVER_JWK_URI:http://localhost/oauth2/jwks}
+          jwk-set-uri: ${OAUTH2_RESOURCE_SERVER_JWK_URI:http://localhost/oauth2/jwks}
   datasource:
     url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/lifesim_world}
     username: ${DATASOURCE_USERNAME:dev}
