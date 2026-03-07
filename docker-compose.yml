@@ -126,3 +126,19 @@ services:
       postgres:
         condition: service_healthy
     restart: unless-stopped
+
+  world-service:
+    build:
+      context: ./world-service
+      dockerfile: Dockerfile.local
+    container_name: world-service
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./world-service/logs:/app/logs
+    env_file:
+      - ./world-service/.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
