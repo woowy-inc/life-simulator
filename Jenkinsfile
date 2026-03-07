@@ -193,10 +193,11 @@ pipeline {
 
 def getServiceDir(String serviceName) {
     def dirs = [
-        'auth-service'        : 'auth',
-        'gateway-service'     : 'gateway',
-        'eureka-service'      : 'eureka',
-        'notification-service': 'notification'
+        'auth-service' : 'auth',
+        'gateway-service' : 'gateway',
+        'eureka-service' : 'eureka',
+        'notification-service' : 'notification'
+        'world-service' : 'world'
     ]
     def dir = dirs[serviceName]
     if (!dir) error("Unknown service: ${serviceName}")
