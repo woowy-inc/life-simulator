@@ -5,7 +5,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
 import jakarta.persistence.Id
-import ru.woowy.security.UserId
+import ru.woowy.id.UserId
 import ru.woowy.security.UserRole
 
 @Entity(name = "users")

@@ -12,12 +12,12 @@ import ru.woowy.domain.repository.UserRepository
 import ru.woowy.domain.usecase.EmailVerificationKeyUseCase
 import ru.woowy.domain.usecase.UserUseCase
 import ru.woowy.extension.unauthorized
+import ru.woowy.id.UserId
 import ru.woowy.infrastructure.mapper.asDto
 import ru.woowy.infrastructure.mapper.asRegisterRequestedEvent
 import ru.woowy.infrastructure.mapper.asRegisteredEvent
 import ru.woowy.security.User
 import ru.woowy.security.UserDto
-import ru.woowy.security.UserId
 import ru.woowy.security.UserRole
 import java.time.LocalDateTime
 

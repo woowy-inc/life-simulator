@@ -7,10 +7,10 @@ import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import ru.woowy.domain.model.Token
 import ru.woowy.domain.model.TokenType
+import ru.woowy.id.UserId
 import ru.woowy.infrastructure.config.AppProperties
 import ru.woowy.security.TokenClaim
 import ru.woowy.security.User
-import ru.woowy.security.UserId
 import java.security.interfaces.RSAPrivateKey
 import java.security.interfaces.RSAPublicKey
 import java.time.Instant

@@ -2,9 +2,9 @@ package ru.woowy.domain.usecase
 
 import ru.woowy.domain.model.UserRegisterRequest
 import ru.woowy.domain.model.UsernameAvailableDto
+import ru.woowy.id.UserId
 import ru.woowy.security.User
 import ru.woowy.security.UserDto
-import ru.woowy.security.UserId
 
 interface UserUseCase {
     fun getByUserId(userId: UserId): User?
