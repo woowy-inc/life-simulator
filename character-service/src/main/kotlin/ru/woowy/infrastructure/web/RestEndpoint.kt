@@ -1,4 +1,4 @@
-package ru.woowy.presentation.web
+package ru.woowy.infrastructure.web
 
 object RestEndpoint {
     const val BASE_URL = "/character"
