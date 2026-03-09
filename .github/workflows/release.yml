@@ -216,3 +216,42 @@ jobs:
             --notes-file /tmp/world-notes.md
         env:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+
+      - name: Sync after world-service
+        run: git fetch origin main && git reset --hard origin/main
+
+      - name: Release character-service
+        id: character
+        run: |
+          NEXT=$(npx -y monotag@latest tag --path=character-service --separator=/v --conv-commit=true 2>/dev/null | head -1)
+          CURRENT=$(npx -y monotag@latest latest --path=character-service --separator=/v)
+          if [ "$NEXT" != "$CURRENT" ] && [ -n "$NEXT" ]; then
+            VERSION=$(echo "$NEXT" | grep -oP '\d+\.\d+\.\d+')
+            sed -i "s/^version = \".*\"/version = \"$VERSION\"/" character-service/build.gradle.kts
+            git add character-service/build.gradle.kts
+            git commit -m "chore(release): $NEXT [skip ci]"
+            git push
+            npx -y monotag@latest tag-push \
+              --path=character-service \
+              --separator=/v \
+              --conv-commit=true \
+              --git-username="github-actions[bot]" \
+              --git-email="github-actions[bot]@users.noreply.github.com"
+            npx -y monotag@latest tag \
+              --path=character-service \
+              --separator=/v \
+              --conv-commit=true \
+              --notes-file=/tmp/character-notes.md
+            echo "tag=$NEXT" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+
+      - name: GitHub Release character-service
+        if: steps.character.outputs.tag != ''
+        run: |
+          gh release create "${{ steps.character.outputs.tag }}" \
+            --title "${{ steps.character.outputs.tag }}" \
+            --notes-file /tmp/character-notes.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
