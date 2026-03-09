@@ -6,13 +6,12 @@ import jakarta.persistence.FetchType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
-import jakarta.persistence.OneToOne
-import ru.woowy.domain.model.CityId
+import ru.woowy.domain.model.LocationId
 
-@Entity(name = "cities")
-class CityEntity(
+@Entity(name = "locations")
+class LocationEntity(
     @Id
-    var id: CityId,
+    var id: LocationId,
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "region_id", nullable = false)
     var region: RegionEntity,
@@ -47,8 +46,8 @@ class CityEntity(
     var population: Long,
     @Column(name = "year_founded", length = 50, nullable = false)
     var yearFounded: String,
-    @Column(name = "year_city_status", length = 50, nullable = false)
-    var yearCityStatus: String,
+    @Column(name = "year_status", length = 50, nullable = false)
+    var yearStatus: String,
     @Column(nullable = false)
     var latitude: Double,
     @Column(nullable = false)
@@ -56,7 +55,7 @@ class CityEntity(
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
-        if (other !is CityEntity) return false
+        if (other !is LocationEntity) return false
 
         return id == other.id
     }

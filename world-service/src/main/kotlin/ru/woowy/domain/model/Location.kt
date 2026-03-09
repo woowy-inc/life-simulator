@@ -2,10 +2,10 @@ package ru.woowy.domain.model
 
 import java.util.UUID
 
-typealias CityId = UUID
+typealias LocationId = UUID
 
-data class City(
-    val id: CityId,
+data class Location(
+    val id: LocationId,
     val region: Region,
     val timezone: Timezone,
     val okato: String,
@@ -22,6 +22,6 @@ data class City(
     val zip: Int,
     val population: Long,
     val yearFounded: String,
-    val yearCityStatus: String,
+    val yearStatus: String,
     val coordinate: Coordinate,
 )

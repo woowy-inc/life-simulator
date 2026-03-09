@@ -5,8 +5,8 @@ import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 import org.springframework.core.io.ResourceLoader
 import org.springframework.stereotype.Service
-import ru.woowy.domain.model.CityImport
-import ru.woowy.domain.usecase.CityUseCase
+import ru.woowy.domain.model.LocationImport
+import ru.woowy.domain.usecase.LocationUseCase
 import ru.woowy.domain.usecase.RegionUseCase
 import ru.woowy.domain.usecase.TimezoneUseCase
 import ru.woowy.extension.classLogger
@@ -21,13 +21,13 @@ class LocationImporter(
     private val schedulerScope: SchedulerScope,
     private val regionUseCase: RegionUseCase,
     private val timezoneUseCase: TimezoneUseCase,
-    private val cityUseCase: CityUseCase,
+    private val locationUseCase: LocationUseCase,
     private val mapper: ObjectMapper,
 ) : ApplicationRunner {
     private val logger = classLogger()
 
     override fun run(args: ApplicationArguments) {
-        if (cityUseCase.isEmpty()) {
+        if (locationUseCase.isEmpty()) {
             logger.info("Locations is empty, starting locations import...")
             importLocations()
         } else {
@@ -37,7 +37,7 @@ class LocationImporter(
 
     private fun importLocations() = schedulerScope.launch {
         val stream = resourceLoader.getResource("classpath:data/regions.json").inputStream
-        val data = mapper.readValue<Array<CityImport>>(stream)
+        val data = mapper.readValue<Array<LocationImport>>(stream)
 
         val timezones = importTimezones(data)
         val regions = importRegions(data)
@@ -46,7 +46,7 @@ class LocationImporter(
         logger.info("Locations import complete: $timezones timezones, $regions regions, $cities cities")
     }
 
-    private fun importTimezones(data: Array<CityImport>): Int {
+    private fun importTimezones(data: Array<LocationImport>): Int {
         logger.info("Import timezones...")
 
         return timezoneUseCase
@@ -57,7 +57,7 @@ class LocationImporter(
             }
     }
 
-    private fun importRegions(data: Array<CityImport>): Int {
+    private fun importRegions(data: Array<LocationImport>): Int {
         logger.info("Import regions...")
 
         return regionUseCase
@@ -68,10 +68,10 @@ class LocationImporter(
             }
     }
 
-    private fun importCities(data: Array<CityImport>): Int {
+    private fun importCities(data: Array<LocationImport>): Int {
         logger.info("Import cities...")
 
-        return cityUseCase
+        return locationUseCase
             .import(data.map { it.asDomain() })
             .count()
             .also { count ->

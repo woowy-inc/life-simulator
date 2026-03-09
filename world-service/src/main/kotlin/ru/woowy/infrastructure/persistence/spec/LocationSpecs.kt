@@ -5,28 +5,28 @@ import org.springframework.data.domain.Sort
 import org.springframework.data.jpa.domain.Specification
 import ru.woowy.extension.queryFormat
 import ru.woowy.infrastructure.extension.likeAny
-import ru.woowy.infrastructure.model.CitySortColumn
-import ru.woowy.infrastructure.persistence.entity.CityEntity
+import ru.woowy.infrastructure.model.LocationSortColumn
+import ru.woowy.infrastructure.persistence.entity.LocationEntity
 import ru.woowy.infrastructure.persistence.entity.RegionEntity
 
-object CitySpecs {
-    const val CITY = "city"
+object LocationSpecs {
+    const val LOCATION = "location"
 
-    val NAME = CityEntity::name.name
-    val NAME_ALT = CityEntity::nameAlt.name
-    val NAME_EN = CityEntity::nameEn.name
+    val NAME = LocationEntity::name.name
+    val NAME_ALT = LocationEntity::nameAlt.name
+    val NAME_EN = LocationEntity::nameEn.name
 
-    fun bySearch(search: String?): Specification<CityEntity> = Specification { city, select, builder ->
+    fun bySearch(search: String?): Specification<LocationEntity> = Specification { location, select, builder ->
         if (search.isNullOrBlank()) return@Specification builder.conjunction()
 
         val pattern = search.queryFormat()
-        val region = city.join<CityEntity, RegionEntity>(RegionSpecs.REGION, JoinType.LEFT)
+        val region = location.join<LocationEntity, RegionEntity>(RegionSpecs.REGION, JoinType.LEFT)
 
         builder.likeAny(
             pattern,
-            city.get(NAME),
-            city.get(NAME_ALT),
-            city.get(NAME_EN),
+            location.get(NAME),
+            location.get(NAME_ALT),
+            location.get(NAME_EN),
             region.get(RegionSpecs.NAME),
             region.get(RegionSpecs.NAME_EN),
             region.get(RegionSpecs.FULL_NAME),
@@ -36,13 +36,13 @@ object CitySpecs {
     }
 
     fun bySort(
-        column: CitySortColumn,
+        column: LocationSortColumn,
         direction: Sort.Direction,
-    ): Specification<CityEntity> = Specification { city, select, builder ->
+    ): Specification<LocationEntity> = Specification { location, select, builder ->
         val order =
             when (column) {
-                CitySortColumn.CITY -> {
-                    val expression = city.get<String>(NAME)
+                LocationSortColumn.LOCATION -> {
+                    val expression = location.get<String>(NAME)
 
                     if (direction == Sort.Direction.ASC) {
                         builder.asc(expression)
@@ -51,8 +51,8 @@ object CitySpecs {
                     }
                 }
 
-                CitySortColumn.REGION -> {
-                    val region = city.join<CityEntity, RegionEntity>(RegionSpecs.REGION, JoinType.LEFT)
+                LocationSortColumn.REGION -> {
+                    val region = location.join<LocationEntity, RegionEntity>(RegionSpecs.REGION, JoinType.LEFT)
                     val expression = region.get<String>(RegionSpecs.NAME)
 
                     if (direction == Sort.Direction.ASC) {
@@ -62,8 +62,8 @@ object CitySpecs {
                     }
                 }
 
-                CitySortColumn.POPULATION -> {
-                    val region = city.join<CityEntity, RegionEntity>(RegionSpecs.REGION, JoinType.LEFT)
+                LocationSortColumn.POPULATION -> {
+                    val region = location.join<LocationEntity, RegionEntity>(RegionSpecs.REGION, JoinType.LEFT)
                     val expression = region.get<Long>(RegionSpecs.POPULATION)
 
                     if (direction == Sort.Direction.ASC) {

@@ -4,4 +4,4 @@ import org.springframework.data.jpa.repository.JpaRepository
 import ru.woowy.domain.model.TimezoneId
 import ru.woowy.infrastructure.persistence.entity.TimezoneEntity
 
-interface JpaTimezoneRepository : JpaRepository<TimezoneEntity, TimezoneId>
+interface TimezoneJpaRepository : JpaRepository<TimezoneEntity, TimezoneId>

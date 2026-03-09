@@ -6,24 +6,24 @@ import ru.woowy.domain.model.RegionId
 import ru.woowy.domain.repository.RegionRepository
 import ru.woowy.infrastructure.mapper.asDomain
 import ru.woowy.infrastructure.persistence.entity.RegionEntity
-import ru.woowy.infrastructure.persistence.jpa.JpaRegionRepository
+import ru.woowy.infrastructure.persistence.jpa.RegionJpaRepository
 import kotlin.jvm.optionals.getOrNull
 
 @Repository
 class RegionRepositoryImpl(
-    private val jpaRegionRepository: JpaRegionRepository,
+    private val regionJpaRepository: RegionJpaRepository,
 ) : RegionRepository {
-    override fun findById(regionId: RegionId): Region? = jpaRegionRepository.findById(regionId).getOrNull()?.asDomain()
+    override fun findById(regionId: RegionId): Region? = regionJpaRepository.findById(regionId).getOrNull()?.asDomain()
 
-    override fun add(region: Region): Region = jpaRegionRepository.save(region.asEntity()).asDomain()
+    override fun add(region: Region): Region = regionJpaRepository.save(region.asEntity()).asDomain()
 
-    override fun addOrUpdate(regions: List<Region>): List<Region> = jpaRegionRepository
+    override fun addOrUpdate(regions: List<Region>): List<Region> = regionJpaRepository
         .saveAll(regions.map { it.asEntity() })
         .map { it.asDomain() }
 
-    override fun update(region: Region): Region? = jpaRegionRepository.save(region.asEntity()).asDomain()
+    override fun update(region: Region): Region? = regionJpaRepository.save(region.asEntity()).asDomain()
 
-    override fun delete(regionId: RegionId) = jpaRegionRepository.deleteById(regionId)
+    override fun delete(regionId: RegionId) = regionJpaRepository.deleteById(regionId)
 
     private fun Region.asEntity(): RegionEntity = RegionEntity(
         id = this.id,

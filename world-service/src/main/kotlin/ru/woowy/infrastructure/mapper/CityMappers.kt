@@ -1,10 +1,10 @@
 package ru.woowy.infrastructure.mapper
 
-import ru.woowy.domain.model.City
 import ru.woowy.domain.model.Coordinate
-import ru.woowy.infrastructure.persistence.entity.CityEntity
+import ru.woowy.domain.model.Location
+import ru.woowy.infrastructure.persistence.entity.LocationEntity
 
-fun CityEntity.asDomain(): City = City(
+fun LocationEntity.asDomain(): Location = Location(
     id = this.id,
     region = this.region.asDomain(),
     timezone = this.timezone.asDomain(),
@@ -22,6 +22,6 @@ fun CityEntity.asDomain(): City = City(
     zip = this.zip,
     population = this.population,
     yearFounded = this.yearFounded,
-    yearCityStatus = this.yearCityStatus,
+    yearStatus = this.yearStatus,
     coordinate = Coordinate(latitude = this.latitude, longitude = this.longitude),
 )

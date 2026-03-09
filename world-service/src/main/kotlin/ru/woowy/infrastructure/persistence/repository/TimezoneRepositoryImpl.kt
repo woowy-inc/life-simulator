@@ -6,25 +6,25 @@ import ru.woowy.domain.model.TimezoneId
 import ru.woowy.domain.repository.TimezoneRepository
 import ru.woowy.infrastructure.mapper.asDomain
 import ru.woowy.infrastructure.persistence.entity.TimezoneEntity
-import ru.woowy.infrastructure.persistence.jpa.JpaTimezoneRepository
+import ru.woowy.infrastructure.persistence.jpa.TimezoneJpaRepository
 import kotlin.jvm.optionals.getOrNull
 
 @Repository
 class TimezoneRepositoryImpl(
-    private val jpaTimezoneRepository: JpaTimezoneRepository,
+    private val timezoneJpaRepository: TimezoneJpaRepository,
 ) : TimezoneRepository {
     override fun findByTimezoneId(timezoneId: TimezoneId): Timezone? =
-        jpaTimezoneRepository.findById(timezoneId).getOrNull()?.asDomain()
+        timezoneJpaRepository.findById(timezoneId).getOrNull()?.asDomain()
 
-    override fun add(timezone: Timezone): Timezone = jpaTimezoneRepository.save(timezone.asEntity()).asDomain()
+    override fun add(timezone: Timezone): Timezone = timezoneJpaRepository.save(timezone.asEntity()).asDomain()
 
-    override fun addOrUpdate(timezones: List<Timezone>): List<Timezone> = jpaTimezoneRepository
+    override fun addOrUpdate(timezones: List<Timezone>): List<Timezone> = timezoneJpaRepository
         .saveAll(timezones.map { it.asEntity() })
         .map { it.asDomain() }
 
-    override fun update(timezone: Timezone): Timezone? = jpaTimezoneRepository.save(timezone.asEntity()).asDomain()
+    override fun update(timezone: Timezone): Timezone? = timezoneJpaRepository.save(timezone.asEntity()).asDomain()
 
-    override fun delete(timezoneId: TimezoneId) = jpaTimezoneRepository.deleteById(timezoneId)
+    override fun delete(timezoneId: TimezoneId) = timezoneJpaRepository.deleteById(timezoneId)
 
     private fun Timezone.asEntity() = TimezoneEntity(
         timezoneId = this.timezoneId,

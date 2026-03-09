@@ -1,8 +1,8 @@
 package ru.woowy.helper
 
-import ru.woowy.domain.model.City
-import ru.woowy.domain.model.CityId
 import ru.woowy.domain.model.Coordinate
+import ru.woowy.domain.model.Location
+import ru.woowy.domain.model.LocationId
 import ru.woowy.domain.model.Region
 import ru.woowy.domain.model.Timezone
 import ru.woowy.util.randomBoolean
@@ -12,8 +12,8 @@ import ru.woowy.util.randomLong
 import ru.woowy.util.randomString
 import ru.woowy.util.randomUUID
 
-fun randomCity(
-    id: CityId = randomUUID(),
+fun randomLocation(
+    id: LocationId = randomUUID(),
     region: Region = randomRegion(),
     timezone: Timezone = randomTimezone(),
     okato: String = randomString(),
@@ -30,9 +30,9 @@ fun randomCity(
     zip: Int = randomInt(),
     population: Long = randomLong(),
     yearFounded: String = randomString(),
-    yearCityStatus: String = randomString(),
+    yearStatus: String = randomString(),
     coordinate: Coordinate = randomCoordinate(),
-): City = City(
+): Location = Location(
     id = id,
     region = region,
     timezone = timezone,
@@ -50,7 +50,7 @@ fun randomCity(
     zip = zip,
     population = population,
     yearFounded = yearFounded,
-    yearCityStatus = yearCityStatus,
+    yearStatus = yearStatus,
     coordinate = coordinate,
 )
 

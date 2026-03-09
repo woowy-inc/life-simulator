@@ -1,15 +1,15 @@
 package ru.woowy.infrastructure.mapper
 
-import ru.woowy.domain.model.City
-import ru.woowy.domain.model.CityImport
 import ru.woowy.domain.model.Coordinate
 import ru.woowy.domain.model.CoordinateImport
+import ru.woowy.domain.model.Location
+import ru.woowy.domain.model.LocationImport
 import ru.woowy.domain.model.Region
 import ru.woowy.domain.model.RegionImport
 import ru.woowy.domain.model.Timezone
 import ru.woowy.domain.model.TimezoneImport
 
-fun CityImport.asDomain() = City(
+fun LocationImport.asDomain() = Location(
     id = this.id,
     region = this.region.asDomain(),
     timezone = this.timezone.asDomain(),
@@ -27,7 +27,7 @@ fun CityImport.asDomain() = City(
     zip = this.zip,
     population = this.population,
     yearFounded = this.yearFounded,
-    yearCityStatus = this.yearCityStatus,
+    yearStatus = this.yearStatus,
     coordinate = this.coordinate.asDomain(),
 )
 

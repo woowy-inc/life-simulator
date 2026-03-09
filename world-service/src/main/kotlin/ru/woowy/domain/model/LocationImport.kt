@@ -2,9 +2,9 @@ package ru.woowy.domain.model
 
 import com.fasterxml.jackson.annotation.JsonProperty
 
-data class CityImport(
+data class LocationImport(
     @field:JsonProperty("guid")
-    val id: CityId,
+    val id: LocationId,
     val region: RegionImport,
     val timezone: TimezoneImport,
     val okato: String,
@@ -23,7 +23,8 @@ data class CityImport(
     val zip: Int,
     val population: Long,
     val yearFounded: String,
-    val yearCityStatus: String,
+    @field:JsonProperty("yearCityStatus")
+    val yearStatus: String,
     @field:JsonProperty("coords")
     val coordinate: CoordinateImport,
 )

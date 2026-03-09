@@ -8,20 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.jpa.test.autoconfigure.TestEntityManager
 import ru.woowy.helper.randomRegion
 import ru.woowy.infrastructure.persistence.JpaRepositoryTest
-import ru.woowy.infrastructure.persistence.jpa.JpaRegionRepository
+import ru.woowy.infrastructure.persistence.jpa.RegionJpaRepository
 import ru.woowy.util.randomString
 import ru.woowy.util.randomUUID
 
 class RegionRepositoryImplTest
     @Autowired
     constructor(
-        private val jpaRegionRepository: JpaRegionRepository,
+        private val regionJpaRepository: RegionJpaRepository,
         private val entityManager: TestEntityManager,
     ) : JpaRepositoryTest() {
-        private val repository = RegionRepositoryImpl(jpaRegionRepository)
+        private val repository = RegionRepositoryImpl(regionJpaRepository)
 
         @BeforeEach
-        fun setUp() = jpaRegionRepository.deleteAll()
+        fun setUp() = regionJpaRepository.deleteAll()
 
         @Test
         fun `region should be added`() {
