@@ -1,8 +1,6 @@
 package ru.woowy.security
 
-import java.util.UUID
-
-typealias UserId = UUID
+import ru.woowy.id.UserId
 
 data class User(
     val id: UserId,
