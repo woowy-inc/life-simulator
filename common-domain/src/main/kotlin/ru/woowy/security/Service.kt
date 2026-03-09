@@ -2,12 +2,10 @@ package ru.woowy.security
 
 typealias ServiceId = String
 
-enum class Service(
-    val id: String,
-) {
-    GATEWAY_SERVICE("gateway-service"),
-    AUTH_SERVICE("auth-service"),
-    TIME_SERVICE("time-service"),
-    CHARACTER_SERVICE("character-service"),
-    WORLD_SERVICE("world-service"),
+object Service {
+    const val GATEWAY_SERVICE = "gateway-service"
+    const val AUTH_SERVICE = "auth-service"
+    const val TIME_SERVICE = "time-service"
+    const val CHARACTER_SERVICE = "character-service"
+    const val WORLD_SERVICE = "world-service"
 }
