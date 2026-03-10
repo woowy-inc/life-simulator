@@ -3,3 +3,5 @@ databaseChangeLog:
       file: classpath:db/changelog/changesets/V1__regions_and_cities.sql
   - include:
       file: classpath:db/changelog/changesets/V2__rename_cities.sql
+  - include:
+      file: classpath:db/changelog/changesets/V3__worlds.sql

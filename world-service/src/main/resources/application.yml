@@ -22,6 +22,8 @@ spring:
       ddl-auto: validate
     show-sql: ${JPA_SHOW_SQL:true}
   kafka:
+    listener:
+      ack-mode: ${KAFKA_ACK_MODE:manual}
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
     consumer:
       group-id: ${KAFKA_CONSUMER_GROUP_ID:world-consumer}
