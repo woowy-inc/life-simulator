@@ -4,9 +4,9 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import ru.woowy.domain.client.WorldServiceClient
 import ru.woowy.domain.generation.BirthdayGenerator
+import ru.woowy.domain.messaging.EventPublisher
 import ru.woowy.domain.model.Character
 import ru.woowy.domain.model.CharacterRequest
-import ru.woowy.domain.publication.EventPublisher
 import ru.woowy.domain.repository.CharacterRepository
 import ru.woowy.domain.usecase.CharacterUseCase
 import ru.woowy.extension.forbidden
