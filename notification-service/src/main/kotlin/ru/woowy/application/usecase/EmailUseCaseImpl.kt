@@ -8,6 +8,7 @@ import ru.woowy.application.email.EmailTemplateRenderer
 import ru.woowy.domain.model.Event
 import ru.woowy.domain.service.EmailService
 import ru.woowy.domain.usecase.EmailUseCase
+import ru.woowy.infrastructure.exception.NoOpEventException
 
 @Service
 class EmailUseCaseImpl(
@@ -28,6 +29,8 @@ class EmailUseCaseImpl(
             emailService.send(email)
 
             logger.info("Email sent successfully to ${email.to}")
+        } catch (ex: NoOpEventException) {
+            logger.warn(ex.message)
         } catch (ex: Exception) {
             logger.error("Failed to send email for event $event", ex)
         }

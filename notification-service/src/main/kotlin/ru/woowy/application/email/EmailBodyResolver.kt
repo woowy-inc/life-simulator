@@ -8,6 +8,7 @@ import ru.woowy.domain.model.UserRegisterRequestedEvent
 import ru.woowy.domain.model.UserRegisteredEvent
 import ru.woowy.domain.model.VerifyEmailBody
 import ru.woowy.infrastructure.config.AppProperties
+import ru.woowy.infrastructure.exception.NoOpEventException
 
 @Component
 class EmailBodyResolver(
@@ -29,6 +30,10 @@ class EmailBodyResolver(
                 email = event.email,
                 frontendUrl = appProperties.frontendUrl,
             )
+        }
+
+        else -> {
+            throw NoOpEventException("Event: $event")
         }
     }
 }
