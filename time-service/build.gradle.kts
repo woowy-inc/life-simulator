@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "ru.woowy"
-version = "0.0.1"
+version = "0.1.0"
 
 repositories {
     mavenCentral()
@@ -15,11 +15,6 @@ repositories {
 dependencies {
     implementation(project(":common-domain"))
     implementation(project(":common-events"))
-
-    implementation(libs.bundles.kotlinx.ecosystem)
-    implementation(libs.bundles.springboot.kafka.ecosystem)
-    implementation(libs.springboot.starter.oauth2.resource.server)
-    implementation(libs.springboot.starter.eureka.client)
 
     testImplementation(kotlin("test"))
 }
