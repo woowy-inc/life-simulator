@@ -142,3 +142,19 @@ services:
       postgres:
         condition: service_healthy
     restart: unless-stopped
+
+  character-service:
+    build:
+      context: ./character-service
+      dockerfile: Dockerfile.local
+    container_name: character-service
+    ports:
+      - "9292:9292"
+    volumes:
+      - ./character-service/logs:/app/logs
+    env_file:
+      - ./character-service/.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
