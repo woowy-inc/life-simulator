@@ -18,12 +18,12 @@ class UserEventListener(
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     fun handleUserRegisterRequested(event: UserRegisterRequestedEvent) {
-        sendEvent(KafkaTopic.USER_EVENTS, event.userId, event)
+        sendEvent(KafkaTopic.USER_EVENTS, event.userId.toString(), event)
     }
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     fun handleUserRegistered(event: UserRegisteredEvent) {
-        sendEvent(KafkaTopic.USER_EVENTS, event.userId, event)
+        sendEvent(KafkaTopic.USER_EVENTS, event.userId.toString(), event)
     }
 
     private fun sendEvent(

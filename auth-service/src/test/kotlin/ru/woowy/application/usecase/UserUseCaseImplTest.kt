@@ -155,7 +155,7 @@ class UserUseCaseImplTest {
         verify(exactly = 1) {
             applicationEventPublisher.publishEvent(
                 match<UserRegisteredEvent> { event ->
-                    event.userId == updatedUser.id.toString() &&
+                    event.userId == updatedUser.id &&
                         event.username == updatedUser.username &&
                         event.email == updatedUser.email
                 },

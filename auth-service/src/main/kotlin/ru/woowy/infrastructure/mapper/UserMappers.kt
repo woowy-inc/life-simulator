@@ -38,9 +38,9 @@ fun User.asDto(): UserDto = UserDto(
 )
 
 fun User.asRegisterRequestedEvent(key: String): UserRegisterRequestedEvent = UserRegisterRequestedEvent(
-    eventId = UUID.randomUUID().toString(),
+    eventId = UUID.randomUUID(),
     timestamp = Clock.System.now().toEpochMilliseconds(),
-    userId = this.id.toString(),
+    userId = this.id,
     username = this.username,
     email = this.email,
     firstName = this.firstName,
@@ -48,9 +48,9 @@ fun User.asRegisterRequestedEvent(key: String): UserRegisterRequestedEvent = Use
 )
 
 fun User.asRegisteredEvent(): UserRegisteredEvent = UserRegisteredEvent(
-    eventId = UUID.randomUUID().toString(),
+    eventId = UUID.randomUUID(),
     timestamp = Clock.System.now().toEpochMilliseconds(),
-    userId = this.id.toString(),
+    userId = this.id,
     username = this.username,
     email = this.email,
     firstName = this.firstName,
