@@ -8,14 +8,21 @@ import ru.woowy.id.UserId
 interface CharacterUseCase {
     fun create(
         request: CharacterRequest,
-        userId: UserId,
+        owner: UserId,
     ): Character
 
     fun get(characterId: CharacterId): Character?
 
-    fun getAll(userId: UserId): List<Character>
+    fun getAll(owner: UserId): List<Character>
 
-    fun update(character: Character): Character?
+    fun update(
+        characterId: CharacterId,
+        request: CharacterRequest,
+        owner: UserId,
+    ): Character?
 
-    fun delete(characterId: CharacterId)
+    fun delete(
+        characterId: CharacterId,
+        owner: UserId,
+    )
 }
