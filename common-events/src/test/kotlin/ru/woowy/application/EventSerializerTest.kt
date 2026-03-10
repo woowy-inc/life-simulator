@@ -1,12 +1,19 @@
 package ru.woowy.application
 
 import org.junit.jupiter.api.Test
-import ru.woowy.application.serializer.EventDeserializer
-import ru.woowy.application.serializer.EventSerializer
+import ru.woowy.domain.model.CharacterCreatedEvent
+import ru.woowy.domain.model.CharacterDeletedEvent
 import ru.woowy.domain.model.UserRegisterRequestedEvent
 import ru.woowy.domain.model.UserRegisteredEvent
-import ru.woowy.security.UserRole
-import java.util.UUID
+import ru.woowy.domain.model.WorldCreatedEvent
+import ru.woowy.infrastructure.serializer.EventDeserializer
+import ru.woowy.infrastructure.serializer.EventSerializer
+import ru.woowy.util.randomEmail
+import ru.woowy.util.randomGender
+import ru.woowy.util.randomString
+import ru.woowy.util.randomUUID
+import ru.woowy.util.randomUserRole
+import ru.woowy.util.randomUsername
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 
@@ -18,13 +25,13 @@ class EventSerializerTest {
     fun `should serialize and deserialize UserRegisteredEvent`() {
         val event =
             UserRegisteredEvent(
-                eventId = UUID.randomUUID().toString(),
+                eventId = randomUUID(),
                 timestamp = System.currentTimeMillis(),
-                userId = UUID.randomUUID().toString(),
-                username = "test",
-                email = "test@test.com",
-                firstName = "Test",
-                role = UserRole.USER,
+                userId = randomUUID(),
+                username = randomUsername(),
+                email = randomEmail(),
+                firstName = randomString(),
+                role = randomUserRole(),
             )
 
         val bytes = serializer.serialize("topic", event)
@@ -37,13 +44,63 @@ class EventSerializerTest {
     fun `should serialize and deserialize UserRegisterRequestedEvent`() {
         val event =
             UserRegisterRequestedEvent(
-                eventId = UUID.randomUUID().toString(),
+                eventId = randomUUID(),
                 timestamp = System.currentTimeMillis(),
-                userId = UUID.randomUUID().toString(),
-                username = "test",
-                email = "test@test.com",
-                firstName = "Test",
-                key = UUID.randomUUID().toString(),
+                userId = randomUUID(),
+                username = randomUsername(),
+                email = randomEmail(),
+                firstName = randomString(),
+                key = randomUUID().toString(),
+            )
+
+        val bytes = serializer.serialize("topic", event)
+        val result = deserializer.deserialize("topic", bytes)
+
+        assertEquals(event, result)
+    }
+
+    @Test
+    fun `should serialize and deserialize CharacterCreatedEvent`() {
+        val event =
+            CharacterCreatedEvent(
+                eventId = randomUUID(),
+                timestamp = System.currentTimeMillis(),
+                userId = randomUUID(),
+                characterId = randomUUID(),
+                gender = randomGender(),
+                locationId = randomUUID(),
+            )
+
+        val bytes = serializer.serialize("topic", event)
+        val result = deserializer.deserialize("topic", bytes)
+
+        assertEquals(event, result)
+    }
+
+    @Test
+    fun `should serialize and deserialize CharacterDeletedEvent`() {
+        val event =
+            CharacterDeletedEvent(
+                eventId = randomUUID(),
+                timestamp = System.currentTimeMillis(),
+                userId = randomUUID(),
+                characterId = randomUUID(),
+            )
+
+        val bytes = serializer.serialize("topic", event)
+        val result = deserializer.deserialize("topic", bytes)
+
+        assertEquals(event, result)
+    }
+
+    @Test
+    fun `should serialize and deserialize WorldCreatedEvent`() {
+        val event =
+            WorldCreatedEvent(
+                eventId = randomUUID(),
+                timestamp = System.currentTimeMillis(),
+                characterId = randomUUID(),
+                worldId = randomUUID(),
             )
 
         val bytes = serializer.serialize("topic", event)

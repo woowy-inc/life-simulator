@@ -2,32 +2,33 @@ package ru.woowy.domain.model
 
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
+import ru.woowy.character.Gender
+import ru.woowy.id.CharacterId
 import ru.woowy.id.EventId
+import ru.woowy.id.LocationId
 import ru.woowy.id.UserId
-import ru.woowy.security.UserRole
 
 @Serializable
-data class UserRegisterRequestedEvent(
+data class CharacterCreatedEvent(
     @Contextual
     override val eventId: EventId,
     override val timestamp: Long,
     @Contextual
     val userId: UserId,
-    val username: String,
-    val email: String,
-    val firstName: String,
-    val key: String,
+    @Contextual
+    val characterId: CharacterId,
+    val gender: Gender,
+    @Contextual
+    val locationId: LocationId,
 ) : Event
 
 @Serializable
-data class UserRegisteredEvent(
+data class CharacterDeletedEvent(
     @Contextual
     override val eventId: EventId,
     override val timestamp: Long,
     @Contextual
     val userId: UserId,
-    val username: String,
-    val email: String,
-    val firstName: String,
-    val role: UserRole,
+    @Contextual
+    val characterId: CharacterId,
 ) : Event

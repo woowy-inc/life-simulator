@@ -1,9 +1,10 @@
 package ru.woowy.domain.model
 
 import kotlinx.serialization.Serializable
+import ru.woowy.id.EventId
 
 @Serializable
 sealed interface Event {
-    val eventId: String
+    val eventId: EventId
     val timestamp: Long
 }
