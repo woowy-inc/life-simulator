@@ -6,6 +6,7 @@ import ru.woowy.domain.client.WorldServiceClient
 import ru.woowy.domain.generation.BirthdayGenerator
 import ru.woowy.domain.model.Character
 import ru.woowy.domain.model.CharacterRequest
+import ru.woowy.domain.publication.EventPublisher
 import ru.woowy.domain.repository.CharacterRepository
 import ru.woowy.domain.usecase.CharacterUseCase
 import ru.woowy.extension.forbidden
@@ -13,6 +14,8 @@ import ru.woowy.extension.notFound
 import ru.woowy.id.CharacterId
 import ru.woowy.id.LocationId
 import ru.woowy.id.UserId
+import ru.woowy.infrastructure.mapper.asCreatedEvent
+import ru.woowy.infrastructure.mapper.asDeletedEvent
 import java.time.LocalDateTime
 import java.util.UUID
 
@@ -21,6 +24,7 @@ class CharacterUseCaseImpl(
     private val characterRepository: CharacterRepository,
     private val birthdayGenerator: BirthdayGenerator,
     private val worldServiceClient: WorldServiceClient,
+    private val eventPublisher: EventPublisher,
 ) : CharacterUseCase {
     companion object {
         const val LOCATION_NOT_FOUND = "Location not found"
@@ -47,7 +51,10 @@ class CharacterUseCaseImpl(
                 createdAt = LocalDateTime.now(),
             )
 
-        return characterRepository.add(character)
+        val created = characterRepository.add(character)
+        eventPublisher.publish(created.asCreatedEvent())
+
+        return created
     }
 
     @Transactional(readOnly = true)
@@ -77,11 +84,11 @@ class CharacterUseCaseImpl(
         characterId: CharacterId,
         owner: UserId,
     ) {
-        get(characterId)
-            ?.let { character -> verifyOwner(owner, character) }
-            ?: notFound(CHARACTER_NOT_FOUND)
+        val character = get(characterId) ?: notFound(CHARACTER_NOT_FOUND)
+        verifyOwner(owner, character)
 
         characterRepository.delete(characterId)
+        eventPublisher.publish(character.asDeletedEvent())
     }
 
     private fun verifyOwner(
