@@ -1,4 +1,4 @@
-package ru.woowy.infrastructure.serializer
+package ru.woowy.infrastructure.serialization
 
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.modules.SerializersModule

@@ -6,8 +6,8 @@ import ru.woowy.domain.model.CharacterDeletedEvent
 import ru.woowy.domain.model.UserRegisterRequestedEvent
 import ru.woowy.domain.model.UserRegisteredEvent
 import ru.woowy.domain.model.WorldCreatedEvent
-import ru.woowy.infrastructure.serializer.EventDeserializer
-import ru.woowy.infrastructure.serializer.EventSerializer
+import ru.woowy.infrastructure.serialization.EventDeserializer
+import ru.woowy.infrastructure.serialization.EventSerializer
 import ru.woowy.util.randomEmail
 import ru.woowy.util.randomGender
 import ru.woowy.util.randomString
