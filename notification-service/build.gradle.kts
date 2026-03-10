@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "ru.woowy"
-version = "0.28.16"
+version = "0.28.17"
 
 repositories {
     mavenCentral()
