@@ -1,4 +1,4 @@
-package ru.woowy.domain.publication
+package ru.woowy.domain.messaging
 
 import ru.woowy.domain.model.Event
 
