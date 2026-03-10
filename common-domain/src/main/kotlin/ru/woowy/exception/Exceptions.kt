@@ -23,3 +23,7 @@ open class UnauthorizedException(
 open class InternalException(
     cause: String = "",
 ) : LifeSimulatorException(cause)
+
+open class NoOpException(
+    cause: String = "",
+) : LifeSimulatorException(cause)
