@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "ru.woowy"
-version = "0.2.1"
+version = "0.3.0"
 
 repositories {
     mavenCentral()
@@ -14,7 +14,8 @@ repositories {
 dependencies {
     implementation(project(":common-domain"))
 
-    implementation(libs.springboot.kafka.starter)
+    api(libs.bundles.springboot.kafka.ecosystem)
+
     implementation(libs.kotlin.serialization.protobuf)
 
     testImplementation(testFixtures(project(":common-domain")))
