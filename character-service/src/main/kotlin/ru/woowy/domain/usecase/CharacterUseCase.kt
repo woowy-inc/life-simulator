@@ -4,6 +4,7 @@ import ru.woowy.domain.model.Character
 import ru.woowy.domain.model.CharacterRequest
 import ru.woowy.id.CharacterId
 import ru.woowy.id.UserId
+import ru.woowy.id.WorldId
 
 interface CharacterUseCase {
     fun create(
@@ -19,6 +20,11 @@ interface CharacterUseCase {
         characterId: CharacterId,
         request: CharacterRequest,
         owner: UserId,
+    ): Character?
+
+    fun update(
+        characterId: CharacterId,
+        worldId: WorldId,
     ): Character?
 
     fun delete(

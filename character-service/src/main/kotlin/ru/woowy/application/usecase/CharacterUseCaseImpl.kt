@@ -14,6 +14,7 @@ import ru.woowy.extension.notFound
 import ru.woowy.id.CharacterId
 import ru.woowy.id.LocationId
 import ru.woowy.id.UserId
+import ru.woowy.id.WorldId
 import ru.woowy.infrastructure.mapper.asCreatedEvent
 import ru.woowy.infrastructure.mapper.asDeletedEvent
 import java.time.LocalDateTime
@@ -57,10 +58,8 @@ class CharacterUseCaseImpl(
         return created
     }
 
-    @Transactional(readOnly = true)
     override fun get(characterId: CharacterId): Character? = characterRepository.findByCharacter(characterId)
 
-    @Transactional(readOnly = true)
     override fun getAll(owner: UserId): List<Character> = characterRepository.findAllByUser(owner)
 
     @Transactional
@@ -77,6 +76,15 @@ class CharacterUseCaseImpl(
         val character = found.copy(name = request.name, gender = request.gender, locationId = request.locationId)
 
         return characterRepository.update(character)
+    }
+
+    @Transactional
+    override fun update(
+        characterId: CharacterId,
+        worldId: WorldId,
+    ): Character? {
+        val character = get(characterId) ?: return null
+        return characterRepository.update(character.copy(worldId = worldId))
     }
 
     @Transactional
