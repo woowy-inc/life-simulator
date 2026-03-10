@@ -5,7 +5,7 @@ import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
 import jakarta.persistence.Id
-import ru.woowy.domain.model.Gender
+import ru.woowy.character.Gender
 import ru.woowy.id.CharacterId
 import ru.woowy.id.LocationId
 import ru.woowy.id.UserId

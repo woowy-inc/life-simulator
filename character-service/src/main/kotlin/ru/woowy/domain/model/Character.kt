@@ -1,5 +1,6 @@
 package ru.woowy.domain.model
 
+import ru.woowy.character.Gender
 import ru.woowy.id.CharacterId
 import ru.woowy.id.LocationId
 import ru.woowy.id.UserId
