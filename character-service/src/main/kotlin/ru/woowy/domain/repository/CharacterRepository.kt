@@ -7,7 +7,7 @@ import ru.woowy.id.UserId
 interface CharacterRepository {
     fun add(character: Character): Character
 
-    fun findByCharacter(characterId: CharacterId): Character?
+    fun findById(characterId: CharacterId): Character?
 
     fun findAllByUser(userId: UserId): List<Character>
 

@@ -58,7 +58,7 @@ class CharacterUseCaseImpl(
         return created
     }
 
-    override fun get(characterId: CharacterId): Character? = characterRepository.findByCharacter(characterId)
+    override fun get(characterId: CharacterId): Character? = characterRepository.findById(characterId)
 
     override fun getAll(owner: UserId): List<Character> = characterRepository.findAllByUser(owner)
 

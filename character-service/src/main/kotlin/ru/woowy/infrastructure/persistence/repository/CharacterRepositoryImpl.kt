@@ -18,7 +18,7 @@ class CharacterRepositoryImpl(
         .save(character.asEntity())
         .asDomain()
 
-    override fun findByCharacter(characterId: CharacterId): Character? = characterJpaRepository
+    override fun findById(characterId: CharacterId): Character? = characterJpaRepository
         .findById(characterId)
         .getOrNull()
         ?.asDomain()
