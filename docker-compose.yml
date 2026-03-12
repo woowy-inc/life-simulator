@@ -158,3 +158,19 @@ services:
       postgres:
         condition: service_healthy
     restart: unless-stopped
+
+  engine-service:
+    build:
+      context: ./engine-service
+      dockerfile: Dockerfile.local
+    container_name: engine-service
+    ports:
+      - "9797:9797"
+    volumes:
+      - ./engine-service/logs:/app/logs
+    env_file:
+      - ./engine-service/.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
