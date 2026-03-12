@@ -7,6 +7,9 @@ eureka:
 spring:
   application:
     name: engine-service
+  data:
+    redis:
+      password: ${REDIS_PASSWORD:password}
   security:
     oauth2:
       resourceserver:
