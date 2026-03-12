@@ -38,6 +38,25 @@ services:
       timeout: 5s
       retries: 5
 
+  redis:
+    build:
+      context: ./redis/config
+      dockerfile: Dockerfile
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis/data:/data
+    env_file:
+      - ./redis/config/.env
+    command: sh -c "redis-server --appendonly yes --requirepass $$REDIS_PASSWORD"
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   kafka:
     build:
       context: ./kafka/config
