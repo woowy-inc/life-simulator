@@ -19,11 +19,11 @@ import ru.woowy.infrastructure.mapper.asDto
 import ru.woowy.infrastructure.web.RestEndpoint
 
 @RestController
-@RequestMapping
+@RequestMapping(RestEndpoint.BASE_URL)
 class CharacterGameSettingsController(
     private val characterGameSettingsUseCase: CharacterGameSettingsUseCase,
 ) {
-    @GetMapping("${RestEndpoint.BASE_URL}/{id}${RestEndpoint.GAME_SETTINGS}")
+    @GetMapping("/{id}${RestEndpoint.GAME_SETTINGS}")
     fun getGameSettings(
         @PathVariable id: CharacterId,
         @AuthenticationPrincipal principal: UserPrincipal,
