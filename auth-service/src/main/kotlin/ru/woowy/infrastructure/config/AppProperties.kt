@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty
 @ConfigurationProperties(prefix = "app")
 data class AppProperties(
     val cacheEnabled: Boolean,
-    val serverUrl: String,
+    val gatewayUrl: String,
     @NestedConfigurationProperty
     val jwt: JwtProperties,
 ) {
