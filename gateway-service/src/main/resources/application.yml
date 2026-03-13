@@ -9,6 +9,8 @@ springdoc:
         url: /api-docs/auth-service
       - name: world-service
         url: /api-docs/world-service
+      - name: character-service
+        url: /api-docs/character-service
   api-docs:
     enabled: true
 server:
