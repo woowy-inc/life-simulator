@@ -1,5 +1,7 @@
 package ru.woowy.infrastructure.web.controller
 
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -18,11 +20,13 @@ import ru.woowy.id.CharacterId
 import ru.woowy.infrastructure.mapper.asDto
 import ru.woowy.infrastructure.web.RestEndpoint
 
+@Tag(name = "Character Game Settings")
 @RestController
 @RequestMapping(RestEndpoint.BASE_URL)
 class CharacterGameSettingsController(
     private val characterGameSettingsUseCase: CharacterGameSettingsUseCase,
 ) {
+    @Operation(summary = "Get character game settings")
     @GetMapping("/{id}${RestEndpoint.GAME_SETTINGS}")
     fun getGameSettings(
         @PathVariable id: CharacterId,
@@ -30,6 +34,7 @@ class CharacterGameSettingsController(
     ): ResponseEntity<CharacterGameSettingsDto> =
         ResponseEntity.ok(characterGameSettingsUseCase.get(id, principal.userId)?.asDto())
 
+    @Operation(summary = "Add or update character game settings")
     @PostMapping(RestEndpoint.GAME_SETTINGS)
     fun addOrUpdateGameSettings(
         @RequestBody request: CharacterGameSettings,
@@ -37,6 +42,7 @@ class CharacterGameSettingsController(
     ): ResponseEntity<CharacterGameSettingsDto> =
         ResponseEntity.ok(characterGameSettingsUseCase.addOrUpdate(request, principal.userId).asDto())
 
+    @Operation(summary = "Delete character game settings")
     @DeleteMapping(RestEndpoint.GAME_SETTINGS)
     fun deleteGameSettings(
         @RequestParam characterId: CharacterId,
