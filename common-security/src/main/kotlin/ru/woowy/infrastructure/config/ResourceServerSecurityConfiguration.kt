@@ -1,4 +1,4 @@
-package ru.woowy.application.config
+package ru.woowy.infrastructure.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -21,6 +21,7 @@ class ResourceServerSecurityConfiguration {
             .oauth2ResourceServer { oauth2 ->
                 oauth2.jwt { it.jwtAuthenticationConverter(jwtAuthenticationConverter) }
             }.authorizeHttpRequests {
+                it.requestMatchers("/v3/api-docs/**").permitAll()
                 it.anyRequest().authenticated()
             }
 

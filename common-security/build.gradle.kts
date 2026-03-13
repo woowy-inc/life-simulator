@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "ru.woowy"
-version = "0.1.0"
+version = "0.2.0"
 
 repositories {
     mavenCentral()
@@ -12,8 +12,10 @@ repositories {
 dependencies {
     implementation(project(":common-domain"))
 
-    implementation(libs.springboot.starter.security)
-    implementation(libs.springboot.starter.oauth2.resource.server)
+    api(libs.bundles.springboot.security.ecosystem)
+
+    api(libs.springboot.starter.oauth2.resource.server)
+    api(libs.springboot.starter.springdoc.ui)
 
     testImplementation(kotlin("test"))
 }
