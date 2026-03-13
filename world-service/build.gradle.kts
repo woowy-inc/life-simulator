@@ -21,17 +21,14 @@ dependencies {
     implementation(project(":common-events"))
     implementation(project(":common-security"))
 
-    implementation(libs.bundles.kotlinx.ecosystem)
-
     implementation(libs.springboot.starter.web)
     implementation(libs.springboot.starter.eureka.client)
-    implementation(libs.springboot.starter.oauth2.resource.server)
     implementation(libs.springboot.starter.liquibase)
     implementation(libs.springboot.starter.data.jpa)
-    implementation(libs.springboot.starter.springdoc.ui)
     implementation(libs.springboot.starter.cache)
     implementation(libs.springboot.starter.validation)
 
+    implementation(libs.bundles.kotlinx.ecosystem)
     implementation(libs.migration.liquibase.core)
     implementation(libs.kotlin.jackson)
     implementation(libs.kotlinx.coroutines)

@@ -1,5 +1,7 @@
 package ru.woowy.infrastructure.web.controller
 
+import io.swagger.v3.oas.annotations.Operation
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.data.domain.Sort
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -14,11 +16,13 @@ import ru.woowy.domain.usecase.LocationUseCase
 import ru.woowy.infrastructure.model.LocationSortColumn
 import ru.woowy.infrastructure.web.RestEndpoint
 
+@Tag(name = "Locations")
 @RestController
 @RequestMapping(RestEndpoint.BASE_URL)
 class LocationController(
     private val locationUseCase: LocationUseCase,
 ) {
+    @Operation(summary = "Get all locations")
     @GetMapping(RestEndpoint.LOCATION)
     fun getLocations(
         @RequestParam sortColumn: LocationSortColumn = LocationSortColumn.POPULATION,
@@ -30,6 +34,7 @@ class LocationController(
         locationUseCase.getAll(sortColumn, sortOrder, search, page, count),
     )
 
+    @Operation(summary = "Get location")
     @GetMapping("${RestEndpoint.LOCATION}/{id}")
     fun getLocation(
         @PathVariable id: LocationId,
