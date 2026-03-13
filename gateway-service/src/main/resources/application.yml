@@ -7,6 +7,8 @@ springdoc:
     urls:
       - name: auth-service
         url: /api-docs/auth-service
+      - name: world-service
+        url: /api-docs/world-service
   api-docs:
     enabled: true
 server:
