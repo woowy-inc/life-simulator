@@ -3,7 +3,7 @@ package ru.woowy.game
 enum class GameSpeed(
     val gameMinutesPerTick: Int,
 ) {
-    REAL_TIME(gameMinutesPerTick = GameConfig.TICK_INTERVAL_SECONDS),
-    ACCELERATED(gameMinutesPerTick = 72),
-    FAST(gameMinutesPerTick = 504),
+    REAL_TIME(10),
+    ACCELERATED(60),
+    FAST(120),
 }
