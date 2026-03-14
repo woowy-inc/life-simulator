@@ -23,11 +23,6 @@ class RouteConfig {
                 .filter(lb(Service.AUTH_SERVICE))
                 .build(),
         ).and(
-            route("time-route")
-                .route(path("/time/**"), http())
-                .filter(lb(Service.TIME_SERVICE))
-                .build(),
-        ).and(
             route("character-route")
                 .route(path("/character/**"), http())
                 .filter(lb(Service.CHARACTER_SERVICE))
@@ -36,6 +31,11 @@ class RouteConfig {
             route("world-route")
                 .route(path("/world/**"), http())
                 .filter(lb(Service.WORLD_SERVICE))
+                .build(),
+        ).and(
+            route("engine-route")
+                .route(path("/session/**"), http())
+                .filter(lb(Service.ENGINE_SERVICE))
                 .build(),
         )
 }
