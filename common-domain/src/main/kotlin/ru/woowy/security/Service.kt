@@ -8,4 +8,5 @@ object Service {
     const val TIME_SERVICE = "time-service"
     const val CHARACTER_SERVICE = "character-service"
     const val WORLD_SERVICE = "world-service"
+    const val ENGINE_SERVICE = "engine-service"
 }
