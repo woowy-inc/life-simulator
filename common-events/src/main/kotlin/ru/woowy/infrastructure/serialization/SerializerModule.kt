@@ -11,11 +11,14 @@ import ru.woowy.domain.model.Event
 import ru.woowy.domain.model.UserRegisterRequestedEvent
 import ru.woowy.domain.model.UserRegisteredEvent
 import ru.woowy.domain.model.WorldCreatedEvent
+import ru.woowy.domain.model.WorldTickEvent
+import java.time.LocalDateTime
 import java.util.UUID
 
 private val eventModule =
     SerializersModule {
         contextual(UUID::class, UUIDSerializer)
+        contextual(LocalDateTime::class, LocalDateTimeSerializer)
 
         polymorphic(Event::class) {
             subclass(UserRegisterRequestedEvent::class)
@@ -23,6 +26,7 @@ private val eventModule =
             subclass(CharacterCreatedEvent::class)
             subclass(CharacterDeletedEvent::class)
             subclass(WorldCreatedEvent::class)
+            subclass(WorldTickEvent::class)
         }
     }
 
