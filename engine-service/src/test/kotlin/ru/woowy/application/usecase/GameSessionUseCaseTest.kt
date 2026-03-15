@@ -1,10 +1,13 @@
 package ru.woowy.application.usecase
 
 import io.mockk.Runs
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertNotNull
 import org.junit.jupiter.api.assertNull
@@ -12,6 +15,7 @@ import org.junit.jupiter.api.assertThrows
 import ru.woowy.domain.client.CharacterServiceClient
 import ru.woowy.domain.model.GameStatus
 import ru.woowy.domain.repository.GameSessionRepository
+import ru.woowy.domain.service.EngineService
 import ru.woowy.exception.NotFoundException
 import ru.woowy.helper.randomCharacter
 import ru.woowy.helper.randomGameSession
@@ -23,7 +27,8 @@ import kotlin.test.assertEquals
 class GameSessionUseCaseTest {
     private val gameSessionRepository = mockk<GameSessionRepository>()
     private val characterServiceClient = mockk<CharacterServiceClient>()
-    private val useCase = GameSessionUseCaseImpl(gameSessionRepository, characterServiceClient)
+    private val engineService = mockk<EngineService>(relaxed = true)
+    private val useCase = GameSessionUseCaseImpl(gameSessionRepository, characterServiceClient, engineService)
 
     private val request = randomGameSessionRequest()
     private val gameSession = randomGameSession(request.characterId)
@@ -73,43 +78,57 @@ class GameSessionUseCaseTest {
     }
 
     @Test
-    fun `should start session`() {
+    fun `should start existing session`() = runBlocking {
         val inactive = randomGameSession(request.characterId, status = GameStatus.INACTIVE)
         val expected = inactive.copy(status = GameStatus.ACTIVE, pausedAt = null)
 
         every { gameSessionRepository.findById(request.characterId) } returns inactive
         every { gameSessionRepository.update(any()) } returns expected
+        coEvery { engineService.startSimulation(any(), any()) } returns true
 
-        val actual = useCase.start(request.characterId)
-        assertEquals(GameStatus.ACTIVE, actual?.status)
-        assertNull(actual?.pausedAt)
+        val actual = useCase.start(request.characterId, randomUUID())
+        assertEquals(GameStatus.ACTIVE, actual.status)
+        assertNull(actual.pausedAt)
 
-        verify(
-            exactly = 1,
-        ) { gameSessionRepository.update(match { it.status == GameStatus.ACTIVE && it.pausedAt == null }) }
+        verify(exactly = 1) {
+            gameSessionRepository.update(match { it.status == GameStatus.ACTIVE && it.pausedAt == null })
+        }
+        coVerify(exactly = 1) { engineService.startSimulation(request.characterId, any()) }
     }
 
     @Test
-    fun `should throw when session not found on start`() {
-        every { gameSessionRepository.findById(any()) } returns null
+    fun `should create and start session when not found`() = runBlocking {
+        val character = randomCharacter(id = request.characterId)
+        val created = randomGameSession(request.characterId, status = GameStatus.INACTIVE)
+        val active = created.copy(status = GameStatus.ACTIVE, pausedAt = null)
 
-        assertThrows<NotFoundException> { useCase.start(request.characterId) }
+        every { gameSessionRepository.findById(request.characterId) } returns null
+        every { characterServiceClient.getCharacter(request.characterId) } returns character
+        every { gameSessionRepository.add(any()) } returns created
+        every { gameSessionRepository.update(any()) } returns active
+        coEvery { engineService.startSimulation(any(), any()) } returns true
 
-        verify(exactly = 0) { gameSessionRepository.update(any()) }
+        val actual = useCase.start(request.characterId, randomUUID())
+        assertEquals(GameStatus.ACTIVE, actual.status)
+
+        verify(exactly = 1) { gameSessionRepository.add(any()) }
+        coVerify(exactly = 1) { engineService.startSimulation(request.characterId, any()) }
     }
 
     @Test
-    fun `should pause session`() {
+    fun `should stop session`() = runBlocking {
         val active = randomGameSession(request.characterId, status = GameStatus.ACTIVE, pausedAt = null)
         val expected = active.copy(status = GameStatus.INACTIVE, pausedAt = LocalDateTime.now())
 
         every { gameSessionRepository.findById(request.characterId) } returns active
         every { gameSessionRepository.update(any()) } returns expected
+        coEvery { engineService.stopSimulation(any()) } returns true
 
-        val actual = useCase.pause(request.characterId)
+        val actual = useCase.stop(request.characterId)
         assertEquals(GameStatus.INACTIVE, actual?.status)
         assertNotNull(actual?.pausedAt)
 
+        coVerify(exactly = 1) { engineService.stopSimulation(request.characterId) }
         verify(exactly = 1) {
             gameSessionRepository.update(
                 match {
@@ -121,10 +140,11 @@ class GameSessionUseCaseTest {
     }
 
     @Test
-    fun `should throw when session not found on pause`() {
+    fun `should throw when session not found on stop`() = runBlocking {
         every { gameSessionRepository.findById(any()) } returns null
+        coEvery { engineService.stopSimulation(any()) } returns true
 
-        assertThrows<NotFoundException> { useCase.pause(request.characterId) }
+        assertThrows<NotFoundException> { useCase.stop(request.characterId) }
 
         verify(exactly = 0) { gameSessionRepository.update(any()) }
     }

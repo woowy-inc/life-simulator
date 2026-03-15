@@ -6,6 +6,7 @@ import ru.woowy.domain.model.GameSession
 import ru.woowy.domain.model.GameSessionRequest
 import ru.woowy.domain.model.GameStatus
 import ru.woowy.domain.repository.GameSessionRepository
+import ru.woowy.domain.service.EngineService
 import ru.woowy.domain.usecase.GameSessionUseCase
 import ru.woowy.extension.notFound
 import ru.woowy.id.CharacterId
@@ -16,6 +17,7 @@ import java.time.LocalDateTime
 class GameSessionUseCaseImpl(
     private val gameSessionRepository: GameSessionRepository,
     private val characterServiceClient: CharacterServiceClient,
+    private val engineService: EngineService,
 ) : GameSessionUseCase {
     companion object {
         const val CHARACTER_NOT_FOUND = "Character not found"
@@ -49,18 +51,32 @@ class GameSessionUseCaseImpl(
         return gameSessionRepository.add(session)
     }
 
-    override fun start(characterId: CharacterId): GameSession? {
-        val found = get(characterId) ?: notFound(SESSION_NOT_FOUND)
+    override fun update(session: GameSession): GameSession? = gameSessionRepository.update(session)
+
+    override suspend fun start(
+        characterId: CharacterId,
+        startedBy: UserId,
+    ): GameSession {
+        val found = get(characterId) ?: create(GameSessionRequest(characterId), startedBy)
         val session =
             found.copy(
                 status = GameStatus.ACTIVE,
                 pausedAt = null,
             )
 
-        return gameSessionRepository.update(session)
+        val activeSession =
+            gameSessionRepository
+                .update(session)
+                ?: notFound(SESSION_NOT_FOUND)
+
+        engineService.startSimulation(characterId, activeSession)
+
+        return activeSession
     }
 
-    override fun pause(characterId: CharacterId): GameSession? {
+    override suspend fun stop(characterId: CharacterId): GameSession? {
+        engineService.stopSimulation(characterId)
+
         val found = get(characterId) ?: notFound(SESSION_NOT_FOUND)
         val session =
             found.copy(

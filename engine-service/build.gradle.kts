@@ -19,6 +19,7 @@ dependencies {
     implementation(project(":common-domain"))
     implementation(project(":common-events"))
     implementation(project(":common-security"))
+    implementation(project(":common-spring"))
 
     implementation(libs.bundles.kotlinx.ecosystem)
 
@@ -29,6 +30,8 @@ dependencies {
     implementation(libs.springboot.starter.eureka.client)
     implementation(libs.springboot.starter.openfeign)
     implementation(libs.springboot.starter.websocket)
+
+    implementation(libs.kotlinx.coroutines.reactor)
     implementation(libs.springboot.kafka)
 
     runtimeOnly(libs.postgresql.jdbc)
