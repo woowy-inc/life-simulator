@@ -25,7 +25,9 @@ dependencies {
     implementation(libs.springboot.kafka.starter)
     implementation(libs.springboot.starter.data.jpa)
     implementation(libs.springboot.starter.data.redis)
+    implementation(libs.springboot.starter.liquibase)
     implementation(libs.springboot.starter.eureka.client)
+    implementation(libs.springboot.starter.openfeign)
     implementation(libs.springboot.starter.websocket)
     implementation(libs.springboot.kafka)
 
