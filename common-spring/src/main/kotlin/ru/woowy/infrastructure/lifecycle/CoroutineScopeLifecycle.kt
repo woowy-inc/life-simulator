@@ -6,15 +6,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.isActive
-import org.slf4j.LoggerFactory
 import org.springframework.context.SmartLifecycle
+import ru.woowy.extension.classLogger
 import kotlin.coroutines.CoroutineContext
 
 abstract class CoroutineScopeLifecycle(
     private val name: String,
 ) : SmartLifecycle,
     CoroutineScope {
-    private val logger = LoggerFactory.getLogger(this::class.java)
+    private val logger = classLogger()
     private var scope = createScope()
 
     override val coroutineContext: CoroutineContext
