@@ -19,6 +19,7 @@ plugins {
 include(":common-domain")
 include(":common-events")
 include(":common-security")
+include(":common-spring")
 
 include(":eureka-service")
 include(":gateway-service")

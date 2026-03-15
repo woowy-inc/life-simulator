@@ -30,8 +30,8 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 springboot-starter-vault-config = { module = "org.springframework.cloud:spring-cloud-starter-vault-config", version.ref = "vaultConfig" }
 springframework-vault-core = { module = "org.springframework.vault:spring-vault-core", version.ref = "vaultCore" }
 
-springboot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "springBoot" }
 springboot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "springBoot" }
+springboot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "springBoot" }
 springboot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "springBoot" }
 
 springboot-starter-gateway = { module = "org.springframework.cloud:spring-cloud-starter-gateway-server-webmvc", version.ref = "springCloud" }
