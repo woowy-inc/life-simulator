@@ -19,6 +19,7 @@ dependencies {
     implementation(project(":common-domain"))
     implementation(project(":common-events"))
     implementation(project(":common-security"))
+    implementation(project(":common-spring"))
 
     implementation(libs.springboot.starter.web)
     implementation(libs.springboot.starter.eureka.client)
