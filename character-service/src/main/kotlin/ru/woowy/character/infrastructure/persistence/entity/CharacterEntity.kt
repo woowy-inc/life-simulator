@@ -5,6 +5,8 @@ import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
 import jakarta.persistence.Id
+import jakarta.persistence.OneToMany
+import ru.woowy.account.infrastructure.persistence.entity.AccountEntity
 import ru.woowy.character.Gender
 import ru.woowy.id.CharacterId
 import ru.woowy.id.LocationId
@@ -15,22 +17,24 @@ import java.time.LocalDateTime
 @Entity(name = "characters")
 class CharacterEntity(
     @Id
-    val id: CharacterId,
+    var id: CharacterId,
     @Column(name = "user_id", nullable = false)
-    val userId: UserId,
+    var userId: UserId,
     @Column(nullable = false)
-    val name: String,
+    var name: String,
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    val gender: Gender,
+    var gender: Gender,
     @Column(nullable = false)
-    val birthday: LocalDateTime,
+    var birthday: LocalDateTime,
     @Column(name = "location_id", nullable = false)
-    val locationId: LocationId,
+    var locationId: LocationId,
     @Column(name = "world_id", nullable = true)
-    val worldId: WorldId?,
+    var worldId: WorldId?,
     @Column(name = "created_at", nullable = false)
-    val createdAt: LocalDateTime,
+    var createdAt: LocalDateTime,
+//    @OneToMany(mappedBy = "characterId")
+//    var accounts: Collection<AccountEntity>,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

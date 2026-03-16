@@ -3,3 +3,5 @@ databaseChangeLog:
       file: classpath:db/changelog/changesets/V1__characters.sql
   - include:
       file: classpath:db/changelog/changesets/V2__character_game_settings.sql
+  - include:
+      file: classpath:db/changelog/changesets/V3__accounts.sql
