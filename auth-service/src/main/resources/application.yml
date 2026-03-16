@@ -12,7 +12,12 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
 eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
+    prefer-ip-address: true
   client:
+    registry-fetch-interval-seconds: 15
     service-url:
       defaultZone: ${EUREKA_CLIENT_DEFAULT_ZONE:http://localhost:8761/eureka/}
 server:
