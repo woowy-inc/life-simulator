@@ -1,50 +1,47 @@
 package ru.woowy.infrastructure.session
 
-import java.util.concurrent.ConcurrentHashMap
-import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import org.springframework.stereotype.Component
 import ru.woowy.domain.model.GameSession
-import ru.woowy.domain.model.GameSettings
+import ru.woowy.domain.model.GameSessionContext
 import ru.woowy.game.GameConfig
 import ru.woowy.id.CharacterId
 import ru.woowy.infrastructure.lifecycle.SessionScope
+import java.util.concurrent.ConcurrentHashMap
+import kotlin.time.Duration.Companion.seconds
 
-@Component
-class SessionEngine(
+abstract class SessionLooper(
     private val sessionScope: SessionScope,
 ) {
-    val activeSessions = ConcurrentHashMap<CharacterId, Job>()
+    protected val activeSessions = ConcurrentHashMap<CharacterId, Job>()
 
     /**
      * Initiates a continuous game loop for a character if a session is not already active.
      * The loop increments game time and triggers updates based on the configured tick interval.
      *
-     * @param characterId Unique identifier for the character.
-     * @param session Initial state of the game session.
-     * @param settings Configuration governing session progression.
+     * @param context the game session params.
      * @param onTick Callback executed on every session update.
      * @return True if the session was successfully started, false if a session already exists.
+     *
+     * @see [GameSessionContext]
+     * @see [GameSession]
      */
-    fun start(
-        characterId: CharacterId,
-        session: GameSession,
-        settings: GameSettings,
+    protected fun start(
+        context: GameSessionContext,
         onTick: (GameSession) -> Unit,
     ): Boolean {
         val job =
             sessionScope.launch(start = CoroutineStart.LAZY) {
-                var current = session
+                var current = context.session
 
                 while (isActive) {
                     current =
                         current.copy(
                             tickNumber = current.tickNumber + 1,
-                            gameTime = current.gameTime.plusMinutes(settings.speed.gameMinutesPerTick),
+                            gameTime = current.gameTime.plusMinutes(context.settings.speed.gameMinutesPerTick),
                         )
 
                     onTick(current)
@@ -53,7 +50,7 @@ class SessionEngine(
                 }
             }
 
-        if (activeSessions.putIfAbsent(characterId, job) != null) {
+        if (activeSessions.putIfAbsent(context.characterId, job) != null) {
             job.cancel()
             return false
         }
@@ -69,7 +66,7 @@ class SessionEngine(
      * @param characterId Unique identifier of the character whose session should be terminated.
      * @return True if a session was found and stopped, false otherwise.
      */
-    fun stop(characterId: CharacterId): Boolean {
+    protected fun stop(characterId: CharacterId): Boolean {
         val job = activeSessions.remove(characterId) ?: return false
         job.cancel()
 

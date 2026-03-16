@@ -15,7 +15,7 @@ import org.junit.jupiter.api.assertThrows
 import ru.woowy.domain.client.CharacterServiceClient
 import ru.woowy.domain.model.GameStatus
 import ru.woowy.domain.repository.GameSessionRepository
-import ru.woowy.domain.service.EngineService
+import ru.woowy.domain.session.SessionEngine
 import ru.woowy.exception.NotFoundException
 import ru.woowy.helper.randomCharacter
 import ru.woowy.helper.randomGameSession
@@ -27,8 +27,8 @@ import kotlin.test.assertEquals
 class GameSessionUseCaseTest {
     private val gameSessionRepository = mockk<GameSessionRepository>()
     private val characterServiceClient = mockk<CharacterServiceClient>()
-    private val engineService = mockk<EngineService>(relaxed = true)
-    private val useCase = GameSessionUseCaseImpl(gameSessionRepository, characterServiceClient, engineService)
+    private val sessionEngine = mockk<SessionEngine>(relaxed = true)
+    private val useCase = GameSessionUseCaseImpl(gameSessionRepository, characterServiceClient, sessionEngine)
 
     private val request = randomGameSessionRequest()
     private val gameSession = randomGameSession(request.characterId)
@@ -84,7 +84,7 @@ class GameSessionUseCaseTest {
 
         every { gameSessionRepository.findById(request.characterId) } returns inactive
         every { gameSessionRepository.update(any()) } returns expected
-        coEvery { engineService.startSimulation(any(), any()) } returns true
+        coEvery { sessionEngine.startSimulation(any(), any()) } returns true
 
         val actual = useCase.start(request.characterId, randomUUID())
         assertEquals(GameStatus.ACTIVE, actual.status)
@@ -93,7 +93,7 @@ class GameSessionUseCaseTest {
         verify(exactly = 1) {
             gameSessionRepository.update(match { it.status == GameStatus.ACTIVE && it.pausedAt == null })
         }
-        coVerify(exactly = 1) { engineService.startSimulation(request.characterId, any()) }
+        coVerify(exactly = 1) { sessionEngine.startSimulation(request.characterId, any()) }
     }
 
     @Test
@@ -106,13 +106,13 @@ class GameSessionUseCaseTest {
         every { characterServiceClient.getCharacter(request.characterId) } returns character
         every { gameSessionRepository.add(any()) } returns created
         every { gameSessionRepository.update(any()) } returns active
-        coEvery { engineService.startSimulation(any(), any()) } returns true
+        coEvery { sessionEngine.startSimulation(any(), any()) } returns true
 
         val actual = useCase.start(request.characterId, randomUUID())
         assertEquals(GameStatus.ACTIVE, actual.status)
 
         verify(exactly = 1) { gameSessionRepository.add(any()) }
-        coVerify(exactly = 1) { engineService.startSimulation(request.characterId, any()) }
+        coVerify(exactly = 1) { sessionEngine.startSimulation(request.characterId, any()) }
     }
 
     @Test
@@ -122,13 +122,13 @@ class GameSessionUseCaseTest {
 
         every { gameSessionRepository.findById(request.characterId) } returns active
         every { gameSessionRepository.update(any()) } returns expected
-        coEvery { engineService.stopSimulation(any()) } returns true
+        coEvery { sessionEngine.stopSimulation(any()) } returns true
 
         val actual = useCase.stop(request.characterId)
         assertEquals(GameStatus.INACTIVE, actual?.status)
         assertNotNull(actual?.pausedAt)
 
-        coVerify(exactly = 1) { engineService.stopSimulation(request.characterId) }
+        coVerify(exactly = 1) { sessionEngine.stopSimulation(request.characterId) }
         verify(exactly = 1) {
             gameSessionRepository.update(
                 match {
@@ -142,7 +142,7 @@ class GameSessionUseCaseTest {
     @Test
     fun `should throw when session not found on stop`() = runBlocking {
         every { gameSessionRepository.findById(any()) } returns null
-        coEvery { engineService.stopSimulation(any()) } returns true
+        coEvery { sessionEngine.stopSimulation(any()) } returns true
 
         assertThrows<NotFoundException> { useCase.stop(request.characterId) }
 

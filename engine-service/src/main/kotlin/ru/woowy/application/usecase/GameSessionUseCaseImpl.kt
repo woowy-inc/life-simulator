@@ -6,7 +6,7 @@ import ru.woowy.domain.model.GameSession
 import ru.woowy.domain.model.GameSessionRequest
 import ru.woowy.domain.model.GameStatus
 import ru.woowy.domain.repository.GameSessionRepository
-import ru.woowy.domain.service.EngineService
+import ru.woowy.domain.session.SessionEngine
 import ru.woowy.domain.usecase.GameSessionUseCase
 import ru.woowy.extension.notFound
 import ru.woowy.id.CharacterId
@@ -17,7 +17,7 @@ import java.time.LocalDateTime
 class GameSessionUseCaseImpl(
     private val gameSessionRepository: GameSessionRepository,
     private val characterServiceClient: CharacterServiceClient,
-    private val engineService: EngineService,
+    private val sessionEngine: SessionEngine,
 ) : GameSessionUseCase {
     companion object {
         const val CHARACTER_NOT_FOUND = "Character not found"
@@ -69,13 +69,13 @@ class GameSessionUseCaseImpl(
                 .update(session)
                 ?: notFound(SESSION_NOT_FOUND)
 
-        engineService.startSimulation(characterId, activeSession)
+        sessionEngine.startSimulation(characterId, activeSession)
 
         return activeSession
     }
 
     override suspend fun stop(characterId: CharacterId): GameSession? {
-        engineService.stopSimulation(characterId)
+        sessionEngine.stopSimulation(characterId)
 
         val found = get(characterId) ?: notFound(SESSION_NOT_FOUND)
         val session =

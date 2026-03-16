@@ -1,4 +1,4 @@
-package ru.woowy.domain.service
+package ru.woowy.domain.session
 
 import ru.woowy.domain.model.GameSession
 import ru.woowy.id.CharacterId
@@ -7,7 +7,7 @@ import ru.woowy.id.CharacterId
  * Defines the contract for managing game simulation states for specific characters.
  * This service handles the lifecycle of character-driven logic within a game session.
  */
-interface EngineService {
+interface SessionEngine {
     /**
      * Initiates the simulation process for a specific character within the provided session.
      * This method prepares the character's state and begins executing scheduled game logic.
