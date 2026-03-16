@@ -31,7 +31,7 @@ abstract class SessionLooper(
      */
     protected fun start(
         context: GameSessionContext,
-        onTick: (GameSession) -> Unit,
+        onTick: suspend (GameSession) -> Unit,
     ): Boolean {
         val job =
             sessionScope.launch(start = CoroutineStart.LAZY) {
