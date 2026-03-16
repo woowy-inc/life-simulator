@@ -4,6 +4,12 @@ spring:
   application:
     name: eureka-service
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
     register-with-eureka: false
     fetch-registry: false
+  server:
+    eviction-interval-timer-in-ms: 15000
+    response-cache-update-interval-ms: 10000
+    wait-time-in-ms-when-sync-empty: 1000
