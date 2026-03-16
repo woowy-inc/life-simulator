@@ -1,8 +1,8 @@
 package ru.woowy.helper
 
 import ru.woowy.character.Gender
-import ru.woowy.domain.model.Character
-import ru.woowy.domain.model.CharacterRequest
+import ru.woowy.character.domain.model.Character
+import ru.woowy.character.domain.model.CharacterRequest
 import ru.woowy.id.CharacterId
 import ru.woowy.id.LocationId
 import ru.woowy.id.UserId

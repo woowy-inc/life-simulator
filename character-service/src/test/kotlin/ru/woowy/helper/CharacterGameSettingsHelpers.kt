@@ -1,6 +1,6 @@
 package ru.woowy.helper
 
-import ru.woowy.domain.model.CharacterGameSettings
+import ru.woowy.character.domain.model.CharacterGameSettings
 import ru.woowy.game.GameSpeed
 import ru.woowy.id.CharacterId
 import ru.woowy.util.randomUUID
