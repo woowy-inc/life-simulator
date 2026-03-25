@@ -2,6 +2,7 @@ package ru.woowy.account.infrastructure.persistence.repository
 
 import org.springframework.stereotype.Repository
 import ru.woowy.account.domain.model.Account
+import ru.woowy.account.domain.model.AccountType
 import ru.woowy.account.domain.repository.AccountRepository
 import ru.woowy.account.infrastructure.mapper.asDomain
 import ru.woowy.account.infrastructure.persistence.entity.AccountEntity
@@ -22,6 +23,9 @@ class AccountRepositoryImpl(
 
     override fun findById(accountId: AccountId): Account? =
         accountJpaRepository.findById(accountId).getOrNull()?.asDomain()
+
+    override fun findSalaryAccount(characterId: CharacterId): Account? =
+        accountJpaRepository.findByCharacterIdAndType(characterId, AccountType.CASH)?.asDomain()
 
     override fun add(account: Account): Account = accountJpaRepository.save(account.asEntity()).asDomain()
 

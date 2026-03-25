@@ -1,13 +1,18 @@
 package ru.woowy.character.application.usecase
 
+import kotlinx.coroutines.launch
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import ru.woowy.account.domain.model.AccountType
+import ru.woowy.account.domain.usecase.AccountUseCase
+import ru.woowy.account.infrastructure.extension.DEFAULT_CURRENCY
 import ru.woowy.character.domain.client.WorldServiceClient
 import ru.woowy.character.domain.generation.BirthdayGenerator
 import ru.woowy.character.domain.model.Character
 import ru.woowy.character.domain.model.CharacterRequest
 import ru.woowy.character.domain.repository.CharacterRepository
 import ru.woowy.character.domain.usecase.CharacterUseCase
+import ru.woowy.character.infrastructure.lifecycle.ServiceScope
 import ru.woowy.character.infrastructure.mapper.asCreatedEvent
 import ru.woowy.character.infrastructure.mapper.asDeletedEvent
 import ru.woowy.domain.messaging.EventPublisher
@@ -26,6 +31,8 @@ class CharacterUseCaseImpl(
     private val birthdayGenerator: BirthdayGenerator,
     private val worldServiceClient: WorldServiceClient,
     private val eventPublisher: EventPublisher,
+    private val accountUseCase: AccountUseCase,
+    private val serviceScope: ServiceScope,
 ) : CharacterUseCase {
     companion object {
         const val LOCATION_NOT_FOUND = "Location not found"
@@ -52,10 +59,14 @@ class CharacterUseCaseImpl(
                 createdAt = LocalDateTime.now(),
             )
 
-        val created = characterRepository.add(character)
-        eventPublisher.publish(created.asCreatedEvent())
+        val createdCharacter = characterRepository.add(character)
 
-        return created
+        with(serviceScope) {
+            launch { eventPublisher.publish(createdCharacter.asCreatedEvent()) }
+            launch { accountUseCase.addAccount(createdCharacter.id, AccountType.CASH, DEFAULT_CURRENCY) }
+        }
+
+        return createdCharacter
     }
 
     override fun get(characterId: CharacterId): Character? = characterRepository.findById(characterId)

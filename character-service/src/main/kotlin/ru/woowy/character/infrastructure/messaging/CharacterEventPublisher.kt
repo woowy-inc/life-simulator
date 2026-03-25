@@ -16,15 +16,15 @@ class CharacterEventPublisher(
 ) : KafkaEventPublisher(kafkaTemplate) {
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     fun handleCharacterCreated(event: CharacterCreatedEvent) {
-        sendEvent(event.characterId.toString(), event)
+        sendCharacterEvent(event.characterId.toString(), event)
     }
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     fun handleCharacterDeleted(event: CharacterDeletedEvent) {
-        sendEvent(event.characterId.toString(), event)
+        sendCharacterEvent(event.characterId.toString(), event)
     }
 
-    private fun sendEvent(
+    private fun sendCharacterEvent(
         key: String,
         event: Event,
     ) {

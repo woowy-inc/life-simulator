@@ -9,6 +9,8 @@ interface AccountRepository {
 
     fun findById(accountId: AccountId): Account?
 
+    fun findSalaryAccount(characterId: CharacterId): Account?
+
     fun add(account: Account): Account
 
     fun update(account: Account): Account?

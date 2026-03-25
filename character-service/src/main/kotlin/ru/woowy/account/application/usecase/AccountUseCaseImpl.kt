@@ -1,28 +1,63 @@
 package ru.woowy.account.application.usecase
 
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import ru.woowy.account.domain.model.Account
 import ru.woowy.account.domain.model.AccountEntry
+import ru.woowy.account.domain.model.AccountStatus
+import ru.woowy.account.domain.model.AccountType
 import ru.woowy.account.domain.repository.AccountEntryRepository
 import ru.woowy.account.domain.repository.AccountRepository
 import ru.woowy.account.domain.usecase.AccountUseCase
+import ru.woowy.account.infrastructure.extension.DEFAULT_CURRENCY
 import ru.woowy.id.AccountId
 import ru.woowy.id.CharacterId
+import java.time.LocalDateTime
+import java.util.Currency
+import java.util.UUID
 
 @Service
 class AccountUseCaseImpl(
     private val accountRepository: AccountRepository,
     private val accountEntryRepository: AccountEntryRepository,
 ) : AccountUseCase {
+    @Transactional
+    override fun getSalaryAccount(characterId: CharacterId): Account = accountRepository
+        .findSalaryAccount(characterId)
+        ?: addAccount(characterId, AccountType.CASH, DEFAULT_CURRENCY)
+
     override fun getAllAccounts(characterId: CharacterId): List<Account> = accountRepository.findAll(characterId)
 
     override fun getAccount(accountId: AccountId): Account? = accountRepository.findById(accountId)
 
+    @Transactional
     override fun addAccount(account: Account): Account = accountRepository.add(account)
 
+    @Transactional
+    override fun addAccount(
+        characterId: CharacterId,
+        type: AccountType,
+        currency: Currency,
+    ): Account {
+        val account =
+            Account(
+                id = UUID.randomUUID(),
+                characterId = characterId,
+                type = type,
+                currency = currency,
+                status = AccountStatus.ACTIVE,
+                createdAt = LocalDateTime.now(),
+            )
+
+        return addAccount(account)
+    }
+
+    @Transactional
     override fun updateAccount(account: Account): Account? = accountRepository.update(account)
 
+    @Transactional
     override fun deleteAccount(accountId: AccountId) = accountRepository.delete(accountId)
 
+    @Transactional
     override fun addEntry(entry: AccountEntry): AccountEntry = accountEntryRepository.add(entry)
 }
