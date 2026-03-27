@@ -9,9 +9,11 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertNull
 import org.junit.jupiter.api.assertThrows
+import ru.woowy.account.domain.usecase.AccountUseCase
 import ru.woowy.character.domain.client.WorldServiceClient
 import ru.woowy.character.domain.generation.BirthdayGenerator
 import ru.woowy.character.domain.repository.CharacterRepository
+import ru.woowy.character.infrastructure.lifecycle.ServiceScope
 import ru.woowy.domain.messaging.EventPublisher
 import ru.woowy.exception.ForbiddenException
 import ru.woowy.exception.NotFoundException
@@ -25,6 +27,8 @@ class CharacterUseCaseTest {
     private val birthdayGenerator = mockk<BirthdayGenerator>()
     private val worldServiceClient = mockk<WorldServiceClient>()
     private val eventPublisher = mockk<EventPublisher>(relaxed = true)
+    private val accountUseCase = mockk<AccountUseCase>(relaxed = true)
+    private val serviceScope = mockk<ServiceScope>(relaxed = true)
 
     private val useCase =
         CharacterUseCaseImpl(
@@ -32,6 +36,8 @@ class CharacterUseCaseTest {
             birthdayGenerator = birthdayGenerator,
             worldServiceClient = worldServiceClient,
             eventPublisher = eventPublisher,
+            accountUseCase = accountUseCase,
+            serviceScope = serviceScope,
         )
 
     private val ownerId = randomUUID()

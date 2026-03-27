@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertNull
 import org.springframework.beans.factory.annotation.Autowired
+import ru.woowy.character.domain.model.Character
 import ru.woowy.character.infrastructure.persistence.jpa.CharacterJpaRepository
 import ru.woowy.common.JpaRepositoryTest
 import ru.woowy.helper.randomCharacter
