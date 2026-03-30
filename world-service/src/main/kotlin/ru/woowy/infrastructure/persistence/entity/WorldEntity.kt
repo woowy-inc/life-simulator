@@ -10,11 +10,11 @@ import java.time.LocalDateTime
 @Entity(name = "worlds")
 class WorldEntity(
     @Id
-    val id: WorldId,
+    var id: WorldId,
     @Column(name = "character_id", nullable = false)
-    val characterId: CharacterId,
+    var characterId: CharacterId,
     @Column(name = "created_at", nullable = false)
-    val createdAt: LocalDateTime,
+    var createdAt: LocalDateTime,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
