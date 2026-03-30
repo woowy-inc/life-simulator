@@ -37,7 +37,7 @@ class CharacterController(
     @GetMapping("/{id}")
     suspend fun getCharacter(
         @PathVariable id: String,
-    ): ResponseEntity<Character> = ResponseEntity.ok(characterUseCase.get(UUID.fromString(id)))
+    ): ResponseEntity<Character>? = ResponseEntity.ok(characterUseCase.get(UUID.fromString(id)))
 
     @Operation(summary = "Get all characters")
     @GetMapping

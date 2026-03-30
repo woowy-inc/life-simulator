@@ -24,7 +24,7 @@ class NeedUseCaseImpl(
     private val needHolder: NeedHolder,
     private val eventPublisher: EventPublisher,
     private val scope: ServiceScope,
-) : Flushable(FlushPolicy.everyNTimes(3)),
+) : Flushable(policy = FlushPolicy.everyNTimes(3)),
     NeedUseCase {
     override suspend fun getNeed(characterId: CharacterId): Need = needHolder.get(characterId)
         ?: needRepository.findLast(characterId)

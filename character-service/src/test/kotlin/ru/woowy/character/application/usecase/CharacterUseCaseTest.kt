@@ -28,7 +28,7 @@ class CharacterUseCaseTest {
     private val worldServiceClient = mockk<WorldServiceClient>()
     private val eventPublisher = mockk<EventPublisher>(relaxed = true)
     private val accountUseCase = mockk<AccountUseCase>(relaxed = true)
-    private val serviceScope = mockk<ServiceScope>(relaxed = true)
+    private val serviceScope = ServiceScope()
 
     private val useCase =
         CharacterUseCaseImpl(
@@ -51,6 +51,7 @@ class CharacterUseCaseTest {
         every { worldServiceClient.getLocation(locationId) } returns mockk()
         every { birthdayGenerator.generate() } returns character.birthday
         every { characterRepository.add(any()) } returns character
+        every { eventPublisher.publish(any()) } just Runs
 
         val result = useCase.create(request, ownerId)
 
