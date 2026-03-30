@@ -193,3 +193,19 @@ services:
       postgres:
         condition: service_healthy
     restart: unless-stopped
+
+  need-service:
+    build:
+      context: ./need-service
+      dockerfile: Dockerfile.local
+    container_name: need-service
+    ports:
+      - "9099:9099"
+    volumes:
+      - ./need-service/logs:/app/logs
+    env_file:
+      - ./need-service/.env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped

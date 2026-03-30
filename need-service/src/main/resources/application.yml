@@ -1,0 +1,65 @@
+app:
+  decay:
+    hunger: ${DECAY_HUNGER:5.0}
+    sleep: ${DECAY_SLEEP:3.0}
+    body: ${DECAY_BODY:2.0}
+    mental: ${DECAY_MENTAL:2.0}
+    social: ${DECAY_SOCIAL:1.0}
+  gateway-url: ${GATEWAY_URL:http://localhost:9696}
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+server:
+  port: ${SERVER_PORT:9099}
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
+    prefer-ip-address: true
+  client:
+    registry-fetch-interval-seconds: 15
+    service-url:
+      defaultZone: ${EUREKA_CLIENT_DEFAULT_ZONE:http://localhost:8761/eureka/}
+spring:
+  data:
+    redis:
+      database: ${REDIS_DATABASE:0}
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      username: ${REDIS_USERNAME:default}
+      password: ${REDIS_PASSWORD:password}
+      timeout: ${REDIS_TIMEOUT:60000}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${OAUTH2_RESOURCE_SERVER_JWK_URI:http://auth-service:9393/.well-known/jwks.json}
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/lifesim_need}
+    username: ${DATASOURCE_USERNAME:dev}
+    password: ${DATASOURCE_PASSWORD:dev}
+    driver-class-name: ${DATASOURCE_DRIVER_NAME:org.postgresql.Driver}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: ${JPA_SHOW_SQL:true}
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: ${TIMEZONE:UTC}
+  kafka:
+    listener:
+      ack-mode: ${KAFKA_ACK_MODE:manual}
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    consumer:
+      group-id: ${KAFKA_CONSUMER_GROUP_ID:need-consumer}
+      auto-offset-reset: ${KAFKA_CONSUMER_AUTO_OFFSET_RESET:earliest}
+      key-deserializer: ${KAFKA_CONSUMER_KEY_DESERIALIZER:org.apache.kafka.common.serialization.StringDeserializer}
+      value-deserializer: ${KAFKA_CONSUMER_VALUE_DESERIALIZER:ru.woowy.infrastructure.serialization.EventDeserializer}
+    producer:
+      key-serializer: ${KAFKA_PRODUCER_KEY_SERIALIZER:org.apache.kafka.common.serialization.StringSerializer}
+      value-serializer: ${KAFKA_PRODUCER_VALUE_SERIALIZER:ru.woowy.infrastructure.serialization.EventSerializer}
+  application:
+    name: need-service
