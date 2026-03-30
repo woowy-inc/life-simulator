@@ -5,6 +5,7 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
+import kotlinx.coroutines.Dispatchers
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertNull
@@ -28,7 +29,7 @@ class CharacterUseCaseTest {
     private val worldServiceClient = mockk<WorldServiceClient>()
     private val eventPublisher = mockk<EventPublisher>(relaxed = true)
     private val accountUseCase = mockk<AccountUseCase>(relaxed = true)
-    private val serviceScope = ServiceScope()
+    private val serviceScope = ServiceScope(dispatcher = Dispatchers.Unconfined)
 
     private val useCase =
         CharacterUseCaseImpl(

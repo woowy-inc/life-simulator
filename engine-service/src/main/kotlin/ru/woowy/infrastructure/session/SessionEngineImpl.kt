@@ -24,7 +24,7 @@ class SessionEngineImpl(
     private val logger = classLogger()
 
     companion object {
-        const val GAME_SETTINGS_NOT_FOUND = "Game settings not found"
+        const val GAME_SETTINGS_NOT_FOUND = "Game settings was not found"
     }
 
     override suspend fun startSimulation(
