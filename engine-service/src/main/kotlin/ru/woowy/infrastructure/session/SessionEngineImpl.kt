@@ -44,7 +44,7 @@ class SessionEngineImpl(
         return start(context) { sessionSnapshot ->
             with(sessionScope) {
                 launch { gameSessionRepository.update(sessionSnapshot) }
-                launch { eventPublisher.publish(sessionSnapshot.asWorldTickEvent()) }
+                launch { eventPublisher.publish(sessionSnapshot.asWorldTickEvent(settings.speed)) }
             }
         }
     }
