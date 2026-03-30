@@ -53,10 +53,18 @@ jobs:
     secrets:
       PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
 
-  release-needs:
+  release-engine:
     needs: release-character
     uses: ./.github/workflows/release-service.yml
     with:
-      service: needs-service
+      service: engine-service
+    secrets:
+      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+
+  release-need:
+    needs: release-engine
+    uses: ./.github/workflows/release-service.yml
+    with:
+      service: need-service
     secrets:
       PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
