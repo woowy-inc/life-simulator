@@ -198,7 +198,8 @@ def getServiceDir(String serviceName) {
         'eureka-service' : 'eureka',
         'notification-service' : 'notification',
         'world-service' : 'world',
-        'character-service' : 'character'
+        'character-service' : 'character',
+        'need-service' : 'need'
     ]
     def dir = dirs[serviceName]
     if (!dir) error("Unknown service: ${serviceName}")

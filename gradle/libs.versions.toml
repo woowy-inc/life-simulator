@@ -54,6 +54,7 @@ springboot-starter-test = { module = "org.springframework.boot:spring-boot-start
 springboot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation", version.ref = "springBoot" }
 
 caffeine = { module = "com.github.ben-manes.caffeine:caffeine", version.ref = "caffeineCache" }
+lettuce-core = { module = "io.lettuce:lettuce-core" }
 
 springboot-kafka-starter = { module = "org.springframework.boot:spring-boot-starter-kafka", version.ref = "springBoot" }
 springboot-kafka = { module = "org.springframework.kafka:spring-kafka", version.ref = "springBoot" }
