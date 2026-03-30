@@ -1,7 +1,5 @@
 package ru.woowy.game
 
-import ru.woowy.world.WorldTimeRate
-
-data class GameConfig(
-    val timeScale: WorldTimeRate = WorldTimeRate.NORMAL,
-)
+object GameConfig {
+    const val TICK_INTERVAL_SECONDS = 3L
+}

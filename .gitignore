@@ -63,5 +63,6 @@ time-service/logs/
 character-service/logs/
 world-service/logs/
 /postgres/data/
+/redis/data/
 
 **/Dockerfile.local

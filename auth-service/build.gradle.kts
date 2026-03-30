@@ -21,14 +21,12 @@ dependencies {
     implementation(project(":common-events"))
     implementation(project(":common-security"))
 
-    implementation(libs.bundles.springboot.security.ecosystem)
     implementation(libs.bundles.springboot.kafka.ecosystem)
 
     implementation(libs.springboot.starter.data.jpa)
     implementation(libs.springboot.starter.eureka.client)
     implementation(libs.springboot.starter.vault.config)
     implementation(libs.springboot.starter.liquibase)
-    implementation(libs.springboot.starter.springdoc.ui)
     implementation(libs.springboot.starter.cache)
     implementation(libs.springboot.starter.validation)
 

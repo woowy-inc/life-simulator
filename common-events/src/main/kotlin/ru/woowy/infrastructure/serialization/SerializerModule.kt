@@ -8,14 +8,20 @@ import kotlinx.serialization.protobuf.ProtoBuf
 import ru.woowy.domain.model.CharacterCreatedEvent
 import ru.woowy.domain.model.CharacterDeletedEvent
 import ru.woowy.domain.model.Event
+import ru.woowy.domain.model.NeedUpdatedEvent
 import ru.woowy.domain.model.UserRegisterRequestedEvent
 import ru.woowy.domain.model.UserRegisteredEvent
 import ru.woowy.domain.model.WorldCreatedEvent
+import ru.woowy.domain.model.WorldTickEvent
+import ru.woowy.model.Percentage
+import java.time.LocalDateTime
 import java.util.UUID
 
 private val eventModule =
     SerializersModule {
         contextual(UUID::class, UUIDSerializer)
+        contextual(Percentage::class, PercentageSerializer)
+        contextual(LocalDateTime::class, LocalDateTimeSerializer)
 
         polymorphic(Event::class) {
             subclass(UserRegisterRequestedEvent::class)
@@ -23,6 +29,8 @@ private val eventModule =
             subclass(CharacterCreatedEvent::class)
             subclass(CharacterDeletedEvent::class)
             subclass(WorldCreatedEvent::class)
+            subclass(WorldTickEvent::class)
+            subclass(NeedUpdatedEvent::class)
         }
     }
 

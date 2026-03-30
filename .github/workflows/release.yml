@@ -6,252 +6,65 @@ on:
       - main
 
 jobs:
-  release:
-    name: Release
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
+  release-auth:
+    uses: ./.github/workflows/release-service.yml
+    with:
+      service: auth-service
+    secrets:
+      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.PAT_TOKEN }}
+  release-gateway:
+    needs: release-auth
+    uses: ./.github/workflows/release-service.yml
+    with:
+      service: gateway-service
+    secrets:
+      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
 
-      - name: Configure Git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git remote set-url origin https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}
+  release-eureka:
+    needs: release-gateway
+    uses: ./.github/workflows/release-service.yml
+    with:
+      service: eureka-service
+    secrets:
+      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
 
-      - name: Release auth-service
-        id: auth
-        run: |
-          NEXT=$(npx -y monotag@latest tag --path=auth-service --separator=/v --conv-commit=true 2>/dev/null | head -1)
-          CURRENT=$(npx -y monotag@latest latest --path=auth-service --separator=/v)
-          if [ "$NEXT" != "$CURRENT" ] && [ -n "$NEXT" ]; then
-            VERSION=$(echo "$NEXT" | grep -oP '\d+\.\d+\.\d+')
-            sed -i "s/^version = \".*\"/version = \"$VERSION\"/" auth-service/build.gradle.kts
-            git add auth-service/build.gradle.kts
-            git commit -m "chore(release): $NEXT [skip ci]"
-            git push
-            npx -y monotag@latest tag-push \
-              --path=auth-service \
-              --separator=/v \
-              --conv-commit=true \
-              --git-username="github-actions[bot]" \
-              --git-email="github-actions[bot]@users.noreply.github.com"
-            npx -y monotag@latest tag \
-              --path=auth-service \
-              --separator=/v \
-              --conv-commit=true \
-              --notes-file=/tmp/auth-notes.md
-            echo "tag=$NEXT" >> $GITHUB_OUTPUT
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+  release-notification:
+    needs: release-eureka
+    uses: ./.github/workflows/release-service.yml
+    with:
+      service: notification-service
+    secrets:
+      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
 
-      - name: GitHub Release auth-service
-        if: steps.auth.outputs.tag != ''
-        run: |
-          gh release create "${{ steps.auth.outputs.tag }}" \
-            --title "${{ steps.auth.outputs.tag }}" \
-            --notes-file /tmp/auth-notes.md
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+  release-world:
+    needs: release-notification
+    uses: ./.github/workflows/release-service.yml
+    with:
+      service: world-service
+    secrets:
+      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
 
-      - name: Sync after auth-service
-        run: git fetch origin main && git reset --hard origin/main
+  release-character:
+    needs: release-world
+    uses: ./.github/workflows/release-service.yml
+    with:
+      service: character-service
+    secrets:
+      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
 
-      - name: Release gateway-service
-        id: gateway
-        run: |
-          NEXT=$(npx -y monotag@latest tag --path=gateway-service --separator=/v --conv-commit=true 2>/dev/null | head -1)
-          CURRENT=$(npx -y monotag@latest latest --path=gateway-service --separator=/v)
-          if [ "$NEXT" != "$CURRENT" ] && [ -n "$NEXT" ]; then
-            VERSION=$(echo "$NEXT" | grep -oP '\d+\.\d+\.\d+')
-            sed -i "s/^version = \".*\"/version = \"$VERSION\"/" gateway-service/build.gradle.kts
-            git add gateway-service/build.gradle.kts
-            git commit -m "chore(release): $NEXT [skip ci]"
-            git push
-            npx -y monotag@latest tag-push \
-              --path=gateway-service \
-              --separator=/v \
-              --conv-commit=true \
-              --git-username="github-actions[bot]" \
-              --git-email="github-actions[bot]@users.noreply.github.com"
-            npx -y monotag@latest tag \
-              --path=gateway-service \
-              --separator=/v \
-              --conv-commit=true \
-              --notes-file=/tmp/gateway-notes.md
-            echo "tag=$NEXT" >> $GITHUB_OUTPUT
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+  release-engine:
+    needs: release-character
+    uses: ./.github/workflows/release-service.yml
+    with:
+      service: engine-service
+    secrets:
+      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
 
-      - name: GitHub Release gateway-service
-        if: steps.gateway.outputs.tag != ''
-        run: |
-          gh release create "${{ steps.gateway.outputs.tag }}" \
-            --title "${{ steps.gateway.outputs.tag }}" \
-            --notes-file /tmp/gateway-notes.md
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
-
-      - name: Sync after gateway-service
-        run: git fetch origin main && git reset --hard origin/main
-
-      - name: Release eureka-service
-        id: eureka
-        run: |
-          NEXT=$(npx -y monotag@latest tag --path=eureka-service --separator=/v --conv-commit=true 2>/dev/null | head -1)
-          CURRENT=$(npx -y monotag@latest latest --path=eureka-service --separator=/v)
-          if [ "$NEXT" != "$CURRENT" ] && [ -n "$NEXT" ]; then
-            VERSION=$(echo "$NEXT" | grep -oP '\d+\.\d+\.\d+')
-            sed -i "s/^version = \".*\"/version = \"$VERSION\"/" eureka-service/build.gradle.kts
-            git add eureka-service/build.gradle.kts
-            git commit -m "chore(release): $NEXT [skip ci]"
-            git push
-            npx -y monotag@latest tag-push \
-              --path=eureka-service \
-              --separator=/v \
-              --conv-commit=true \
-              --git-username="github-actions[bot]" \
-              --git-email="github-actions[bot]@users.noreply.github.com"
-            npx -y monotag@latest tag \
-              --path=eureka-service \
-              --separator=/v \
-              --conv-commit=true \
-              --notes-file=/tmp/eureka-notes.md
-            echo "tag=$NEXT" >> $GITHUB_OUTPUT
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
-
-      - name: GitHub Release eureka-service
-        if: steps.eureka.outputs.tag != ''
-        run: |
-          gh release create "${{ steps.eureka.outputs.tag }}" \
-            --title "${{ steps.eureka.outputs.tag }}" \
-            --notes-file /tmp/eureka-notes.md
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
-
-      - name: Sync after eureka-service
-        run: git fetch origin main && git reset --hard origin/main
-
-      - name: Release notification-service
-        id: notification
-        run: |
-          NEXT=$(npx -y monotag@latest tag --path=notification-service --separator=/v --conv-commit=true 2>/dev/null | head -1)
-          CURRENT=$(npx -y monotag@latest latest --path=notification-service --separator=/v)
-          if [ "$NEXT" != "$CURRENT" ] && [ -n "$NEXT" ]; then
-            VERSION=$(echo "$NEXT" | grep -oP '\d+\.\d+\.\d+')
-            sed -i "s/^version = \".*\"/version = \"$VERSION\"/" notification-service/build.gradle.kts
-            git add notification-service/build.gradle.kts
-            git commit -m "chore(release): $NEXT [skip ci]"
-            git push
-            npx -y monotag@latest tag-push \
-              --path=notification-service \
-              --separator=/v \
-              --conv-commit=true \
-              --git-username="github-actions[bot]" \
-              --git-email="github-actions[bot]@users.noreply.github.com"
-            npx -y monotag@latest tag \
-              --path=notification-service \
-              --separator=/v \
-              --conv-commit=true \
-              --notes-file=/tmp/notification-notes.md
-            echo "tag=$NEXT" >> $GITHUB_OUTPUT
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
-
-      - name: GitHub Release notification-service
-        if: steps.notification.outputs.tag != ''
-        run: |
-          gh release create "${{ steps.notification.outputs.tag }}" \
-            --title "${{ steps.notification.outputs.tag }}" \
-            --notes-file /tmp/notification-notes.md
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
-
-      - name: Sync after notification-service
-        run: git fetch origin main && git reset --hard origin/main
-
-      - name: Release world-service
-        id: world
-        run: |
-          NEXT=$(npx -y monotag@latest tag --path=world-service --separator=/v --conv-commit=true 2>/dev/null | head -1)
-          CURRENT=$(npx -y monotag@latest latest --path=world-service --separator=/v)
-          if [ "$NEXT" != "$CURRENT" ] && [ -n "$NEXT" ]; then
-            VERSION=$(echo "$NEXT" | grep -oP '\d+\.\d+\.\d+')
-            sed -i "s/^version = \".*\"/version = \"$VERSION\"/" world-service/build.gradle.kts
-            git add world-service/build.gradle.kts
-            git commit -m "chore(release): $NEXT [skip ci]"
-            git push
-            npx -y monotag@latest tag-push \
-              --path=world-service \
-              --separator=/v \
-              --conv-commit=true \
-              --git-username="github-actions[bot]" \
-              --git-email="github-actions[bot]@users.noreply.github.com"
-            npx -y monotag@latest tag \
-              --path=world-service \
-              --separator=/v \
-              --conv-commit=true \
-              --notes-file=/tmp/world-notes.md
-            echo "tag=$NEXT" >> $GITHUB_OUTPUT
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
-
-      - name: GitHub Release world-service
-        if: steps.world.outputs.tag != ''
-        run: |
-          gh release create "${{ steps.world.outputs.tag }}" \
-            --title "${{ steps.world.outputs.tag }}" \
-            --notes-file /tmp/world-notes.md
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
-
-      - name: Sync after world-service
-        run: git fetch origin main && git reset --hard origin/main
-
-      - name: Release character-service
-        id: character
-        run: |
-          NEXT=$(npx -y monotag@latest tag --path=character-service --separator=/v --conv-commit=true 2>/dev/null | head -1)
-          CURRENT=$(npx -y monotag@latest latest --path=character-service --separator=/v)
-          if [ "$NEXT" != "$CURRENT" ] && [ -n "$NEXT" ]; then
-            VERSION=$(echo "$NEXT" | grep -oP '\d+\.\d+\.\d+')
-            sed -i "s/^version = \".*\"/version = \"$VERSION\"/" character-service/build.gradle.kts
-            git add character-service/build.gradle.kts
-            git commit -m "chore(release): $NEXT [skip ci]"
-            git push
-            npx -y monotag@latest tag-push \
-              --path=character-service \
-              --separator=/v \
-              --conv-commit=true \
-              --git-username="github-actions[bot]" \
-              --git-email="github-actions[bot]@users.noreply.github.com"
-            npx -y monotag@latest tag \
-              --path=character-service \
-              --separator=/v \
-              --conv-commit=true \
-              --notes-file=/tmp/character-notes.md
-            echo "tag=$NEXT" >> $GITHUB_OUTPUT
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
-
-      - name: GitHub Release character-service
-        if: steps.character.outputs.tag != ''
-        run: |
-          gh release create "${{ steps.character.outputs.tag }}" \
-            --title "${{ steps.character.outputs.tag }}" \
-            --notes-file /tmp/character-notes.md
-        env:
-          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+  release-need:
+    needs: release-engine
+    uses: ./.github/workflows/release-service.yml
+    with:
+      service: need-service
+    secrets:
+      PAT_TOKEN: ${{ secrets.PAT_TOKEN }}

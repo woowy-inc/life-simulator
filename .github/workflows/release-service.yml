@@ -1,0 +1,70 @@
+name: Release Service
+
+on:
+  workflow_call:
+    inputs:
+      service:
+        required: true
+        type: string
+    secrets:
+      PAT_TOKEN:
+        required: true
+
+jobs:
+  release:
+    name: Release ${{ inputs.service }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: Sync with main
+        run: git fetch origin main && git reset --hard origin/main
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}
+
+      - name: Release ${{ inputs.service }}
+        id: release
+        run: |
+          NEXT=$(npx -y monotag@latest tag --path=${{ inputs.service }} --separator=/v --conv-commit=true 2>/dev/null | head -1)
+          CURRENT=$(npx -y monotag@latest latest --path=${{ inputs.service }} --separator=/v)
+          if [ "$NEXT" != "$CURRENT" ] && [ -n "$NEXT" ]; then
+            VERSION=$(echo "$NEXT" | grep -oP '\d+\.\d+\.\d+')
+            sed -i "s/^version = \".*\"/version = \"$VERSION\"/" ${{ inputs.service }}/build.gradle.kts
+            git add ${{ inputs.service }}/build.gradle.kts
+            git commit -m "chore(release): $NEXT [skip ci]"
+            git push
+            npx -y monotag@latest tag-push \
+              --path=${{ inputs.service }} \
+              --separator=/v \
+              --conv-commit=true \
+              --git-username="github-actions[bot]" \
+              --git-email="github-actions[bot]@users.noreply.github.com"
+            npx -y monotag@latest tag \
+              --path=${{ inputs.service }} \
+              --separator=/v \
+              --conv-commit=true \
+              --notes-file=/tmp/notes.md
+            echo "tag=$NEXT" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+
+      - name: GitHub Release
+        if: steps.release.outputs.tag != ''
+        run: |
+          gh release create "${{ steps.release.outputs.tag }}" \
+            --title "${{ steps.release.outputs.tag }}" \
+            --notes-file /tmp/notes.md
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}

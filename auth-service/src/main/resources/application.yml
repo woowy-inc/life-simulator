@@ -1,6 +1,6 @@
 app:
   cache-enabled: ${CACHE_ENABLED:true}
-  server-url: ${SERVER_URL:http://localhost:9696}
+  gateway-url: ${GATEWAY_URL:http://localhost:9696}
   jwt:
     expiration: ${JWT_EXPIRATION:1800000}
     refresh-expiration: ${JWT_REFRESH_EXPIRATION:2592000000}
@@ -11,11 +11,13 @@ springdoc:
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
-  servers:
-    - url: ${GATEWAY_URL:http://localhost:9696}
-      description: Gateway
 eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
+    prefer-ip-address: true
   client:
+    registry-fetch-interval-seconds: 15
     service-url:
       defaultZone: ${EUREKA_CLIENT_DEFAULT_ZONE:http://localhost:8761/eureka/}
 server:

@@ -21,25 +21,24 @@ class OpenApiConfig(
     fun openApi(): OpenAPI {
         val info =
             Info()
-                .title("Woowy LifeSim: Auth Service")
-                .description("Woowy LifeSim: Auth Service description")
+                .title("LifeSim Auth Service")
+                .description("Authentication and user management")
                 .contact(Contact().name("Denis").email("dnartysh@yandex.ru"))
-                .summary("Woowy summary")
                 .version(buildProperties.version)
 
         val server =
             Server()
-                .url(appProperties.serverUrl)
-                .description("Auth Service")
+                .url(appProperties.gatewayUrl)
+                .description("Gateway")
 
         val components =
             Components()
-                .addSecuritySchemes(AuthenticationScheme.Companion.BEARER, authenticationScheme.bearerScheme())
+                .addSecuritySchemes(AuthenticationScheme.BEARER, authenticationScheme.bearerScheme())
 
         return OpenAPI()
             .info(info)
             .addServersItem(server)
             .components(components)
-            .addSecurityItem(SecurityRequirement().addList(AuthenticationScheme.Companion.BEARER))
+            .addSecurityItem(SecurityRequirement().addList(AuthenticationScheme.BEARER))
     }
 }

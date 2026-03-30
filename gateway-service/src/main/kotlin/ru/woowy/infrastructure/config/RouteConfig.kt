@@ -23,11 +23,6 @@ class RouteConfig {
                 .filter(lb(Service.AUTH_SERVICE))
                 .build(),
         ).and(
-            route("time-route")
-                .route(path("/time/**"), http())
-                .filter(lb(Service.TIME_SERVICE))
-                .build(),
-        ).and(
             route("character-route")
                 .route(path("/character/**"), http())
                 .filter(lb(Service.CHARACTER_SERVICE))
@@ -38,8 +33,9 @@ class RouteConfig {
                 .filter(lb(Service.WORLD_SERVICE))
                 .build(),
         ).and(
-            route("not-found")
-                .route(path("/**")) { ServerResponse.notFound().build() }
+            route("engine-route")
+                .route(path("/session/**"), http())
+                .filter(lb(Service.ENGINE_SERVICE))
                 .build(),
         )
 }
