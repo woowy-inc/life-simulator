@@ -48,7 +48,7 @@ class AuthUseCaseImpl(
     override fun loginByUsername(request: UsernameRequest): TokenDto {
         val user =
             userUseCase.getByUsername(request.username)
-                ?: notFound(BAD_CREDENTIALS_MESSAGE)
+                ?: unauthorized(BAD_CREDENTIALS_MESSAGE)
 
         if (!passwordEncoder.matches(request.password, user.password)) {
             unauthorized(BAD_CREDENTIALS_MESSAGE)
