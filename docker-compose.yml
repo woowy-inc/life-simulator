@@ -81,8 +81,6 @@ services:
       - "8585:8080"
     env_file:
       - ./kafka/config/ui/.env
-    depends_on:
-      - kafka
     restart: unless-stopped
 
   eureka:
@@ -109,9 +107,6 @@ services:
       - ./gateway-service/logs:/app/logs
     env_file:
       - ./gateway-service/.env
-    depends_on:
-      eureka:
-        condition: service_started
     restart: unless-stopped
 
   auth-service:
@@ -125,9 +120,6 @@ services:
       - ./auth-service/logs:/app/logs
     env_file:
       - ./auth-service/.env
-    depends_on:
-      postgres:
-        condition: service_healthy
     restart: unless-stopped
 
   notification-service:
@@ -141,9 +133,6 @@ services:
       - ./notification-service/logs:/app/logs
     env_file:
       - ./notification-service/.env
-    depends_on:
-      postgres:
-        condition: service_healthy
     restart: unless-stopped
 
   world-service:
@@ -157,9 +146,6 @@ services:
       - ./world-service/logs:/app/logs
     env_file:
       - ./world-service/.env
-    depends_on:
-      postgres:
-        condition: service_healthy
     restart: unless-stopped
 
   character-service:
@@ -173,9 +159,6 @@ services:
       - ./character-service/logs:/app/logs
     env_file:
       - ./character-service/.env
-    depends_on:
-      postgres:
-        condition: service_healthy
     restart: unless-stopped
 
   engine-service:
@@ -189,9 +172,6 @@ services:
       - ./engine-service/logs:/app/logs
     env_file:
       - ./engine-service/.env
-    depends_on:
-      postgres:
-        condition: service_healthy
     restart: unless-stopped
 
   need-service:
@@ -205,7 +185,4 @@ services:
       - ./need-service/logs:/app/logs
     env_file:
       - ./need-service/.env
-    depends_on:
-      postgres:
-        condition: service_healthy
     restart: unless-stopped
