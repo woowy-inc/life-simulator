@@ -8,7 +8,6 @@ import org.junit.jupiter.api.assertThrows
 import org.springframework.security.crypto.password.PasswordEncoder
 import ru.woowy.domain.model.TokenType
 import ru.woowy.domain.usecase.UserUseCase
-import ru.woowy.exception.NotFoundException
 import ru.woowy.exception.UnauthorizedException
 import ru.woowy.helper.randomRefreshTokenRequest
 import ru.woowy.helper.randomToken
@@ -106,13 +105,13 @@ class AuthUseCaseImplTest {
     }
 
     @Test
-    fun `should throw not found when user by username not found`() {
+    fun `should throw unauthorized when user by username not found`() {
         val request = randomUsernameRequest()
 
         every { userUseCase.getByUsername(any()) } returns null
 
         val actual =
-            assertThrows<NotFoundException> {
+            assertThrows<UnauthorizedException> {
                 useCase.loginByUsername(request)
             }
 
