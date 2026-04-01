@@ -35,7 +35,6 @@ dependencies {
     implementation(libs.kotlinx.coroutines.reactor)
     implementation(libs.migration.liquibase.core)
     implementation(libs.kotlin.jackson)
-    implementation(libs.kotlinx.coroutines)
     implementation(libs.caffeine)
 
     runtimeOnly(libs.postgresql.jdbc)
