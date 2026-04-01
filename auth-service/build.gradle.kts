@@ -34,7 +34,6 @@ dependencies {
     implementation(libs.migration.liquibase.core)
     implementation(libs.kotlin.reflect)
     implementation(libs.kotlin.jackson)
-    implementation(libs.kotlinx.coroutines)
     implementation(libs.jjwt.api)
     implementation(libs.caffeine)
 
