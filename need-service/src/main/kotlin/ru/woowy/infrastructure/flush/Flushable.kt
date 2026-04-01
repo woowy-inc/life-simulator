@@ -35,5 +35,5 @@ abstract class Flushable(
         }
     }
 
-    abstract suspend fun flush()
+    abstract fun flush()
 }

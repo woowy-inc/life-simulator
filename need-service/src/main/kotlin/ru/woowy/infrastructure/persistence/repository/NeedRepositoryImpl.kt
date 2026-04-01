@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository
 import ru.woowy.domain.model.Need
 import ru.woowy.domain.repository.NeedRepository
 import ru.woowy.id.CharacterId
+import ru.woowy.id.NeedId
 import ru.woowy.infrastructure.mapper.asDomain
 import ru.woowy.infrastructure.persistence.entity.NeedEntity
 import ru.woowy.infrastructure.persistence.jpa.NeedJpaRepository
@@ -32,7 +33,9 @@ class NeedRepositoryImpl(
         need: Need,
     ): Need? = needJpaRepository.save(need.asEntity(characterId)).asDomain()
 
-    override fun delete(characterId: CharacterId) = needJpaRepository.deleteById(characterId)
+    override fun delete(needId: NeedId) = needJpaRepository.deleteById(needId)
+
+    override fun deleteAll(characterId: CharacterId) = needJpaRepository.deleteAllByCharacterId(characterId)
 }
 
 private fun Need.asEntity(characterId: CharacterId): NeedEntity = NeedEntity(

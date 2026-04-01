@@ -11,16 +11,16 @@ import java.util.UUID
 class NeedHolderImpl(
     private val needRedisTemplate: RedisTemplate<String, Need>,
 ) : NeedHolder {
-    override suspend fun get(characterId: CharacterId): Need? = needRedisTemplate.opsForValue().get(characterId.toKey())
+    override fun get(characterId: CharacterId): Need? = needRedisTemplate.opsForValue().get(characterId.toKey())
 
-    override suspend fun push(
+    override fun push(
         characterId: CharacterId,
         need: Need,
     ) {
         needRedisTemplate.opsForValue().set(characterId.toKey(), need)
     }
 
-    override suspend fun popAll(): Map<CharacterId, Need> {
+    override fun popAll(): Map<CharacterId, Need> {
         val keys = needRedisTemplate.keys("need:*")
         if (keys.isNullOrEmpty()) return emptyMap()
 
@@ -29,6 +29,14 @@ class NeedHolderImpl(
                 val need = needRedisTemplate.opsForValue().get(key) ?: return@mapNotNull null
                 key.toCharacterId() to need
             }.toMap()
+    }
+
+    override fun delete(characterId: CharacterId) {
+        needRedisTemplate.delete(characterId.toKey())
+    }
+
+    override fun deleteAll() {
+        needRedisTemplate.delete("need:*")
     }
 
     private fun CharacterId.toKey() = "need:$this"

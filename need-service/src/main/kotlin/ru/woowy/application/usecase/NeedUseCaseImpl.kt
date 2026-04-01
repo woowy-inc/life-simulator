@@ -4,6 +4,7 @@ import jakarta.annotation.PreDestroy
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import ru.woowy.domain.calculation.NeedCalculator
 import ru.woowy.domain.holder.NeedHolder
 import ru.woowy.domain.messaging.EventPublisher
@@ -26,11 +27,11 @@ class NeedUseCaseImpl(
     private val scope: ServiceScope,
 ) : Flushable(policy = FlushPolicy.everyNTimes(3)),
     NeedUseCase {
-    override suspend fun getNeed(characterId: CharacterId): Need = needHolder.get(characterId)
+    override fun getNeed(characterId: CharacterId): Need = needHolder.get(characterId)
         ?: needRepository.findLast(characterId)
         ?: needRepository.add(characterId, Need())
 
-    override suspend fun processTick(
+    override fun processTick(
         characterId: CharacterId,
         tickNumber: Long,
         gameSpeed: GameSpeed,
@@ -48,15 +49,21 @@ class NeedUseCaseImpl(
         }
     }
 
-    override suspend fun flush() {
+    @Transactional
+    override fun delete(characterId: CharacterId) {
+        needHolder.delete(characterId)
+        needRepository.deleteAll(characterId)
+    }
+
+    @Transactional
+    override fun flush() {
         needHolder.popAll().forEach { (characterId, need) ->
-            scope.launch {
-                needRepository.add(characterId, need)
-            }
+            needRepository.add(characterId, need)
         }
     }
 
     @PreDestroy
+    @Transactional
     fun destroy() {
         runBlocking { flush() }
     }

@@ -16,7 +16,7 @@ class NeedCalculatorImpl(
 ) : NeedCalculator {
     private val decay = appProperties.decay
 
-    override suspend fun applyModifier(
+    override fun applyModifier(
         need: Need,
         gameSpeed: GameSpeed,
     ): Need {
@@ -44,7 +44,7 @@ class NeedCalculatorImpl(
         )
     }
 
-    override suspend fun applyModifier(
+    override fun applyModifier(
         current: BigDecimal,
         modifier: Double,
         gameSpeed: GameSpeed,

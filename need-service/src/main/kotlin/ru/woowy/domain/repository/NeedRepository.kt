@@ -2,6 +2,7 @@ package ru.woowy.domain.repository
 
 import ru.woowy.domain.model.Need
 import ru.woowy.id.CharacterId
+import ru.woowy.id.NeedId
 
 interface NeedRepository {
     fun findLast(characterId: CharacterId): Need?
@@ -21,5 +22,7 @@ interface NeedRepository {
         need: Need,
     ): Need?
 
-    fun delete(characterId: CharacterId)
+    fun delete(needId: NeedId)
+
+    fun deleteAll(characterId: CharacterId)
 }

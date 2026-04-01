@@ -6,12 +6,12 @@ import ru.woowy.model.Percentage
 import java.math.BigDecimal
 
 interface NeedCalculator {
-    suspend fun applyModifier(
+    fun applyModifier(
         need: Need,
         gameSpeed: GameSpeed,
     ): Need
 
-    suspend fun applyModifier(
+    fun applyModifier(
         current: BigDecimal,
         modifier: Double,
         gameSpeed: GameSpeed,
