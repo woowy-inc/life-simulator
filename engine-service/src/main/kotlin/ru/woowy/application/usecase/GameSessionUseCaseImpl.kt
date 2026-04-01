@@ -87,5 +87,8 @@ class GameSessionUseCaseImpl(
         return gameSessionRepository.update(session)
     }
 
-    override fun delete(characterId: CharacterId) = gameSessionRepository.delete(characterId)
+    override suspend fun delete(characterId: CharacterId) {
+        sessionEngine.stopSimulation(characterId)
+        gameSessionRepository.delete(characterId)
+    }
 }

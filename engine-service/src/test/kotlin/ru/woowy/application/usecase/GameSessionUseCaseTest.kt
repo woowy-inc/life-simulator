@@ -150,7 +150,7 @@ class GameSessionUseCaseTest {
     }
 
     @Test
-    fun `should delete session`() {
+    fun `should delete session`() = runBlocking {
         every { gameSessionRepository.delete(request.characterId) } just Runs
 
         useCase.delete(request.characterId)

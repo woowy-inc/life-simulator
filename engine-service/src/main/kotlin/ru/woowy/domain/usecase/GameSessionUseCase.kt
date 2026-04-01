@@ -65,5 +65,5 @@ interface GameSessionUseCase {
      *
      * @param characterId Unique identifier of the character whose session data will be deleted.
      */
-    fun delete(characterId: CharacterId)
+    suspend fun delete(characterId: CharacterId)
 }
