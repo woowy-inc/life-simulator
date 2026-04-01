@@ -36,7 +36,6 @@ dependencies {
     implementation(libs.migration.liquibase.core)
     implementation(libs.kotlin.jackson)
     implementation(libs.lettuce.core)
-    implementation(libs.kotlinx.coroutines)
 
     runtimeOnly(libs.postgresql.jdbc)
 
