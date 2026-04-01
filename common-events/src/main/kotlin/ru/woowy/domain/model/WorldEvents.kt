@@ -29,5 +29,5 @@ data class WorldTickEvent(
     @Contextual
     val gameTime: LocalDateTime,
     val gameSpeed: GameSpeed,
-    val tickNumber: Long,
-) : Event
+    override val tickNumber: Long,
+) : TickableEvent

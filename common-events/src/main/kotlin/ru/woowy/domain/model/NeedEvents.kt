@@ -12,7 +12,7 @@ data class NeedUpdatedEvent(
     override val timestamp: Long,
     @Contextual
     override val characterId: CharacterId,
-    val tickNumber: Long,
+    override val tickNumber: Long,
     val hunger: Double,
     val sleep: Double,
     val body: Double,
