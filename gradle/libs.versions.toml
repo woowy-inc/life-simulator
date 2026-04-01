@@ -18,6 +18,7 @@ mockk = "1.14.9"
 testContainersPostgresql = "1.21.4"
 caffeineCache = "3.2.3"
 slf4j = "2.0.17"
+gateway = "4.3.3"
 
 [libraries]
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -34,7 +35,9 @@ springboot-starter-web = { module = "org.springframework.boot:spring-boot-starte
 springboot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "springBoot" }
 springboot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "springBoot" }
 
-springboot-starter-gateway = { module = "org.springframework.cloud:spring-cloud-starter-gateway-server-webmvc", version.ref = "springCloud" }
+springboot-starter-gateway-mvc = { module = "org.springframework.cloud:spring-cloud-starter-gateway-server-webmvc", version.ref = "springCloud" }
+springboot-starter-gateway = { module = "org.springframework.cloud:spring-cloud-starter-gateway-server-webflux", version.ref = "springCloud" }
+springboot-starter-webflux = { module = "org.springframework.boot:spring-boot-starter-webflux", version.ref = "springBoot" }
 springboot-starter-loadbalancer = { module = "org.springframework.cloud:spring-cloud-starter-loadbalancer", version.ref = "springCloud" }
 springboot-starter-eureka-client = { module = "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client", version.ref = "springCloud" }
 springboot-starter-eureka-server = { module = "org.springframework.cloud:spring-cloud-starter-netflix-eureka-server", version.ref = "springCloud" }
