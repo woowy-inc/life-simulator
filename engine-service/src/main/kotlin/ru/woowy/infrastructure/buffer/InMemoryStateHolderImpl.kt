@@ -2,27 +2,27 @@ package ru.woowy.infrastructure.buffer
 
 import org.springframework.stereotype.Component
 import ru.woowy.domain.buffer.StateHolder
+import ru.woowy.domain.model.CharacterKey
 import ru.woowy.domain.model.CharacterStateBuilder
-import ru.woowy.id.CharacterId
 import java.util.concurrent.ConcurrentHashMap
 
 @Component
-class InMemoryStateHolderImpl : StateHolder<CharacterId, CharacterStateBuilder> {
-    private val states = ConcurrentHashMap<CharacterId, CharacterStateBuilder>()
+class InMemoryStateHolderImpl : StateHolder<CharacterKey, CharacterStateBuilder> {
+    private val states = ConcurrentHashMap<CharacterKey, CharacterStateBuilder>()
 
-    override suspend fun get(key: CharacterId): CharacterStateBuilder? = states[key]
+    override suspend fun get(key: CharacterKey): CharacterStateBuilder? = states[key]
 
     override suspend fun put(
-        key: CharacterId,
+        key: CharacterKey,
         value: CharacterStateBuilder,
     ) {
         states[key] = value
     }
 
     override suspend fun putIfAbsent(
-        key: CharacterId,
+        key: CharacterKey,
         value: CharacterStateBuilder,
     ): CharacterStateBuilder? = states.putIfAbsent(key, value)
 
-    override suspend fun remove(key: CharacterId): CharacterStateBuilder? = states.remove(key)
+    override suspend fun remove(key: CharacterKey): CharacterStateBuilder? = states.remove(key)
 }

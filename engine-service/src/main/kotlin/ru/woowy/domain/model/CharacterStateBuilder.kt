@@ -1,15 +1,16 @@
 package ru.woowy.domain.model
 
 class CharacterStateBuilder {
-    private var need: Need? = null
+    private var game: GamePreview? = null
+    private var need: NeedPreview? = null
 
-    private fun isComplete(): Boolean = need != null
+    fun game(event: WorldTickEvent): CharacterStateBuilder = apply {
+        game = GamePreview(tickNumber = event.tickNumber, gameTime = event.gameTime)
+    }
 
-    fun build(): CharacterState = CharacterState(need = need)
-
-    fun need(event: NeedUpdatedEvent): CharacterStateBuilder {
+    fun need(event: NeedUpdatedEvent): CharacterStateBuilder = apply {
         need =
-            Need(
+            NeedPreview(
                 hunger = event.hunger,
                 sleep = event.sleep,
                 body = event.body,
@@ -18,7 +19,7 @@ class CharacterStateBuilder {
                 health = event.health,
                 happiness = event.happiness,
             )
-
-        return this
     }
+
+    fun build(): CharacterState = CharacterState(game = game, need = need)
 }

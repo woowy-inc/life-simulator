@@ -1,6 +1,6 @@
 package ru.woowy.domain.model
 
-data class Need(
+data class NeedPreview(
     val hunger: Double,
     val sleep: Double,
     val body: Double,

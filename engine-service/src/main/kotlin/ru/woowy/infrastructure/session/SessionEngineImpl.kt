@@ -8,6 +8,7 @@ import ru.woowy.domain.model.GameSession
 import ru.woowy.domain.model.GameSessionContext
 import ru.woowy.domain.repository.GameSessionRepository
 import ru.woowy.domain.session.SessionEngine
+import ru.woowy.domain.usecase.AggregationUseCase
 import ru.woowy.extension.classLogger
 import ru.woowy.id.CharacterId
 import ru.woowy.infrastructure.lifecycle.ServiceScope
@@ -18,6 +19,7 @@ class SessionEngineImpl(
     private val characterServiceClient: CharacterServiceClient,
     private val gameSessionRepository: GameSessionRepository,
     private val eventPublisher: EventPublisher,
+    private val aggregationUseCase: AggregationUseCase,
     private val serviceScope: ServiceScope,
 ) : SessionLooper(serviceScope),
     SessionEngine {
@@ -43,8 +45,11 @@ class SessionEngineImpl(
 
         return start(context) { sessionSnapshot ->
             with(serviceScope) {
+                val event = sessionSnapshot.asWorldTickEvent(settings.speed)
+
                 launch { gameSessionRepository.update(sessionSnapshot) }
-                launch { eventPublisher.publish(sessionSnapshot.asWorldTickEvent(settings.speed)) }
+                launch { eventPublisher.publish(event) }
+                launch { aggregationUseCase.processEvent(characterId, event) }
             }
         }
     }

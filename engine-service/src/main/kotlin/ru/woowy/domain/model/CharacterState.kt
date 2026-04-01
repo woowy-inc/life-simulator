@@ -1,5 +1,6 @@
 package ru.woowy.domain.model
 
 data class CharacterState(
-    val need: Need? = null,
+    val game: GamePreview? = null,
+    val need: NeedPreview? = null,
 )
