@@ -5,3 +5,5 @@ databaseChangeLog:
       file: classpath:db/changelog/changesets/V2__character_game_settings.sql
   - include:
       file: classpath:db/changelog/changesets/V3__accounts.sql
+  - include:
+      file: classpath:db/changelog/changesets/V4__on_delete_cascade_fk.sql

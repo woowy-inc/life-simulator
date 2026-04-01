@@ -5,8 +5,6 @@ import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
 import jakarta.persistence.Id
-import jakarta.persistence.OneToMany
-import ru.woowy.account.infrastructure.persistence.entity.AccountEntity
 import ru.woowy.character.Gender
 import ru.woowy.id.CharacterId
 import ru.woowy.id.LocationId
@@ -33,8 +31,6 @@ class CharacterEntity(
     var worldId: WorldId?,
     @Column(name = "created_at", nullable = false)
     var createdAt: LocalDateTime,
-//    @OneToMany(mappedBy = "characterId")
-//    var accounts: Collection<AccountEntity>,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

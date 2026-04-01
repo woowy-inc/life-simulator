@@ -8,6 +8,8 @@ import jakarta.persistence.FetchType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 import ru.woowy.account.domain.model.EntryDirection
 import ru.woowy.account.domain.model.EntryReason
 import ru.woowy.id.AccountEntryId
@@ -20,6 +22,7 @@ class AccountEntryEntity(
     var id: AccountEntryId,
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
+    @OnDelete(OnDeleteAction.CASCADE)
     var account: AccountEntity,
     @Column(nullable = false)
     var amount: BigDecimal,
