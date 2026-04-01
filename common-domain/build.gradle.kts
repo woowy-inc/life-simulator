@@ -13,6 +13,7 @@ repositories {
 
 dependencies {
     api(libs.slf4j.api)
+    api(libs.kotlinx.coroutines)
 
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
