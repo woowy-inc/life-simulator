@@ -13,7 +13,7 @@ class ApiDocumentationProxyController(
     private val apiDocumentationProxyService: ApiDocumentationProxyService,
 ) {
     @GetMapping("/api-docs/{serviceId}")
-    fun getServiceDocumentation(
+    suspend fun getServiceDocumentation(
         @PathVariable serviceId: ServiceId,
     ): ResponseEntity<String> = ResponseEntity
         .ok()

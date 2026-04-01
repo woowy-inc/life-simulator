@@ -2,63 +2,54 @@ package ru.woowy.application.config
 
 import io.mockk.every
 import io.mockk.mockk
-import jakarta.servlet.FilterChain
-import jakarta.servlet.http.HttpServletRequest
-import jakarta.servlet.http.HttpServletResponse
 import org.junit.jupiter.api.Test
-import org.springframework.mock.web.MockHttpServletRequest
-import org.springframework.mock.web.MockHttpServletResponse
+import org.springframework.cloud.gateway.filter.GatewayFilterChain
+import org.springframework.mock.http.server.reactive.MockServerHttpRequest
+import org.springframework.mock.web.server.MockServerWebExchange
+import reactor.core.publisher.Mono
 import ru.woowy.infrastructure.config.DeduplicateCorsHeadersFilter
 import kotlin.test.assertEquals
 
 class DeduplicateCorsHeadersFilterTest {
-    private val request = mockk<HttpServletRequest>(relaxed = true)
-    private val filterChain = mockk<FilterChain>(relaxed = true)
     private val filter = DeduplicateCorsHeadersFilter()
+    private val chain = mockk<GatewayFilterChain>()
 
     @Test
     fun `should not duplicate cors headers`() {
-        val request = MockHttpServletRequest()
-        val response = MockHttpServletResponse()
+        val exchange = MockServerWebExchange.from(MockServerHttpRequest.get("/").build())
+        exchange.response.headers.add("Access-Control-Allow-Origin", "https://example.com")
+        exchange.response.headers.add("Access-Control-Allow-Origin", "https://example.com")
 
-        every { filterChain.doFilter(any(), any()) } answers {
-            val wrapper = secondArg<HttpServletResponse>()
-            wrapper.addHeader("Access-Control-Allow-Origin", "https://example.com")
-            wrapper.addHeader("Access-Control-Allow-Origin", "https://example.com")
-        }
+        every { chain.filter(any()) } returns Mono.empty()
 
-        filter.doFilter(request, response, filterChain)
+        filter.filter(exchange, chain).block()
 
-        assertEquals(1, response.getHeaders("Access-Control-Allow-Origin").size)
+        assertEquals(1, exchange.response.headers["Access-Control-Allow-Origin"]?.size)
     }
 
     @Test
     fun `should allow different values for same header`() {
-        val response = MockHttpServletResponse()
+        val exchange = MockServerWebExchange.from(MockServerHttpRequest.get("/").build())
+        exchange.response.headers.add("Vary", "Origin")
+        exchange.response.headers.add("Vary", "Accept-Encoding")
 
-        every { filterChain.doFilter(any(), any()) } answers {
-            val wrapper = secondArg<HttpServletResponse>()
-            wrapper.addHeader("Vary", "Origin")
-            wrapper.addHeader("Vary", "Accept-Encoding")
-        }
+        every { chain.filter(any()) } returns Mono.empty()
 
-        filter.doFilter(request, response, filterChain)
+        filter.filter(exchange, chain).block()
 
-        assertEquals(2, response.getHeaders("Vary").size)
+        assertEquals(2, exchange.response.headers["Vary"]?.size)
     }
 
     @Test
     fun `should not deduplicate non cors headers`() {
-        val response = MockHttpServletResponse()
+        val exchange = MockServerWebExchange.from(MockServerHttpRequest.get("/").build())
+        exchange.response.headers.add("X-Custom-Header", "value")
+        exchange.response.headers.add("X-Custom-Header", "value")
 
-        every { filterChain.doFilter(any(), any()) } answers {
-            val wrapper = secondArg<HttpServletResponse>()
-            wrapper.addHeader("X-Custom-Header", "value")
-            wrapper.addHeader("X-Custom-Header", "value")
-        }
+        every { chain.filter(any()) } returns Mono.empty()
 
-        filter.doFilter(request, response, filterChain)
+        filter.filter(exchange, chain).block()
 
-        assertEquals(2, response.getHeaders("X-Custom-Header").size)
+        assertEquals(2, exchange.response.headers["X-Custom-Header"]?.size)
     }
 }

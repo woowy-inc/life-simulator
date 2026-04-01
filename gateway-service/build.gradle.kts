@@ -20,8 +20,12 @@ dependencies {
     implementation(libs.springboot.starter.gateway)
     implementation(libs.springboot.starter.loadbalancer)
     implementation(libs.springboot.starter.eureka.client)
+    implementation(libs.springboot.starter.webflux)
+    implementation(libs.springboot.starter.security)
+    implementation(libs.springboot.starter.oauth2.resource.server)
+
+    implementation(libs.kotlinx.coroutines.reactor)
     implementation(libs.kotlin.reflect)
-    implementation(libs.springboot.starter.springdoc.ui)
 
     testImplementation(kotlin("test"))
     testImplementation(libs.mockk)
