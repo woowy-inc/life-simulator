@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm")
+    alias(libs.plugins.kotlin.spring)
 }
 
 group = "ru.woowy"
@@ -14,6 +15,8 @@ dependencies {
 
     api(libs.springboot.starter.openfeign)
     api(libs.springboot.starter.web)
+
+    implementation(libs.reactor.core)
 
     testImplementation(kotlin("test"))
 }
