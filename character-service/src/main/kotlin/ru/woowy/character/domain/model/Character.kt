@@ -1,11 +1,11 @@
 package ru.woowy.character.domain.model
 
+import java.time.LocalDateTime
 import ru.woowy.character.Gender
 import ru.woowy.id.CharacterId
 import ru.woowy.id.LocationId
 import ru.woowy.id.UserId
 import ru.woowy.id.WorldId
-import java.time.LocalDateTime
 
 data class Character(
     val id: CharacterId,
@@ -16,4 +16,5 @@ data class Character(
     val locationId: LocationId,
     val worldId: WorldId? = null,
     val createdAt: LocalDateTime,
+    val need: Need? = null,
 )

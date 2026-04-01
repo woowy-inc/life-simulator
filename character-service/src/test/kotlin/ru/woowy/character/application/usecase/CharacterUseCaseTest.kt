@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertNull
 import org.junit.jupiter.api.assertThrows
 import ru.woowy.account.domain.usecase.AccountUseCase
+import ru.woowy.character.domain.client.NeedServiceClient
 import ru.woowy.character.domain.client.WorldServiceClient
 import ru.woowy.character.domain.generation.BirthdayGenerator
 import ru.woowy.character.domain.repository.CharacterRepository
@@ -25,6 +26,7 @@ class CharacterUseCaseTest {
     private val characterRepository = mockk<CharacterRepository>()
     private val birthdayGenerator = mockk<BirthdayGenerator>()
     private val worldServiceClient = mockk<WorldServiceClient>()
+    private val needServiceClient = mockk<NeedServiceClient>()
     private val eventPublisher = mockk<EventPublisher>(relaxed = true)
     private val accountUseCase = mockk<AccountUseCase>(relaxed = true)
 
@@ -35,6 +37,7 @@ class CharacterUseCaseTest {
             worldServiceClient = worldServiceClient,
             eventPublisher = eventPublisher,
             accountUseCase = accountUseCase,
+            needServiceClient = needServiceClient,
         )
 
     private val ownerId = randomUUID()

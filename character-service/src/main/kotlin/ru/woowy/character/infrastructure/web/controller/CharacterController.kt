@@ -1,7 +1,8 @@
-package ru.woowy.common.web.controller
+package ru.woowy.character.infrastructure.web.controller
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
+import java.util.UUID
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -18,7 +19,6 @@ import ru.woowy.character.domain.usecase.CharacterUseCase
 import ru.woowy.common.web.RestEndpoint
 import ru.woowy.domain.model.UserPrincipal
 import ru.woowy.id.CharacterId
-import java.util.UUID
 
 @Tag(name = "Characters")
 @RestController
@@ -37,7 +37,7 @@ class CharacterController(
     @GetMapping("/{id}")
     suspend fun getCharacter(
         @PathVariable id: String,
-    ): ResponseEntity<Character>? = ResponseEntity.ok(characterUseCase.get(UUID.fromString(id)))
+    ): ResponseEntity<Character> = ResponseEntity.ok(characterUseCase.get(UUID.fromString(id)))
 
     @Operation(summary = "Get all characters")
     @GetMapping

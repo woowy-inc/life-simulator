@@ -1,4 +1,4 @@
-package ru.woowy.common.web.controller
+package ru.woowy.character.infrastructure.web.controller
 
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.tags.Tag
