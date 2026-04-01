@@ -1,7 +1,5 @@
 package ru.woowy.infrastructure.session
 
-import java.util.concurrent.ConcurrentHashMap
-import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -11,10 +9,12 @@ import ru.woowy.domain.model.GameSession
 import ru.woowy.domain.model.GameSessionContext
 import ru.woowy.game.GameConfig
 import ru.woowy.id.CharacterId
-import ru.woowy.infrastructure.lifecycle.SessionScope
+import ru.woowy.infrastructure.lifecycle.ServiceScope
+import java.util.concurrent.ConcurrentHashMap
+import kotlin.time.Duration.Companion.seconds
 
 abstract class SessionLooper(
-    private val sessionScope: SessionScope,
+    private val serviceScope: ServiceScope,
 ) {
     protected val activeSessions = ConcurrentHashMap<CharacterId, Job>()
 
@@ -34,7 +34,7 @@ abstract class SessionLooper(
         onTick: suspend (GameSession) -> Unit,
     ): Boolean {
         val job =
-            sessionScope.launch(start = CoroutineStart.LAZY) {
+            serviceScope.launch(start = CoroutineStart.LAZY) {
                 var current = context.session
 
                 while (isActive) {

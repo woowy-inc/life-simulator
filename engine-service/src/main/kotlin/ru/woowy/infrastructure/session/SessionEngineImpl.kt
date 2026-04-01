@@ -10,7 +10,7 @@ import ru.woowy.domain.repository.GameSessionRepository
 import ru.woowy.domain.session.SessionEngine
 import ru.woowy.extension.classLogger
 import ru.woowy.id.CharacterId
-import ru.woowy.infrastructure.lifecycle.SessionScope
+import ru.woowy.infrastructure.lifecycle.ServiceScope
 import ru.woowy.infrastructure.mapper.asWorldTickEvent
 
 @Component
@@ -18,8 +18,8 @@ class SessionEngineImpl(
     private val characterServiceClient: CharacterServiceClient,
     private val gameSessionRepository: GameSessionRepository,
     private val eventPublisher: EventPublisher,
-    private val sessionScope: SessionScope,
-) : SessionLooper(sessionScope),
+    private val serviceScope: ServiceScope,
+) : SessionLooper(serviceScope),
     SessionEngine {
     private val logger = classLogger()
 
@@ -42,7 +42,7 @@ class SessionEngineImpl(
         val context = GameSessionContext(characterId, session, settings)
 
         return start(context) { sessionSnapshot ->
-            with(sessionScope) {
+            with(serviceScope) {
                 launch { gameSessionRepository.update(sessionSnapshot) }
                 launch { eventPublisher.publish(sessionSnapshot.asWorldTickEvent(settings.speed)) }
             }
