@@ -7,6 +7,8 @@ import ru.woowy.id.CharacterId
 interface NeedUseCase {
     fun getNeed(characterId: CharacterId): Need
 
+    fun getNeeds(characterIds: Collection<CharacterId>): Map<CharacterId, Need>
+
     fun processTick(
         characterId: CharacterId,
         tickNumber: Long,

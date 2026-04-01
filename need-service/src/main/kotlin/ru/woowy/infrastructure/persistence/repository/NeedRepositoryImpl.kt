@@ -1,5 +1,6 @@
 package ru.woowy.infrastructure.persistence.repository
 
+import java.util.UUID
 import org.springframework.stereotype.Repository
 import ru.woowy.domain.model.Need
 import ru.woowy.domain.repository.NeedRepository
@@ -8,13 +9,16 @@ import ru.woowy.id.NeedId
 import ru.woowy.infrastructure.mapper.asDomain
 import ru.woowy.infrastructure.persistence.entity.NeedEntity
 import ru.woowy.infrastructure.persistence.jpa.NeedJpaRepository
-import java.util.UUID
 
 @Repository
 class NeedRepositoryImpl(
     private val needJpaRepository: NeedJpaRepository,
 ) : NeedRepository {
     override fun findLast(characterId: CharacterId): Need? = needJpaRepository.findLast(characterId)?.asDomain()
+
+    override fun findAllByCharacters(characterIds: Collection<CharacterId>): Map<CharacterId, Need> = needJpaRepository
+        .findAllByCharacterId(characterIds)
+        .associate { entity -> entity.characterId to entity.asDomain() }
 
     override fun add(
         characterId: CharacterId,

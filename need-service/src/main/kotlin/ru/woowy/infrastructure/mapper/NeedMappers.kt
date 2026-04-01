@@ -1,12 +1,12 @@
 package ru.woowy.infrastructure.mapper
 
+import java.util.UUID
+import kotlin.time.Clock
 import ru.woowy.domain.model.Need
 import ru.woowy.domain.model.NeedUpdatedEvent
 import ru.woowy.id.CharacterId
 import ru.woowy.infrastructure.persistence.entity.NeedEntity
 import ru.woowy.model.Percentage
-import java.util.UUID
-import kotlin.time.Clock
 
 fun NeedEntity.asDomain(): Need = Need(
     hunger = Percentage.of(this.hunger),
@@ -18,6 +18,8 @@ fun NeedEntity.asDomain(): Need = Need(
     happiness = Percentage.of(this.happiness),
     createdAt = this.createdAt,
 )
+
+fun Iterable<NeedEntity>.asDomain(): Collection<Need> = this.map { it.asDomain() }
 
 fun Need.asUpdatedEvent(
     characterId: CharacterId,

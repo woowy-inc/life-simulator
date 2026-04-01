@@ -3,13 +3,15 @@ package ru.woowy.infrastructure.persistence.entity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
-import ru.woowy.id.CharacterId
-import ru.woowy.id.NeedId
+import jakarta.persistence.Table
 import java.math.BigDecimal
 import java.time.OffsetDateTime
 import java.util.UUID
+import ru.woowy.id.CharacterId
+import ru.woowy.id.NeedId
 
-@Entity(name = "needs")
+@Entity
+@Table(name = "needs")
 class NeedEntity(
     @Id
     var id: NeedId = UUID.randomUUID(),

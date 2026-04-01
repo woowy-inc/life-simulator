@@ -25,11 +25,14 @@ class NeedUseCaseImpl(
     private val needHolder: NeedHolder,
     private val eventPublisher: EventPublisher,
     private val scope: ServiceScope,
-) : Flushable(policy = FlushPolicy.everyNTimes(3)),
+) : Flushable(FlushPolicy.everyNTimes(3)),
     NeedUseCase {
     override fun getNeed(characterId: CharacterId): Need = needHolder.get(characterId)
         ?: needRepository.findLast(characterId)
         ?: needRepository.add(characterId, Need())
+
+    override fun getNeeds(characterIds: Collection<CharacterId>): Map<CharacterId, Need> =
+        needRepository.findAllByCharacters(characterIds)
 
     override fun processTick(
         characterId: CharacterId,
