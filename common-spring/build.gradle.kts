@@ -14,7 +14,6 @@ dependencies {
 
     api(libs.springboot.starter.openfeign)
     api(libs.springboot.starter.web)
-    api(libs.kotlinx.coroutines)
 
     testImplementation(kotlin("test"))
 }
