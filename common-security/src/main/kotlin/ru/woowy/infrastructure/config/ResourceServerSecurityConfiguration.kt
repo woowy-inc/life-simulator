@@ -22,6 +22,7 @@ class ResourceServerSecurityConfiguration {
                 oauth2.jwt { it.jwtAuthenticationConverter(jwtAuthenticationConverter) }
             }.authorizeHttpRequests {
                 it.requestMatchers("/v3/api-docs/**").permitAll()
+                it.requestMatchers("/ws/**").permitAll()
                 it.anyRequest().authenticated()
             }
 
