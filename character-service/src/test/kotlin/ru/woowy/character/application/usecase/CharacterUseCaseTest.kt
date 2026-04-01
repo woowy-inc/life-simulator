@@ -5,7 +5,6 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
-import kotlinx.coroutines.Dispatchers
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertNull
@@ -14,7 +13,6 @@ import ru.woowy.account.domain.usecase.AccountUseCase
 import ru.woowy.character.domain.client.WorldServiceClient
 import ru.woowy.character.domain.generation.BirthdayGenerator
 import ru.woowy.character.domain.repository.CharacterRepository
-import ru.woowy.character.infrastructure.lifecycle.ServiceScope
 import ru.woowy.domain.messaging.EventPublisher
 import ru.woowy.exception.ForbiddenException
 import ru.woowy.exception.NotFoundException
@@ -29,7 +27,6 @@ class CharacterUseCaseTest {
     private val worldServiceClient = mockk<WorldServiceClient>()
     private val eventPublisher = mockk<EventPublisher>(relaxed = true)
     private val accountUseCase = mockk<AccountUseCase>(relaxed = true)
-    private val serviceScope = ServiceScope(dispatcher = Dispatchers.Unconfined)
 
     private val useCase =
         CharacterUseCaseImpl(
@@ -38,7 +35,6 @@ class CharacterUseCaseTest {
             worldServiceClient = worldServiceClient,
             eventPublisher = eventPublisher,
             accountUseCase = accountUseCase,
-            serviceScope = serviceScope,
         )
 
     private val ownerId = randomUUID()
