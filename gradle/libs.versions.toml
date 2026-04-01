@@ -18,7 +18,7 @@ mockk = "1.14.9"
 testContainersPostgresql = "1.21.4"
 caffeineCache = "3.2.3"
 slf4j = "2.0.17"
-gateway = "4.3.3"
+reactorCore = "3.8.4"
 
 [libraries]
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -58,6 +58,7 @@ springboot-starter-validation = { module = "org.springframework.boot:spring-boot
 
 caffeine = { module = "com.github.ben-manes.caffeine:caffeine", version.ref = "caffeineCache" }
 lettuce-core = { module = "io.lettuce:lettuce-core" }
+reactor-core = { module = "io.projectreactor:reactor-core", version.ref = "reactorCore" }
 
 springboot-kafka-starter = { module = "org.springframework.boot:spring-boot-starter-kafka", version.ref = "springBoot" }
 springboot-kafka = { module = "org.springframework.kafka:spring-kafka", version.ref = "springBoot" }
