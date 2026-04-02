@@ -12,7 +12,7 @@ interface CharacterUseCase {
         owner: UserId,
     ): Character
 
-    fun get(characterId: CharacterId): Character?
+    suspend fun get(characterId: CharacterId): Character?
 
     fun getAll(owner: UserId): List<Character>
 

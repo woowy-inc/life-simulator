@@ -9,7 +9,7 @@ import ru.woowy.id.LocationId
 import ru.woowy.security.Service
 
 @FeignClient(name = Service.WORLD_SERVICE)
-interface WorldServiceClientImpl : WorldServiceClient {
+interface DefaultWorldServiceClient : WorldServiceClient {
     companion object {
         private const val LOCATION_BY_ID = "/world/location/{id}"
     }

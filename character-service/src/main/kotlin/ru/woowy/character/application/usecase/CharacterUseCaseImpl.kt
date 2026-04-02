@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional
 import ru.woowy.account.domain.model.AccountType
 import ru.woowy.account.domain.usecase.AccountUseCase
 import ru.woowy.account.infrastructure.extension.DEFAULT_CURRENCY
+import ru.woowy.character.domain.client.EngineServiceClient
 import ru.woowy.character.domain.client.NeedServiceClient
 import ru.woowy.character.domain.client.WorldServiceClient
 import ru.woowy.character.domain.generation.BirthdayGenerator
@@ -14,10 +15,14 @@ import ru.woowy.character.domain.model.Character
 import ru.woowy.character.domain.model.CharacterRequest
 import ru.woowy.character.domain.repository.CharacterRepository
 import ru.woowy.character.domain.usecase.CharacterUseCase
+import ru.woowy.character.infrastructure.lifecycle.ServiceScope
 import ru.woowy.character.infrastructure.mapper.asCreatedEvent
 import ru.woowy.character.infrastructure.mapper.asDeletedEvent
 import ru.woowy.domain.messaging.EventPublisher
+import ru.woowy.extension.asyncCatching
+import ru.woowy.extension.classLogger
 import ru.woowy.extension.forbidden
+import ru.woowy.extension.getOrNullLogging
 import ru.woowy.extension.notFound
 import ru.woowy.id.CharacterId
 import ru.woowy.id.LocationId
@@ -30,14 +35,18 @@ class CharacterUseCaseImpl(
     private val birthdayGenerator: BirthdayGenerator,
     private val worldServiceClient: WorldServiceClient,
     private val needServiceClient: NeedServiceClient,
+    private val engineServiceClient: EngineServiceClient,
     private val eventPublisher: EventPublisher,
     private val accountUseCase: AccountUseCase,
+    private val scope: ServiceScope,
 ) : CharacterUseCase {
     companion object {
         const val LOCATION_NOT_FOUND = "Location not found"
         const val CHARACTER_NOT_FOUND = "Character not found"
         const val CHARACTER_NOT_OWNER = "Character not owner"
     }
+
+    private val logger = classLogger()
 
     @Transactional
     override fun create(
@@ -66,7 +75,20 @@ class CharacterUseCaseImpl(
         return createdCharacter
     }
 
-    override fun get(characterId: CharacterId): Character? = characterRepository.findById(characterId)
+    override suspend fun get(characterId: CharacterId): Character? {
+        val character =
+            characterRepository
+                .findById(characterId)
+                ?: notFound(CHARACTER_NOT_FOUND)
+
+        val need = scope.asyncCatching { needServiceClient.getNeed(characterId) }
+        val session = scope.asyncCatching { engineServiceClient.getGame(characterId) }
+
+        return character.copy(
+            need = need.await().getOrNullLogging(logger),
+            game = session.await().getOrNullLogging(logger),
+        )
+    }
 
     override fun getAll(owner: UserId): List<Character> {
         val characters = characterRepository.findAllByUser(owner)
@@ -83,7 +105,7 @@ class CharacterUseCaseImpl(
         request: CharacterRequest,
         owner: UserId,
     ): Character? {
-        val found = get(characterId) ?: notFound(CHARACTER_NOT_FOUND)
+        val found = characterRepository.findById(characterId) ?: notFound(CHARACTER_NOT_FOUND)
 
         verifyOwner(owner, found)
         verifyLocation(request.locationId)
@@ -98,7 +120,7 @@ class CharacterUseCaseImpl(
         characterId: CharacterId,
         worldId: WorldId,
     ): Character? {
-        val character = get(characterId) ?: return null
+        val character = characterRepository.findById(characterId) ?: return null
         return characterRepository.update(character.copy(worldId = worldId))
     }
 
@@ -107,7 +129,7 @@ class CharacterUseCaseImpl(
         characterId: CharacterId,
         owner: UserId,
     ) {
-        val character = get(characterId) ?: notFound(CHARACTER_NOT_FOUND)
+        val character = characterRepository.findById(characterId) ?: notFound(CHARACTER_NOT_FOUND)
         verifyOwner(owner, character)
 
         characterRepository.delete(characterId)

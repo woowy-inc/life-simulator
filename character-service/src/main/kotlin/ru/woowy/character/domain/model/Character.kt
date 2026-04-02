@@ -16,5 +16,6 @@ data class Character(
     val locationId: LocationId,
     val worldId: WorldId? = null,
     val createdAt: LocalDateTime,
-    val need: Need? = null,
+    val need: NeedPreview? = null,
+    val game: GamePreview? = null,
 )
