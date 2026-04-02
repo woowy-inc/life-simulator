@@ -1,6 +1,8 @@
 package ru.woowy.infrastructure.web.controller
 
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -15,6 +17,11 @@ import ru.woowy.infrastructure.web.RestEndpoint
 class NeedController(
     private val needUseCase: NeedUseCase,
 ) {
+    @GetMapping("/character/{id}")
+    fun getNeed(
+        @PathVariable id: CharacterId,
+    ): ResponseEntity<Need> = ResponseEntity.ok(needUseCase.getNeed(id))
+
     @PostMapping("/character")
     suspend fun getNeeds(
         @RequestBody characterIds: Array<CharacterId>,
