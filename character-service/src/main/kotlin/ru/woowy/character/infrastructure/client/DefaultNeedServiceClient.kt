@@ -7,10 +7,11 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import ru.woowy.character.domain.client.NeedServiceClient
 import ru.woowy.character.domain.model.NeedPreview
+import ru.woowy.character.infrastructure.client.fallback.NeedServiceClientFallback
 import ru.woowy.id.CharacterId
 import ru.woowy.security.Service
 
-@FeignClient(name = Service.NEED_SERVICE)
+@FeignClient(name = Service.NEED_SERVICE, fallbackFactory = NeedServiceClientFallback::class)
 interface DefaultNeedServiceClient : NeedServiceClient {
     companion object {
         private const val NEED_BY_CHARACTER_ID = "/internal/need/character"

@@ -5,10 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import ru.woowy.character.domain.client.EngineServiceClient
 import ru.woowy.character.domain.model.GamePreview
+import ru.woowy.character.infrastructure.client.fallback.EngineServiceClientFallback
 import ru.woowy.id.CharacterId
 import ru.woowy.security.Service
 
-@FeignClient(name = Service.ENGINE_SERVICE)
+@FeignClient(name = Service.ENGINE_SERVICE, fallbackFactory = EngineServiceClientFallback::class)
 interface DefaultEngineServiceClient : EngineServiceClient {
     companion object {
         private const val SESSION_BY_CHARACTER_ID = "/session"

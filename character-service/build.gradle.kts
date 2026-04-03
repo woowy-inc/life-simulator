@@ -30,8 +30,9 @@ dependencies {
     implementation(libs.springboot.starter.cache)
     implementation(libs.springboot.starter.validation)
     implementation(libs.springboot.starter.openfeign)
-    implementation(libs.bundles.springboot.kafka.ecosystem)
+    implementation(libs.springboot.starter.resilience4j)
 
+    implementation(libs.bundles.springboot.kafka.ecosystem)
     implementation(libs.kotlinx.coroutines.reactor)
     implementation(libs.migration.liquibase.core)
     implementation(libs.kotlin.jackson)
