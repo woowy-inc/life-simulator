@@ -5,15 +5,19 @@ import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertNull
 import org.junit.jupiter.api.assertThrows
 import ru.woowy.account.domain.usecase.AccountUseCase
+import ru.woowy.character.domain.client.EngineServiceClient
 import ru.woowy.character.domain.client.NeedServiceClient
 import ru.woowy.character.domain.client.WorldServiceClient
 import ru.woowy.character.domain.generation.BirthdayGenerator
 import ru.woowy.character.domain.repository.CharacterRepository
+import ru.woowy.character.infrastructure.lifecycle.ServiceScope
 import ru.woowy.domain.messaging.EventPublisher
 import ru.woowy.exception.ForbiddenException
 import ru.woowy.exception.NotFoundException
@@ -27,8 +31,10 @@ class CharacterUseCaseTest {
     private val birthdayGenerator = mockk<BirthdayGenerator>()
     private val worldServiceClient = mockk<WorldServiceClient>()
     private val needServiceClient = mockk<NeedServiceClient>()
+    private val engineServiceClient = mockk<EngineServiceClient>()
     private val eventPublisher = mockk<EventPublisher>(relaxed = true)
     private val accountUseCase = mockk<AccountUseCase>(relaxed = true)
+    private val scope = ServiceScope(dispatcher = Dispatchers.Unconfined)
 
     private val useCase =
         CharacterUseCaseImpl(
@@ -38,6 +44,8 @@ class CharacterUseCaseTest {
             eventPublisher = eventPublisher,
             accountUseCase = accountUseCase,
             needServiceClient = needServiceClient,
+            engineServiceClient = engineServiceClient,
+            scope = scope,
         )
 
     private val ownerId = randomUUID()
@@ -68,14 +76,14 @@ class CharacterUseCaseTest {
     }
 
     @Test
-    fun `get - found`() {
+    fun `get - found`() = runBlocking {
         every { characterRepository.findById(characterId) } returns character
 
         assertEquals(character, useCase.get(characterId))
     }
 
     @Test
-    fun `get - not found - returns null`() {
+    fun `get - not found - returns null`() = runBlocking {
         every { characterRepository.findById(characterId) } returns null
 
         assertNull(useCase.get(characterId))
