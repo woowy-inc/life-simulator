@@ -1,13 +1,13 @@
 package ru.woowy.game
 
-private const val SECONDS_IN_HOUR = 3600.0
+private const val MINUTES_IN_HOUR = 60.0
 
 enum class GameSpeed(
-    val gameSecondsPerTick: Long,
+    val gameMinutesPerTick: Long,
 ) {
-    REAL_TIME(60),
-    ACCELERATED(320),
-    FAST(600),
+    REAL_TIME(1),
+    ACCELERATED(5),
+    FAST(10),
 }
 
-fun GameSpeed.hoursElapsed(): Double = gameSecondsPerTick / SECONDS_IN_HOUR
+fun GameSpeed.hoursElapsed(): Double = gameMinutesPerTick / MINUTES_IN_HOUR
