@@ -6,8 +6,8 @@ enum class GameSpeed(
     val gameSecondsPerTick: Long,
 ) {
     REAL_TIME(60),
-    ACCELERATED(120),
-    FAST(180),
+    ACCELERATED(320),
+    FAST(600),
 }
 
 fun GameSpeed.hoursElapsed(): Double = gameSecondsPerTick / SECONDS_IN_HOUR
