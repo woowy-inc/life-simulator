@@ -12,7 +12,9 @@ class WorldServiceClientFallback : FallbackFactory<WorldServiceClient> {
     private val logger = classLogger()
 
     override fun create(cause: Throwable?): WorldServiceClient? {
-        logger.error("Failure", cause)
+        if (cause != null) {
+            logger.error("Failure", cause)
+        }
 
         return object : WorldServiceClient {
             override fun getLocation(id: LocationId): LocationDto? {

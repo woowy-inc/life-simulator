@@ -12,7 +12,9 @@ class NeedServiceClientFallback : FallbackFactory<NeedServiceClient> {
     private val logger = classLogger()
 
     override fun create(cause: Throwable?): NeedServiceClient? {
-        logger.error("Failure", cause)
+        if (cause != null) {
+            logger.error("Failure", cause)
+        }
 
         return object : NeedServiceClient {
             override fun getNeed(characterId: CharacterId): NeedPreview? {

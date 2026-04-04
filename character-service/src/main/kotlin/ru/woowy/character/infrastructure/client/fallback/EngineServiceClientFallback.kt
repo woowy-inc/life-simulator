@@ -12,7 +12,9 @@ class EngineServiceClientFallback : FallbackFactory<EngineServiceClient> {
     private val logger = classLogger()
 
     override fun create(cause: Throwable?): EngineServiceClient? {
-        logger.error("Failure", cause)
+        if (cause != null) {
+            logger.error("Failure", cause)
+        }
 
         return object : EngineServiceClient {
             override fun getGame(characterId: CharacterId): GamePreview? {
