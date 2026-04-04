@@ -1,7 +1,7 @@
 package ru.woowy.infrastructure.session
 
 import java.util.concurrent.ConcurrentHashMap
-import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -46,7 +46,7 @@ abstract class SessionLooper(
 
                     onTick(current)
 
-                    delay(GameConfig.TICK_INTERVAL_SECONDS.seconds)
+                    delay(GameConfig.TICK_INTERVAL_MILLISECONDS.milliseconds)
                 }
             }
 
