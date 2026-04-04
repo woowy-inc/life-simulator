@@ -7,10 +7,11 @@ import ru.woowy.domain.client.CharacterServiceClient
 import ru.woowy.domain.model.Character
 import ru.woowy.domain.model.GameSettings
 import ru.woowy.id.CharacterId
+import ru.woowy.infrastructure.client.fallback.CharacterServiceClientFallback
 import ru.woowy.security.Service
 
-@FeignClient(name = Service.CHARACTER_SERVICE)
-interface CharacterServiceClientImpl : CharacterServiceClient {
+@FeignClient(name = Service.CHARACTER_SERVICE, fallbackFactory = CharacterServiceClientFallback::class)
+interface DefaultCharacterServiceClient : CharacterServiceClient {
     companion object {
         private const val GET_CHARACTER = "/character/{id}"
         private const val GET_GAME_SETTINGS = "/character/{id}/game-settings"

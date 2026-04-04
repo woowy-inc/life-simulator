@@ -1,5 +1,6 @@
 package ru.woowy.infrastructure.buffer
 
+import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.springframework.stereotype.Component
@@ -13,7 +14,6 @@ import ru.woowy.domain.model.TickableEvent
 import ru.woowy.domain.model.WorldTickEvent
 import ru.woowy.id.CharacterId
 import ru.woowy.infrastructure.lifecycle.ServiceScope
-import kotlin.time.Duration.Companion.milliseconds
 
 @Component
 class ThresholdAggregatorImpl(

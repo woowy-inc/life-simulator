@@ -1,13 +1,13 @@
 package ru.woowy.infrastructure.buffer
 
+import java.util.concurrent.ConcurrentHashMap
 import org.springframework.stereotype.Component
 import ru.woowy.domain.buffer.StateHolder
 import ru.woowy.domain.model.CharacterKey
 import ru.woowy.domain.model.CharacterStateBuilder
-import java.util.concurrent.ConcurrentHashMap
 
 @Component
-class InMemoryStateHolderImpl : StateHolder<CharacterKey, CharacterStateBuilder> {
+class InMemoryStateHolder : StateHolder<CharacterKey, CharacterStateBuilder> {
     private val states = ConcurrentHashMap<CharacterKey, CharacterStateBuilder>()
 
     override suspend fun get(key: CharacterKey): CharacterStateBuilder? = states[key]
